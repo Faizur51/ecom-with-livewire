@@ -1,0 +1,242 @@
+[
+    {
+        "id": "1",
+        "name": "Samsung",
+        "slug": "samsung",
+        "status": "active",
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+
+    {
+        "id": "2",
+        "name": "HP",
+        "slug": "hp",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+
+    {
+        "id": "3",
+        "name": "Dell",
+        "slug": "dell",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+    {
+        "id": "4",
+        "name": "Toshiba",
+        "slug": "toshiba",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+    {
+        "id": "5",
+        "name": "Canon",
+        "slug": "canon",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+    {
+        "id": "6",
+        "name": "Epson",
+        "slug": "epson",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+    {
+        "id": "7",
+        "name": "Asus",
+        "slug": "asus",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+    {
+        "id": "8",
+        "name": "Gigabyte",
+        "slug": "gigabyte",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+    {
+        "id": "9",
+        "name": "MSI",
+        "slug": "msi",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+    {
+        "id": "10",
+        "name": "Intel",
+        "slug": "intel",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+    {
+        "id": "11",
+        "name": "Lenovo",
+        "slug": "lenovo",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+    {
+        "id": "12",
+        "name": "ZTE",
+        "slug": "zte",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+    {
+        "id": "13",
+        "name": "Huawei",
+        "slug": "huawei",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+    {
+        "id": "14",
+        "name": "Hitachi",
+        "slug": "hitachi",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+    {
+        "id": "15",
+        "name": "Casio",
+        "slug": "casio",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+    {
+        "id": "16",
+        "name": "RANGS",
+        "slug": "rangs",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+
+    {
+        "id": "17",
+        "name": "Metrologic",
+        "slug": "metrologic",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+    {
+        "id": "18",
+        "name": "Honywell",
+        "slug": "honywell",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+    {
+        "id": "19",
+        "name": "Zebra",
+        "slug": "zebra",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+
+    {
+        "id": "20",
+        "name": "Acer",
+        "slug": "acer",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+    {
+        "id": "21",
+        "name": "Mustek",
+        "slug": "mustek",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+    {
+        "id": "22",
+        "name": "A4 Tech",
+        "slug": "a4tech",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+    {
+        "id": "23",
+        "name": "OVO",
+        "slug": "ovo",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+    {
+        "id": "24",
+        "name": "MICRONET",
+        "slug": "micronet",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+    {
+        "id": "25",
+        "name": "RAPOO",
+        "slug": "rapoo",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    },
+
+
+
+    {
+        "id": "26",
+        "name": "Others",
+        "slug": "others",
+        "status": "active",
+
+        "created_at": "2021-01-25 08:50:07",
+        "updated_at": "2021-01-25 08:50:07"
+    }
+]
