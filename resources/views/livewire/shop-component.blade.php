@@ -136,7 +136,7 @@
                             <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
                             <ul class="categories">
                                 @foreach($categories as $category)
-                                <li><a href="{{route('category.product',['slug'=>$category->slug])}}">{{ucwords($category->name)}}</a></li>
+                                <li><a href="{{route('category.product',['slug'=>$category->slug])}}">{{ucwords($category->name)}} ({{$category->product->count() }})</a></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -178,7 +178,7 @@
                                     <div class="custome-checkbox">
                                         @foreach($brands as $brand)
                                             <input class="form-check-input" type="checkbox" name="checkbox" id="examplebrand{{$brand->id}}" value="{{$brand->id}}" wire:model="checkedBrand">
-                                            <label class="form-check-label" for="examplebrand{{$brand->id}}"><span>{{$brand->name}}</span></label>
+                                            <label class="form-check-label" for="examplebrand{{$brand->id}}"><span>{{$brand->name}} ({{$brand->product->count() }})</span></label>
                                             <br>
                                         @endforeach
                                     </div>
