@@ -33,13 +33,10 @@ class ProductDetailsComponent extends Component
            $this->qty--;
        }
     }
-
-
-
-
+    
     public function render()
     {
-        $categories=Category::orderBy('id','desc')->get();
+        $categories=Category::orderBy('name','asc')->get();
         $product=Product::where('slug',$this->slug)->first();
         $rproducts=Product::where('category_id',$product->category_id)->inRandomOrder()->limit(4)->get();
         $nproducts=Product::latest()->take(3)->get();
