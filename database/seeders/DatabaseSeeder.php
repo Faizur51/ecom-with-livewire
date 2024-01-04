@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             ColorSeeder::class,
             SizeSeeder::class,
             ProductSeeder::class,
-            HomeSliderSeeder::class
+            //HomeSliderSeeder::class
+            DistrictSeeder::class,
         ]);
 
         \App\Models\User::factory(2)->sequence(['name' => 'Admin'],['name' => 'User'])->sequence(['email' => 'admin@gmail.com'],['email' => 'user@gmail.com'])->create();

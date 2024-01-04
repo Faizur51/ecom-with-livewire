@@ -1,5 +1,44 @@
-<div>
-    <main class="main" wire:ignore>
+     <main class="main" wire:ignore>
+
+        <style>
+            .rate {
+                float: left;
+                height: 46px;
+                padding: 0 10px;
+            }
+            .rate:not(:checked) > input {
+                position:absolute;
+                top:-9999px;
+            }
+            .rate:not(:checked) > label {
+                float:right;
+                width:1em;
+                overflow:hidden;
+                white-space:nowrap;
+                cursor:pointer;
+                font-size:30px;
+                color:#ccc;
+            }
+            .rate:not(:checked) > label:before {
+                content: '★ ';
+            }
+            .rate > input:checked ~ label {
+                color: #ffc700;
+            }
+            .rate:not(:checked) > label:hover,
+            .rate:not(:checked) > label:hover ~ label {
+                color: #deb217;
+            }
+            .rate > input:checked + label:hover,
+            .rate > input:checked + label:hover ~ label,
+            .rate > input:checked ~ label:hover,
+            .rate > input:checked ~ label:hover ~ label,
+            .rate > label:hover ~ input:checked ~ label {
+                color: #c59b08;
+            }
+
+        </style>
+
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
@@ -54,14 +93,29 @@
                                             <div class="pro-details-brand">
                                                 <span> Brands: <a href="shop.html">{{$product->brand->name}}</a></span>
                                             </div>
-                                            <div class="product-rate-cover text-end">
+
+                                            @php
+                                                $avgrating = 0;
+                                            @endphp
+
+                                            @foreach($product->orderItems->where('rstatus',1) as $orderItem)
+                                                @php
+                                                    $avgrating=$avgrating+$orderItem->review->rating;
+                                                @endphp
+                                            @endforeach
+
+                                        <div class="product-rate-cover text-end">
                                                 <div class="product-rate d-inline-block">
-                                                    <div class="product-rating" style="width:90%">
-                                                    </div>
+                                                    @if($avgrating)
+                                                      <div class="product-rating" style="width:{{$avgrating/$product->orderItems->where('rstatus',1)->count()*20}}%"></div>
+                                                    @else
+                                                         <div class="product-rating" style="width:0%"></div>
+                                                    @endif
                                                 </div>
-                                                <span class="font-small ml-5 text-muted"> (25 reviews)</span>
+
+                                                <span class="font-small ml-5 text-muted"> ({{$product->orderItems->where('rstatus',1)->count()}} reviews)</span>
                                             </div>
-                                        </div>
+                                         </div>
                                         <div class="clearfix product-price-cover">
                                             <div class="product-price primary-color float-left">
                                                 <ins><span class="text-brand">&#2547; {{$product->sale_price}}</span></ins>
@@ -133,7 +187,7 @@
                                         <a class="nav-link" id="Additional-info-tab" data-bs-toggle="tab" href="#Additional-info">Additional info</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">Reviews (3)</a>
+                                        <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">Reviews ({{$product->orderItems->where('rstatus',1)->count()}})</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content shop_info_tab entry-main-content">
@@ -239,85 +293,48 @@
                                                 <div class="col-lg-8">
                                                     <h4 class="mb-30">Customer questions & answers</h4>
                                                     <div class="comment-list">
+                                                        @foreach($product->orderItems->where('rstatus',1) as $orderItem)
                                                         <div class="single-comment justify-content-between d-flex">
                                                             <div class="user justify-content-between d-flex">
                                                                 <div class="thumb text-center">
-                                                                    <img src="{{asset('frontend')}}/assets/imgs/page/avatar-6.jpg" alt="">
-                                                                    <h6><a href="#">Jacky Chan</a></h6>
-                                                                    <p class="font-xxs">Since 2012</p>
+                                                                    <img src="{{asset('frontend/assets/images/profile')}}/{{$orderItem->order->user->profile->image}}" alt="">
+                                                                    <h6><a href="#">{{$orderItem->order->user->name}}</a></h6>
+                                                                    <p class="font-xxs">{{Carbon\Carbon::parse($orderItem->review->created_at)->format('d-m-Y')}}</p>
                                                                 </div>
                                                                 <div class="desc">
                                                                     <div class="product-rate d-inline-block">
-                                                                        <div class="product-rating" style="width:90%">
+                                                                        <div class="product-rating" style="width:{{$orderItem->review->rating*20}}%">
                                                                         </div>
                                                                     </div>
-                                                                    <p>Thank you very fast shipping from Poland only 3days.</p>
+                                                                    <p>{{ucwords($orderItem->review->comment)}}</p>
                                                                     <div class="d-flex justify-content-between">
                                                                         <div class="d-flex align-items-center">
-                                                                            <p class="font-xs mr-30">December 4, 2020 at 3:12 pm </p>
+                                                                            <p class="font-xs mr-30">{{Carbon\Carbon::parse($orderItem->review->created_at)->format('d F Y g:i A')}} </p>
                                                                             <a href="#" class="text-brand btn-reply">Reply <i class="fi-rs-arrow-right"></i> </a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <!--single-comment -->
-                                                        <div class="single-comment justify-content-between d-flex">
-                                                            <div class="user justify-content-between d-flex">
-                                                                <div class="thumb text-center">
-                                                                    <img src="{{asset('frontend')}}/assets/imgs/page/avatar-7.jpg" alt="">
-                                                                    <h6><a href="#">Ana Rosie</a></h6>
-                                                                    <p class="font-xxs">Since 2008</p>
-                                                                </div>
-                                                                <div class="desc">
-                                                                    <div class="product-rate d-inline-block">
-                                                                        <div class="product-rating" style="width:90%">
-                                                                        </div>
-                                                                    </div>
-                                                                    <p>Great low price and works well.</p>
-                                                                    <div class="d-flex justify-content-between">
-                                                                        <div class="d-flex align-items-center">
-                                                                            <p class="font-xs mr-30">December 4, 2020 at 3:12 pm </p>
-                                                                            <a href="#" class="text-brand btn-reply">Reply <i class="fi-rs-arrow-right"></i> </a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--single-comment -->
-                                                        <div class="single-comment justify-content-between d-flex">
-                                                            <div class="user justify-content-between d-flex">
-                                                                <div class="thumb text-center">
-                                                                    <img src="{{asset('frontend')}}/assets/imgs/page/avatar-8.jpg" alt="">
-                                                                    <h6><a href="#">Steven Keny</a></h6>
-                                                                    <p class="font-xxs">Since 2010</p>
-                                                                </div>
-                                                                <div class="desc">
-                                                                    <div class="product-rate d-inline-block">
-                                                                        <div class="product-rating" style="width:90%">
-                                                                        </div>
-                                                                    </div>
-                                                                    <p>Authentic and Beautiful, Love these way more than ever expected They are Great earphones</p>
-                                                                    <div class="d-flex justify-content-between">
-                                                                        <div class="d-flex align-items-center">
-                                                                            <p class="font-xs mr-30">December 4, 2020 at 3:12 pm </p>
-                                                                            <a href="#" class="text-brand btn-reply">Reply <i class="fi-rs-arrow-right"></i> </a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--single-comment -->
+                                                        @endforeach
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <h4 class="mb-30">Customer reviews</h4>
                                                     <div class="d-flex mb-30">
                                                         <div class="product-rate d-inline-block mr-15">
-                                                            <div class="product-rating" style="width:90%">
-                                                            </div>
+
+                                                            @if($avgrating)
+                                                                <div class="product-rating" style="width:{{$avgrating/$product->orderItems->where('rstatus',1)->count()*20}}%"></div>
+                                                            @else
+                                                                <div class="product-rating" style="width:0%"></div>
+                                                            @endif
+
                                                         </div>
-                                                        <h6>4.8 out of 5</h6>
+
+                                                        @if($avgrating)
+                                                        <h6>{{$avgrating/$product->orderItems->where('rstatus',1)->count()}} out of 5</h6>
+                                                        @endif
                                                     </div>
                                                     <div class="progress">
                                                         <span>5 star</span>
@@ -344,43 +361,6 @@
                                             </div>
                                         </div>
                                         <!--comment form-->
-                                        <div class="comment-form">
-                                            <h4 class="mb-15">Add a review</h4>
-                                            <div class="product-rate d-inline-block mb-30">
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-8 col-md-12">
-                                                    <form class="form-contact comment_form" action="#" id="commentForm">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="form-group">
-                                                                    <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9" placeholder="Write Comment"></textarea>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group">
-                                                                    <input class="form-control" name="name" id="name" type="text" placeholder="Name">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group">
-                                                                    <input class="form-control" name="email" id="email" type="email" placeholder="Email">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <div class="form-group">
-                                                                    <input class="form-control" name="website" id="website" type="text" placeholder="Website">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <button type="submit" class="button button-contactForm">Submit
-                                                                Review</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -400,12 +380,11 @@
                                                         </a>
                                                     </div>
                                                     <div class="product-action-1">
-                                                        <a aria-label="Quick view" class="action-btn small hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-search"></i></a>
+                                                        <a  aria-label="Quick view" class="action-btn small hover-up"  data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-search"></i></a>
                                                         <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="wishlist.php" tabindex="0"><i class="fi-rs-heart"></i></a>
-                                                        <a aria-label="Compare" class="action-btn small hover-up" href="compare.php" tabindex="0"><i class="fi-rs-shuffle"></i></a>
                                                     </div>
                                                     <div class="product-badges product-badges-position product-badges-mrg">
-                                                        <span class="hot">Hot</span>
+                                                        <span class="hot">Hot </span>
                                                     </div>
                                                 </div>
                                                 <div class="product-content-wrap">
@@ -469,5 +448,144 @@
                 </div>
             </div>
         </section>
+
+         <!-- Quick view -->
+         <div wire:ignore.self class="modal fade custom-modal" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+             <div class="modal-dialog">
+                 <div class="modal-content">
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                     <div class="modal-body">
+                         <div class="row">
+                             <div class="col-md-6 col-sm-12 col-xs-12">
+                                 <div class="detail-gallery">
+                                     <span class="zoom-icon"><i class="fi-rs-search"></i></span>
+                                     <!-- MAIN SLIDES -->
+                                     <div class="product-image-slider">
+                                         <figure class="border-radius-10">
+                                             <img src="assets/imgs/shop/product-16-2.jpg" alt="product image">
+                                         </figure>
+                                         <figure class="border-radius-10">
+                                             <img src="assets/imgs/shop/product-16-1.jpg" alt="product image">
+                                         </figure>
+                                         <figure class="border-radius-10">
+                                             <img src="assets/imgs/shop/product-16-3.jpg" alt="product image">
+                                         </figure>
+                                         <figure class="border-radius-10">
+                                             <img src="assets/imgs/shop/product-16-4.jpg" alt="product image">
+                                         </figure>
+                                         <figure class="border-radius-10">
+                                             <img src="assets/imgs/shop/product-16-5.jpg" alt="product image">
+                                         </figure>
+                                         <figure class="border-radius-10">
+                                             <img src="assets/imgs/shop/product-16-6.jpg" alt="product image">
+                                         </figure>
+                                         <figure class="border-radius-10">
+                                             <img src="assets/imgs/shop/product-16-7.jpg" alt="product image">
+                                         </figure>
+                                     </div>
+                                     <!-- THUMBNAILS -->
+                                     <div class="slider-nav-thumbnails pl-15 pr-15">
+                                         <div><img src="assets/imgs/shop/thumbnail-3.jpg" alt="product image"></div>
+                                         <div><img src="assets/imgs/shop/thumbnail-4.jpg" alt="product image"></div>
+                                         <div><img src="assets/imgs/shop/thumbnail-5.jpg" alt="product image"></div>
+                                         <div><img src="assets/imgs/shop/thumbnail-6.jpg" alt="product image"></div>
+                                         <div><img src="assets/imgs/shop/thumbnail-7.jpg" alt="product image"></div>
+                                         <div><img src="assets/imgs/shop/thumbnail-8.jpg" alt="product image"></div>
+                                         <div><img src="assets/imgs/shop/thumbnail-9.jpg" alt="product image"></div>
+                                     </div>
+                                 </div>
+                                 <!-- End Gallery -->
+                                 <div class="social-icons single-share">
+                                     <ul class="text-grey-5 d-inline-block">
+                                         <li><strong class="mr-10">Share this:</strong></li>
+                                         <li class="social-facebook"><a href="#"><img src="assets/imgs/theme/icons/icon-facebook.svg" alt=""></a></li>
+                                         <li class="social-twitter"> <a href="#"><img src="assets/imgs/theme/icons/icon-twitter.svg" alt=""></a></li>
+                                         <li class="social-instagram"><a href="#"><img src="assets/imgs/theme/icons/icon-instagram.svg" alt=""></a></li>
+                                         <li class="social-linkedin"><a href="#"><img src="assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a></li>
+                                     </ul>
+                                 </div>
+                             </div>
+                             <div class="col-md-6 col-sm-12 col-xs-12">
+                                 <div class="detail-info">
+                                     <h3 class="title-detail mt-30"></h3>
+                                     <div class="product-detail-rating">
+                                         <div class="pro-details-brand">
+                                             <span> Brands: <a href="shop.html">Bootstrap</a></span>
+                                         </div>
+                                         <div class="product-rate-cover text-end">
+                                             <div class="product-rate d-inline-block">
+                                                 <div class="product-rating" style="width:90%">
+                                                 </div>
+                                             </div>
+                                             <span class="font-small ml-5 text-muted"> (25 reviews)</span>
+                                         </div>
+                                     </div>
+                                     <div class="clearfix product-price-cover">
+                                         <div class="product-price primary-color float-left">
+                                             <ins><span class="text-brand">$120.00</span></ins>
+                                             <ins><span class="old-price font-md ml-15">$200.00</span></ins>
+                                             <span class="save-price  font-md color3 ml-15">25% Off</span>
+                                         </div>
+                                     </div>
+                                     <div class="bt-1 border-color-1 mt-15 mb-15"></div>
+                                     <div class="short-desc mb-30">
+                                         <p class="font-sm">Lorem ipsum dolor,sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi,!</p>
+                                     </div>
+                                     <div class="attr-detail attr-color mb-15">
+                                         <strong class="mr-10">Color</strong>
+                                         <ul class="list-filter color-filter">
+                                             <li><a href="#" data-color="Red"><span class="product-color-red"></span></a></li>
+                                             <li><a href="#" data-color="Yellow"><span class="product-color-yellow"></span></a></li>
+                                             <li class="active"><a href="#" data-color="White"><span class="product-color-white"></span></a></li>
+                                             <li><a href="#" data-color="Orange"><span class="product-color-orange"></span></a></li>
+                                             <li><a href="#" data-color="Cyan"><span class="product-color-cyan"></span></a></li>
+                                             <li><a href="#" data-color="Green"><span class="product-color-green"></span></a></li>
+                                             <li><a href="#" data-color="Purple"><span class="product-color-purple"></span></a></li>
+                                         </ul>
+                                     </div>
+                                     <div class="attr-detail attr-size">
+                                         <strong class="mr-10">Size</strong>
+                                         <ul class="list-filter size-filter font-small">
+                                             <li><a href="#">S</a></li>
+                                             <li class="active"><a href="#">M</a></li>
+                                             <li><a href="#">L</a></li>
+                                             <li><a href="#">XL</a></li>
+                                             <li><a href="#">XXL</a></li>
+                                         </ul>
+                                     </div>
+                                     <div class="bt-1 border-color-1 mt-30 mb-30"></div>
+                                     <div class="detail-extralink">
+                                         <div class="detail-qty border radius">
+                                             <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
+                                             <span class="qty-val">1</span>
+                                             <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
+                                         </div>
+                                         <div class="product-extra-link2">
+                                             <button type="submit" class="button button-add-to-cart">Add to cart</button>
+                                             <a aria-label="Add To Wishlist" class="action-btn hover-up" href="wishlist.php"><i class="fi-rs-heart"></i></a>
+                                             <a aria-label="Compare" class="action-btn hover-up" href="compare.php"><i class="fi-rs-shuffle"></i></a>
+                                         </div>
+                                     </div>
+                                     <ul class="product-meta font-xs color-grey mt-50">
+                                         <li class="mb-5">SKU: <a href="#">FWM15VKT</a></li>
+                                         <li class="mb-5">Tags: <a href="#" rel="tag">Cloth</a>, <a href="#" rel="tag">Women</a>, <a href="#" rel="tag">Dress</a> </li>
+                                         <li>Availability:<span class="in-stock text-success ml-5">8 Items In Stock</span></li>
+                                     </ul>
+                                 </div>
+                                 <!-- Detail Info -->
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
     </main>
-</div>
+
+
+
+
+
+
+
+
+

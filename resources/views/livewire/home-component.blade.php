@@ -17,7 +17,7 @@
                             </div>
                             <div class="col-lg-7 col-md-6">
                                 <div class="single-slider-img single-slider-img-1">
-                                    <img class="animated slider-1-1" src="{{$homeSlider->image}}" alt="">
+                                    <img class="animated slider-1-1" src="{{asset('frontend/assets/images/slider')}}/{{$homeSlider->image}}" alt="">
                                 </div>
                             </div>
                         </div>

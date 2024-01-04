@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\Size;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Cart;
@@ -95,6 +96,13 @@ class ShopComponent extends Component
         $colors=Color::orderBy('id','desc')->get();
         $sizes=Size::orderBy('id','desc')->get();
         $brands=Brand::orderBy('id','desc')->get();
+
+        if(Auth::check()){
+            Cart::instance('cart')->store(Auth::user()->email);
+            Cart::instance('wishlist')->store(Auth::user()->email);
+        }
+
+
         return view('livewire.shop-component',['products'=>$products,'nproducts'=>$nproducts,'categories'=>$categories,'colors'=>$colors,'sizes'=>$sizes,'brands'=>$brands]);
     }
 

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('short_description')->nullable();
             $table->text('long_description')->nullable();
             $table->string('sku_code')->nullable();
-            $table->string('stock_status')->default('instock');
+            $table->string('stock_status')->default('1');
             $table->decimal('regular_price',8,2)->nullable();
             $table->decimal('sale_price',8,2)->nullable();
             $table->unsignedInteger('quantity')->nullable();
@@ -29,10 +29,12 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->text('images')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('subcategory_id')->nullable();
             $table->unsignedBigInteger('brand_id')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->cascadeOnDelete();
+            $table->foreign('subcategory_id')->references('id')->on('subcategories')->cascadeOnDelete();
             $table->foreign('brand_id')->references('id')->on('brands')->cascadeOnDelete();
         });
     }

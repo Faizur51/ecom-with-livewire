@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Cart;
 class CartIconComponent extends Component
@@ -16,6 +17,10 @@ class CartIconComponent extends Component
 
     public function render()
     {
+        if(Auth::check()){
+            Cart::instance('cart')->store(Auth::user()->email);
+            Cart::instance('wishlist')->store(Auth::user()->email);
+        }
         return view('livewire.cart-icon-component');
     }
 }

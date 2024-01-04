@@ -38,7 +38,7 @@ class ProductSeeder extends Seeder
         ];
 
         $color=[
-            'green','white','blue','yellow','black','red'
+            'green','blue','yellow','red','cyan','grey'
         ];
 
 
@@ -53,15 +53,17 @@ class ProductSeeder extends Seeder
                 'name'=>$name,
                 'slug'=>Str::slug($name,'-'),
                 'short_description'=>$faker->text(100),
-                'long_description'=>$faker->text(550),
+                'long_description'=>$faker->text(150),
                 'sku_code'=>'PRO'.$faker->unique()->numberBetween(100,500),
-                'stock_status'=>$faker->randomElement(['instock','outstock']),
+                'stock_status'=>rand(1,0),
                 'regular_price'=>$faker->numberBetween(500,1000),
                 'sale_price'=>$faker->numberBetween(100,499),
                 'quantity'=>$faker->numberBetween(10,50),
-                'color'=>$color[rand(0,5)],
-                'size'=>$size[rand(0,5)],
+                'color'=>json_encode($color),
+                'size'=>json_encode($size),
+                //'size'=>$size[rand(0,5)],
                 'image'=>$randomImages[rand(0, 15)],
+                'images'=>json_encode($randomImages),
                 'category_id'=>$faker->numberBetween(1,6),
                 'brand_id'=>$faker->numberBetween(1,6),
                 'status'=>rand(1,0),

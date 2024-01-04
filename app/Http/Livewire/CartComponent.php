@@ -2,18 +2,13 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Cart;
 class CartComponent extends Component
 {
 
     protected $listeners = ['refreshComponent' => '$refresh'];
-
-    public function render()
-    {
-        return view('livewire.cart-component');
-    }
-
 
     public function increaseQuantity($rowId){
        $product=Cart::instance('cart')->get($rowId);
@@ -37,10 +32,39 @@ class CartComponent extends Component
         noty()->closeWith(['click', 'button'])->addInfo('Cart item deleted success');
     }
 
+
+    public function checkout(){
+        if(Auth::check()){
+            return redirect()->route('checkout');
+        }else{
+            return redirect()->route('login');
+        }
+    }
+
+
+
     public  function clearAll(){
         Cart::instance('cart')->destroy();
         $this->emitTo('cart-icon-component','refreshComponent');
         noty()->closeWith(['click', 'button'])->addInfo('All Cart item deleted success');
     }
+
+
+    public function render()
+    {
+        if(Auth::check()){
+            Cart::instance('cart')->store(Auth::user()->email);
+            Cart::instance('wishlist')->store(Auth::user()->email);
+        }
+
+
+        return view('livewire.cart-component');
+    }
+
+
+
+
+
+
 
 }

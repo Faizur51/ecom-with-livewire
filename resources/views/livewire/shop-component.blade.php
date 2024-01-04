@@ -76,8 +76,7 @@
                                 <div class="product-cart-wrap mb-30">
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
-                                            <a href="{{route('product.details',['slug'=>$product->slug])}}">
-                                                <img class="default-img" src="{{$product->image}}" alt="">
+                                            <a href="{{route('product.details',['slug'=>$product->slug])}}"><img class="default-img" src="{{$product->image}}" alt="">
                                             </a>
                                         </div>
                                         <div class="product-action-1">
