@@ -87,10 +87,10 @@
                                     <form method="POST" action="{{ route('login') }}">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="email" required="" name="email"  :value="old('email')" placeholder="Your Email">
+                                            <input type="email"  name="email"  value="{{old('email')}}" placeholder="Your Email">
                                         </div>
                                         <div class="form-group">
-                                            <input required="" type="password" name="password" placeholder="Password">
+                                            <input  type="password" name="password" placeholder="Password">
                                         </div>
                                         <div class="login_footer form-group">
                                             <div class="chek-form">
