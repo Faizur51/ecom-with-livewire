@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\HomeSlider;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -32,18 +33,36 @@ class AdminManageSliderComponent extends Component
 
     public $search;
 
-    public $pageSize=12;
+    public $pageSize=10;
 
 
     public function deleteId($id){
         $this->deleteId=$id;
     }
 
-    public function delete(){
+ /*   public function delete(){
         $slider=HomeSlider::find($this->deleteId);
         unlink('frontend/assets/images/slider/'.$slider->image);
         $slider->delete();
         noty()->closeWith(['click', 'button'])->addInfo('Slider has been deleted successfully');
+    }*/
+
+    public function deleteTemporary(){
+        $slider=HomeSlider::find($this->deleteId);
+        $slider->delete();
+        noty()->closeWith(['click', 'button'])->addInfo('Slider has been deleted successfully');
+    }
+
+    public function deletePermanent(){
+        $slider=HomeSlider::withTrashed()->find($this->deleteId);
+        unlink('frontend/assets/images/slider/'.$slider->image);
+        $slider->forceDelete();
+        noty()->closeWith(['click', 'button'])->addInfo('Slider permanently deleted successfully');
+    }
+
+    public function restore(){
+        HomeSlider::withTrashed()->find($this->deleteId)->restore();
+        noty()->closeWith(['click', 'button'])->addInfo('Slider restored successfully');
     }
 
     public function generateSlug(){
@@ -96,7 +115,7 @@ class AdminManageSliderComponent extends Component
         $slider->save();
         noty()->closeWith(['click', 'button'])->addInfo('Slider has been added');
         $this->reset();
-        $this->emit('addSlider');
+        $this->emit('addSliderQuick');
 
     }
 
@@ -110,7 +129,6 @@ class AdminManageSliderComponent extends Component
         $this->offer=$slider->offer;
         $this->link=$slider->link;
         $this->old_image=$slider->image;
-        $this->status=$slider->status;
         $this->ids=$slider->id;
     }
 
@@ -123,7 +141,6 @@ class AdminManageSliderComponent extends Component
             'sub_title'=>'required',
             'offer'=>'required',
             'link'=>'required',
-            'status'=>'required',
         ]);
 
         $slider=HomeSlider::find($this->ids);
@@ -133,7 +150,6 @@ class AdminManageSliderComponent extends Component
         $slider->sub_title=$this->sub_title;
         $slider->offer=$this->offer;
         $slider->link=$this->link;
-        $slider->status=$this->status;
 
         if($this->new_image){
             unlink('frontend/assets/images/slider/'.$slider->image);
@@ -166,14 +182,16 @@ class AdminManageSliderComponent extends Component
     }
 
 
+
     public function render()
     {
         $search='%'. $this->search .'%';
         $sliders=HomeSlider::where('top_title','LIKE',$search)
             ->orWhere('title','LIKE',$search)
             ->orWhere('sub_title','LIKE',$search)
-            ->orderBy('created_at','desc')->paginate($this->pageSize);
+            ->orderBy('created_at','desc')->withTrashed()->paginate($this->pageSize);
         return view('livewire.admin.admin-manage-slider-component',['sliders'=>$sliders]);
     }
+
 
 }

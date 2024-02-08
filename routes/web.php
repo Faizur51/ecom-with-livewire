@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FallbackController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,14 @@ Route::get('/dashboard', function () {
     return view('layouts.app');
 });*/
 
+Route::fallback(FallbackController::class);
+
+
+
+
+
+
+
 
 Route::get('/',\App\Http\Livewire\HomeComponent::class)->name('home');
 Route::get('/shop',\App\Http\Livewire\ShopComponent::class)->name('shop');
@@ -34,12 +43,14 @@ Route::get('/cart',\App\Http\Livewire\CartComponent::class)->name('cart');
 Route::get('/checkout',\App\Http\Livewire\CheckoutComponent::class)->name('checkout');
 Route::get('/contact',\App\Http\Livewire\ContactComponent::class)->name('contact');
 Route::get('/product/details/{slug}',\App\Http\Livewire\ProductDetailsComponent::class)->name('product.details');
-Route::get('category/product/{slug}',\App\Http\Livewire\CategoryProductComponent::class)->name('category.product');
+Route::get('category/product/{slug}/{scategory_slug?}',\App\Http\Livewire\CategoryProductComponent::class)->name('category.product');
 
 Route::get('/search',\App\Http\Livewire\SearchResultComponent::class)->name('search.product');
 Route::get('/wishlist',\App\Http\Livewire\WishlistComponent::class)->name('wishlist.product');
 
 Route::get('/thankyou',\App\Http\Livewire\ThankyouComponent::class)->name('thankyou');
+Route::get('/product/offer',\App\Http\Livewire\ProductOfferComponent::class)->name('product.offer');
+
 
 
 
@@ -52,6 +63,8 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/user/order',\App\Http\Livewire\User\UserOrderComponent::class)->name('user.order');
     Route::get('user/orderdetails/{order_id}',\App\Http\Livewire\User\UserOrderDetailsComponent::class)->name('user.orderdetails');
     Route::get('/user/change-password',\App\Http\Livewire\User\UserChangePasswordComponent::class)->name('user.changepassword');
+    Route::get('/user/review',\App\Http\Livewire\User\UserReviewComponent::class)->name('user.review');
+    Route::get('/user/wishlist',\App\Http\Livewire\User\WishlistProductComponent::class)->name('userwishlist.product');
 });
 
 Route::middleware(['auth','authadmin'])->group(function (){
@@ -68,6 +81,16 @@ Route::middleware(['auth','authadmin'])->group(function (){
     Route::get('admin/orderdetails/{order_id}',\App\Http\Livewire\Admin\AdminOrderDetailsComponent::class)->name('admin.orderdetails');
 
     Route::get('admin/setting',\App\Http\Livewire\Admin\AdminSettingComponent::class)->name('admin.setting');
+    Route::get('admin/review',\App\Http\Livewire\Admin\AdminReviewComponent::class)->name('admin.review');
+
+    Route::get('admin/orderinvoice/{order_id}',\App\Http\Livewire\Admin\AdminOrderInvoiceComponent::class)->name('admin.orderinvoice');
+    Route::get('admin/chart',\App\Http\Livewire\Admin\AdminChartComponent::class)->name('admin.chart');
+
+
+    //For download pdf
+    Route::get('admin/order/pdf',[\App\Http\Livewire\Admin\AdminOrderPdfComponent::class,'OrderPDF'])->name('admin.orderpdf');
+    Route::get('admin/product/pdf/{order_id}',[\App\Http\Livewire\Admin\AdminProductPdfComponent::class,'productPDF'])->name('admin.productpdf');
+    Route::get('admin/customer',\App\Http\Livewire\Admin\AdminCustomerComponent::class)->name('admin.customer');
 
 });
 
@@ -93,3 +116,6 @@ Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 
 
 require __DIR__.'/auth.php';
+
+
+

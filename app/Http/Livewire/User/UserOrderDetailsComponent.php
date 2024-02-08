@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class UserOrderDetailsComponent extends Component
@@ -17,6 +18,8 @@ class UserOrderDetailsComponent extends Component
     public $rating;
     public $comment;
     public $order_item_id;
+
+    public $cancel_reason;
 
     public function mount($order_id){
         $this->order_id=$order_id;
@@ -47,6 +50,7 @@ class UserOrderDetailsComponent extends Component
         ]);
 
         $review=new Review();
+        $review->user_id=Auth::user()->id;
         $review->rating=$this->rating;
         $review->comment=$this->comment;
         $review->order_item_id=$this->order_item_id;
@@ -60,6 +64,19 @@ class UserOrderDetailsComponent extends Component
         $this->emit('addReview');
 
     }
+
+
+    public function cancelOrder(){
+          $order=Order::find($this->order_id);
+          $order->status='canceled';
+          $order->cancel_date=DB::raw('CURRENT_DATE');
+          $order->cancel_reason=$this->cancel_reason;
+          $order->save();
+          session()->flash('cancel_message','Your order has been canceled');
+    }
+
+
+
 
     public function render()
     {

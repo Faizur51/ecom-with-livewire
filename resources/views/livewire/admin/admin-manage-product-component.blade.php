@@ -2,7 +2,7 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow">Home</a>
+                <a href="/" rel="nofollow">Home</a>
                 <span></span> My Account
             </div>
         </div>
@@ -37,7 +37,7 @@
                                                         </div>
                                                         <div class="sort-by-dropdown">
                                                             <ul>
-                                                                <li><a class="{{$pageSize==12?'active':''}}" href="#" wire:click.prevent="changePageSize(12)">12</a></li>
+                                                                <li><a class="{{$pageSize==10?'active':''}}" href="#" wire:click.prevent="changePageSize(12)">10</a></li>
                                                                 <li><a class="{{$pageSize==15?'active':''}}" href="#" wire:click.prevent="changePageSize(15)">15</a></li>
                                                                 <li><a class="{{$pageSize==20?'active':''}}" href="#" wire:click.prevent="changePageSize(20)">20</a></li>
                                                                 <li><a class="{{$pageSize==24?'active':''}}" href="#" wire:click.prevent="changePageSize(24)">24</a></li>
@@ -80,7 +80,16 @@
                                                             <td>{{$product->brand->name}}</td>
                                                             <td>{{$product->category->name}}</td>
                                                             <td><img src="{{asset('frontend/assets/images/product')}}/{{$product->image}}" alt="" style="width: 100px;height: 50px"></td>
-                                                            <td>{{$product->status==1?'Active':'Inactive'}}</td>
+                                                            {{--<td>{{$product->status==1?'Active':'Inactive'}}</td>--}}
+
+                                                            <td wire:ignore>
+                                                                @livewire('admin.toggle-switch', [
+                                                                'model' => $product,
+                                                                'field' => 'status'
+                                                                ])
+                                                            </td>
+
+
                                                             <td><a  class="btn-small"  href="{{route('admin.edit.product',['product_slug'=>$product->slug])}}"><i class="fi-rs-pencil"></i></a></td>
                                                             <td><a  class="btn-small" data-bs-toggle="modal" data-bs-target="#exampleModal" wire:click.prevent="deleteId({{$product->id}})"><i class="fi-rs-trash"></i></a></td>
                                                         </tr>

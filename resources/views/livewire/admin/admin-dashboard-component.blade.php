@@ -10,42 +10,28 @@
             border-radius: 4px;
             border: 1px solid #ddd;
         }
-
+        .icon-stat:hover{
+            border-bottom: 2px solid #7952B3;
+        }
         .icon-stat-label {
             display: block;
             color: #999;
             font-size: 13px;
         }
-
         .icon-stat-value {
             display: block;
             font-size: 28px;
             font-weight: 600;
-
         }
-
-        .icon-stat-visual {
-            position: relative;
-            display: inline-block;
-            width: 32px;
-            height: 32px;
-            border-radius: 4px;
-            text-align: center;
-            font-size: 16px;
-            padding-top: 6px;
-
-        }
-
         .bg-primary {
             color: #fff;
-            background: #d74b4b;
         }
-
         .bg-secondary {
             color: #fff;
-            background: #6685a4;
         }
-
+        .bg-warning {
+            color: #fff;
+        }
         .icon-stat-footer {
             padding: 10px 0 0;
             margin-top: 10px;
@@ -55,10 +41,38 @@
         }
     </style>
     <div class="page-header breadcrumb-wrap">
-        <div class="container">
-            <div class="breadcrumb">
-                <a href="index.html" rel="nofollow">Home</a>
-                <span></span> My Account
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="breadcrumb d-flex">
+                <a href="/" rel="nofollow">Home</a><span></span> Dashboard
+            </div>
+            <div class="header-action-right">
+                <div class="header-action-2">
+                    <div class="header-action-icon-2">
+                        <a class="mini-cart-icon" href="cart.html" style="font-size: 24px">
+                            <i class="fi-rs-bell" ></i>
+                            <span class="pro-count blue">{{count(auth()->user()->unreadNotifications)}}</span>
+                        </a>
+                        <div class="cart-dropdown-wrap cart-dropdown-hm2">
+                            <ul>
+                                    @forelse(auth()->user()->unreadNotifications as $notification)
+                                        <div class="alert alert-success" role="alert">
+                                            [{{ $notification->created_at }}] User {{ $notification->data['name'] }} ({{ $notification->data['email'] }}) has just registered.
+                                            <a href="#" class="float-right mark-as-read" wire:click.prevent="markAsRead('{{ $notification->id }}')" >
+                                                Mark as read
+                                            </a>
+                                        </div>
+                                        @if($loop->last)
+                                            <a href="#" id="mark-all" wire:click.prevent="markAll()">
+                                                Mark all as read
+                                            </a>
+                                        @endif
+                                    @empty
+                                        There are no new notifications
+                                    @endforelse
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -69,85 +83,64 @@
                     <div class="row">
                         @include('livewire.admin.page-link')
                         <div class="col-md-10">
+                            <div class="row ">
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="icon-stat shadow bg-light">
+                                        <div class="row">
+                                            <div class="col-xs-8 text-left">
+                                                <span class="icon-stat-label">Total Amount</span>
+                                                <span class="icon-stat-value">&#2547; {{$totalAmount}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="icon-stat-footer">
+                                            <i class="fi-rs-time-oclock"></i> Updated Now
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="icon-stat shadow bg-warning">
+                                        <div class="row">
+                                            <div class="col-xs-8 text-left">
+                                                <span class="icon-stat-label text-white">Total Sales</span>
+                                                <span class="icon-stat-value">{{$totalSales}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="icon-stat-footer text-white">
+                                            <i class="fi-rs-time-oclock"></i> Updated Now
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="icon-stat shadow bg-primary">
+                                        <div class="row">
+                                            <div class="col-xs-8 text-left">
+                                                <span class="icon-stat-label text-white">Today Amount</span>
+                                                <span
+                                                    class="icon-stat-value">&#2547; {{$todayAmount}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="icon-stat-footer text-white">
+                                            <i class="fi-rs-time-oclock"></i> Updated Now
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6 ">
+                                    <div class="icon-stat shadow bg-secondary">
+                                        <div class="row ">
+                                            <div class="col-xs-8 text-left ">
+                                                <span class="icon-stat-label text-white">Today Sales</span>
+                                                <span class="icon-stat-value">{{$todaySales}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="icon-stat-footer text-white">
+                                            <i class="fi-rs-time-oclock "></i> Updated Now
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="tab-content dashboard-content">
                                 <div class="tab-pane fade active show" id="dashboard" role="tabpanel"
                                      aria-labelledby="dashboard-tab">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="mb-0">Hello Rosie! </h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-3 col-sm-6">
-                                                    <div class="icon-stat">
-                                                        <div class="row">
-                                                            <div class="col-xs-8 text-left">
-                                                                <span class="icon-stat-label">Total Amount</span>
-                                                                <span class="icon-stat-value">&#2547;{{$totalAmount}}</span>
-                                                            </div>
-
-                                                            <div class="col-xs-4 text-end">
-                                                                <i class="fi-rs-star icon-stat-visual bg-primary"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="icon-stat-footer">
-                                                            <i class="fi-rs-time-oclock"></i> Updated Now
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 col-sm-6">
-                                                    <div class="icon-stat">
-                                                        <div class="row">
-                                                            <div class="col-xs-8 text-left">
-                                                                <span class="icon-stat-label">Total Sales</span>
-                                                                <span class="icon-stat-value">{{$totalSales}}</span>
-                                                            </div>
-                                                            <div class="col-xs-4 text-end">
-                                                                <i class="fi-rs-info icon-stat-visual bg-secondary"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="icon-stat-footer">
-                                                            <i class="fi-rs-time-oclock"></i> Updated Now
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 col-sm-6">
-                                                    <div class="icon-stat">
-                                                        <div class="row">
-                                                            <div class="col-xs-8 text-left">
-                                                                <span class="icon-stat-label">Today Amount</span>
-                                                                <span
-                                                                    class="icon-stat-value">&#2547;{{$todayAmount}}</span>
-                                                            </div>
-                                                            <div class="col-xs-4 text-end">
-                                                                <i class="fi-rs-heart icon-stat-visual bg-success"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="icon-stat-footer">
-                                                            <i class="fi-rs-time-oclock"></i> Updated Now
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 col-sm-6">
-                                                    <div class="icon-stat">
-                                                        <div class="row">
-                                                            <div class="col-xs-8 text-left">
-                                                                <span class="icon-stat-label">Today Sales</span>
-                                                                <span class="icon-stat-value">{{$todaySales}}</span>
-                                                            </div>
-                                                            <div class="col-xs-4 text-end">
-                                                                <i class="fi-rs-shopping-bag icon-stat-visual bg-warning"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="icon-stat-footer">
-                                                            <i class="fi-rs-time-oclock"></i> Updated Now
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <div class="col-md-12 shadow">
                                         <div class="tab-content dashboard-content">
                                             <div class="tab-pane fade active show" id="orders" role="tabpanel"
@@ -164,6 +157,7 @@
                                                                 <tr>
                                                                     <th>OrderID</th>
                                                                     <th>Sub Total</th>
+                                                                    <th>Shipping Charge</th>
                                                                     <th>Total</th>
                                                                     <th>Name</th>
                                                                     <th>Phone</th>
@@ -179,7 +173,8 @@
                                                                     <tr>
                                                                         <td>{{$order->id}}</td>
                                                                         <td>&#2547; {{$order->subtotal}}</td>
-                                                                        <td>&#2547; {{$order->total}}</td>
+                                                                        <td>&#2547; {{number_format($order->shipping_charge,2)}}</td>
+                                                                        <td>&#2547; {{number_format($order->total,2)}}</td>
                                                                         <td>{{ucwords($order->name)}}</td>
                                                                         <td>{{$order->phone}}</td>
                                                                         <td>{{ucwords($order->city)}}</td>
@@ -198,11 +193,9 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

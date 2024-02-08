@@ -47,8 +47,8 @@ class ProductSeeder extends Seeder
         ];
 
 
-        foreach (range(1,100) as $key=>$value){
-            $name=$faker->unique(true)->words($nb=3,$asText=True);
+        foreach (range(1,400) as $key=>$value){
+            $name=$faker->unique(true)->words($nb=4,$asText=True);
             Product::create([
                 'name'=>$name,
                 'slug'=>Str::slug($name,'-'),

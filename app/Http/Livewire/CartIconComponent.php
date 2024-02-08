@@ -9,6 +9,17 @@ class CartIconComponent extends Component
 {
     protected $listeners = ['refreshComponent' => '$refresh'];
 
+
+    public function checkout(){
+        if(Auth::check()){
+            return redirect()->route('checkout');
+        }else{
+            return redirect()->route('login');
+        }
+    }
+
+
+
     public function destroy($rowId){
         Cart::instance('cart')->remove($rowId);
         $this->emitTo('cart-component','refreshComponent');

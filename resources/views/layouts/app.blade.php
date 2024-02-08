@@ -15,10 +15,12 @@
     <link rel="stylesheet" href="{{asset('frontend')}}/assets/css/main.css">
     <link rel="stylesheet" href="{{asset('frontend')}}/assets/css/custom.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/icheck-material@1.0.1/icheck-material.min.css">
+
     @livewireStyles
 </head>
 
 <body>
+
 @livewire('header-component')
 <div class="mobile-header-active mobile-header-wrapper-style">
     <div class="mobile-header-wrapper-inner">
@@ -159,14 +161,12 @@
 <script src="{{asset('frontend')}}/assets/js/main.js?v=3.3"></script>
 <script src="{{asset('frontend')}}/assets/js/shop.js?v=3.3"></script>
 
-
 <script src="{{asset('frontend')}}/assets/js/ckeditor/ckeditor.js"></script>
-
 
 @stack('scripts')
 @livewireScripts
 <script>
-    window.livewire.on('addSlider',()=>{
+    window.livewire.on('addSliderQuick',()=>{
         $('#addSliderModal').modal('hide');
         $('input[type=file]').val('');
     })
@@ -221,6 +221,15 @@
         $('#editPicture').modal('hide');
     })
 
+
+
+    window.addEventListener('show-modal',function (){
+        $('#showModal').modal('show')
+    })
+
+
+
+
 </script>
 
 
@@ -236,7 +245,7 @@
     })(window, document);
 </script>
 
-
 </body>
+
 
 </html>

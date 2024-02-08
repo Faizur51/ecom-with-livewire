@@ -67,7 +67,7 @@
             </div>
         </div>
     </div>
-    <section class="pt-150 pb-150">
+    <section class="pt-20 pb-20">
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 m-auto">
@@ -78,6 +78,12 @@
                                     <div class="heading_s1">
                                         <h3 class="mb-30">Login</h3>
                                     </div>
+
+                                    <x-auth-session-status class="mb-4" :status="session('status')" />
+
+                                    <!-- Validation Errors -->
+                                    <x-auth-validation-errors class="mb-4 text-danger" :errors="$errors" />
+
                                     <form method="POST" action="{{ route('login') }}">
                                         @csrf
                                         <div class="form-group">
@@ -93,11 +99,21 @@
                                                     <label class="form-check-label" for="exampleCheckbox1"><span>Remember me</span></label>
                                                 </div>
                                             </div>
-                                            <a class="text-muted" href="#">Forgot password?</a>
+                                            @if (Route::has('password.request'))
+                                            <a class="text-muted" href="{{ route('password.request') }}">Forgot password?</a>
+                                            @endif
                                         </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-fill-out btn-block hover-up" name="login">Log in</button>
-                                        </div>
+
+                                            <div class="form-group row">
+                                                <div class="col-md-12">
+
+                                                    <button type="submit" class="btn btn-fill-out btn-block hover-up" name="login" style="width: 100%;background-color: #F57224" >Log in</button>
+                                                    <span>Or,Login With</span>
+                                                    <a href="{{ route('login.google') }}" class="btn btn-danger btn-block hover-up mt-5" style="width:100%;background-color: #D34836">Login with Google</a>
+                                                    <a href="{{ route('login.facebook') }}" class="btn btn-primary btn-block hover-up mt-5" style="width:100%;background-color:#3B5998">Login with Facebook</a>
+
+                                                </div>
+                                            </div>
                                     </form>
                                 </div>
                             </div>

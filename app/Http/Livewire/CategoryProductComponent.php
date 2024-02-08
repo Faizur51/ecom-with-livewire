@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\Size;
+use App\Models\Subcategory;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Cart;
@@ -26,6 +27,13 @@ class CategoryProductComponent extends Component
     public $checkedBrand=[];
 
     public $slug;
+
+
+    public $scategory_slug;
+
+
+
+
 
 
     protected $queryString = [
@@ -48,38 +56,58 @@ class CategoryProductComponent extends Component
         $this->orderBy=$order;
     }
 
-    public function mount($slug){
+    public function mount($slug,$scategory_slug=null){
         $this->slug=$slug;
+        $this->scategory_slug=$scategory_slug;
     }
 
     public function render()
     {
-        $category=Category::where('slug',$this->slug)->first();
+       /* $category=Category::where('slug',$this->slug)->first();
         $category_id=$category->id;
-        $category_name=$category->name;
+        $category_name=$category->name;*/
+
+
+        $category_id=null;
+        $category_name="";
+        $filter="";
+
+        if($this->scategory_slug){
+            $scategory=Subcategory::where('slug',$this->scategory_slug)->first();
+            $category_id=$scategory->id;
+            $category_name=$scategory->name;
+            $filter="sub";
+        }else{
+            $category=Category::where('slug',$this->slug)->first();
+            $category_id=$category->id;
+            $category_name=$category->name;
+            $filter="";
+        }
+
+
 
         if($this->checkedColor){
-            $products=Product::where('category_id',$category_id)->when($this->checkedColor,function ($q){
+            $products=Product::where($filter.'category_id',$category_id)->when($this->checkedColor,function ($q){
                 $q->whereIn('color',$this->checkedColor);
             })->paginate($this->pageSize);
         } else if ($this->checkedSize){
-            $products=Product::where('category_id',$category_id)->when($this->checkedSize,function ($q){
+            $products=Product::where($filter.'category_id',$category_id)->when($this->checkedSize,function ($q){
                 $q->whereIn('size',$this->checkedSize);
             })->paginate($this->pageSize);
         }else if($this->checkedBrand){
-            $products=Product::where('category_id',$category_id)->when($this->checkedBrand,function ($q){
+            $products=Product::where($filter.'category_id',$category_id)->when($this->checkedBrand,function ($q){
                 $q->whereIn('brand_id',$this->checkedBrand);
             })->paginate($this->pageSize);
         }
         else{
             if($this->orderBy=='Low to High'){
-                $products=Product::where('category_id',$category_id)->whereBetween('sale_price',[$this->min_value,$this->max_value])->orderBy('sale_price','asc')->paginate($this->pageSize);
+                $products=Product::where($filter.'category_id',$category_id)->whereBetween('sale_price',[$this->min_value,$this->max_value])->orderBy('sale_price','asc')->paginate($this->pageSize);
             }else if($this->orderBy=='High to Low'){
-                $products=Product::where('category_id',$category_id)->whereBetween('sale_price',[$this->min_value,$this->max_value])->orderBy('sale_price','desc')->paginate($this->pageSize);
+                $products=Product::where($filter.'category_id',$category_id)->whereBetween('sale_price',[$this->min_value,$this->max_value])->orderBy('sale_price','desc')->paginate($this->pageSize);
             }else if($this->orderBy=='New Product'){
-                $products=Product::where('category_id',$category_id)->whereBetween('sale_price',[$this->min_value,$this->max_value])->orderBy('created_at','desc')->paginate($this->pageSize);
+                $products=Product::where($filter.'category_id',$category_id)->whereBetween('sale_price',[$this->min_value,$this->max_value])->orderBy('created_at','desc')->paginate($this->pageSize);
             }else{
-                $products=Product::where('category_id',$category_id)->whereBetween('sale_price',[$this->min_value,$this->max_value])->paginate($this->pageSize);
+                $products=Product::where($filter.'category_id',$category_id)->whereBetween('sale_price',[$this->min_value,$this->max_value])->paginate($this->pageSize);
             }
         }
 

@@ -20,7 +20,7 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow">Home</a>
+                <a href="/" rel="nofollow">Home</a>
                 <span></span> My Account
             </div>
         </div>
@@ -235,20 +235,6 @@
                                                 </div>
                                             </div>
 
-                                            <div class="row">
-                                                <label for="inputPassword" class="col-sm-3 col-form-label">Status</label>
-                                                <div class="input-style mb-2 col-sm-9">
-                                                    <div class="icheck-material-teal icheck-inline">
-                                                        <input type="radio" id="chb1" wire:model="status" value="1"/>
-                                                        <label for="chb1">Active</label>
-                                                    </div>
-                                                    <div class="icheck-material-red icheck-inline">
-                                                        <input type="radio" id="chb2" wire:model="status" value="0"/>
-                                                        <label for="chb2">Inactive</label>
-                                                    </div>
-                                                    @error('status') <p class="text-danger">{{$message}}</p> @enderror
-                                                </div>
-                                            </div>
                                             <button class="submit submit-auto-width btn-sm" type="submit">Edit Product</button>
                                         </div>
                                     </div>

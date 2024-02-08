@@ -101,7 +101,7 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow">Home</a>
+                <a href="/" rel="nofollow">Home</a>
                 <span></span> My Account
             </div>
         </div>
@@ -120,7 +120,7 @@
                                             <div class="col-lg-5">
                                                 <div class="card mb-3 mb-lg-0 shadow-sm">
                                                     <div class="text-center m-2">
-                                                        <h5 class="mb-0 text-muted">My Order (2 Items)</h5>
+                                                        <h5 class="mb-0 text-muted">My Order ({{count($order->orderItems)}} Items)</h5>
                                                     </div>
                                                     @foreach($order->orderItems as $item)
                                                         <div style="border-bottom:1px solid #e2e9e1">
@@ -133,7 +133,7 @@
                                                                     @endif
                                                                 </div>
                                                                 <div class="col-md-8">
-                                                                    <p class="text-muted" style="font-size: 18px">Name: {{ucwords($item->product->name)}}</p>
+                                                                    <a href="{{route('product.details',['slug'=>$item->product->slug])}}" class="text-default" style="font-size: 18px">{{ucwords($item->product->name)}}</a>
                                                                     <p>Quantity:{{$item->quantity}}</p>
                                                                     <p>Category: {{$item->product->category->name}}</p>
                                                                     @if($item->product->subCategories)
@@ -161,38 +161,33 @@
                                                                 <p>Subtotal</p><span>&#2547; {{$order->subtotal}}</span>
                                                             </li>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <p>Shipping</p><span>&#2547; 0</span>
+                                                                <p>Shipping</p><span>&#2547; {{number_format($order->shipping_charge,2)}}</span>
                                                             </li>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <p>Total</p><span>&#2547; {{$order->total}}</span>
-                                                            </li>
-                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <p>Discount (points)</p><span>&#2547; 0</span>
-                                                            </li>
-                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <p>Payable Total</p><span>&#2547; {{$order->total}}</span>
+                                                                <p>Total</p><span>&#2547; {{number_format($order->total,2)}}</span>
                                                             </li>
 
+                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                <p>Payable Total</p><span>&#2547; {{number_format($order->total,2)}}</span>
+                                                            </li>
                                                         </ul>
-
                                                         <div class="text-center m-2">
                                                             <h5 class="mb-0 text-muted">Shipping Info</h5>
                                                         </div>
-
                                                             <div class="card-body">
                                                                 <p>Full Name :{{ucwords($order->name)}}</p>
                                                                 <p>Phone No: {{$order->phone}}</p>
                                                                 <p>City: {{ucwords($order->city)}}</p>
                                                                 <p>Address: {{ucwords($order->address)}}</p>
                                                             </div>
-
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="card mb-3 mb-lg-0 shadow-sm">
-                                                    <div class="text-center m-2">
+                                                    <div class="text-center m-2 d-flex align-items-center justify-content-around">
                                                         <h5 class="mb-0 text-muted">Order History</h5>
+                                                        <a href="{{route('admin.order')}}"><i class="fi-rs-arrow-left fw-900 fs-5"></i></a>
                                                     </div>
 
                                                     @if($order->status=='delivery')
@@ -276,6 +271,29 @@
                                                                 <li class="tab_inactive">
                                                                     <a href="#"><p>Confirmed</p>
                                                                         <p>Your order has been placed and confirmed.</p></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    @elseif($order->status==='canceled')
+                                                        <div class="navigation_menu" id="navigation_menu">
+                                                            <ul class="navigation_tabs" id="navigation_tabs">
+                                                                <li class="tab_disabled">
+                                                                    <a href="#"><p>Delivery (Expected Date)</p>
+                                                                        <p> Your package has not yet been delivered.</p></a>
+                                                                </li>
+                                                                <li class="tab_disabled">
+                                                                    <a href="#"><p>Shipped</p>
+                                                                        <p>Your package has been picked by a delivery man and shipped.</p></a>
+                                                                </li>
+                                                                <li class="tab_disabled">
+                                                                    <a href="#"><p>Processed</p>
+                                                                        <p>Your package has been processed.</p></a>
+                                                                </li>
+                                                                <li class="tab_inactive">
+                                                                    <a href="#"><p class="text-danger">Canceled</p>
+                                                                        <p>Order has been canceled.</p></a>
+                                                                    <p>Reason:{{ucwords($order->cancel_reason)}}</p>
+                                                                    <p>{{\Carbon\Carbon::parse($order->cancel_date)->format('d M Y,i:m:a')}}</p>
                                                                 </li>
                                                             </ul>
                                                         </div>

@@ -5,11 +5,12 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class OrderMail extends Mailable
+class OrderMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -49,7 +50,7 @@ class OrderMail extends Mailable
     }
 
 
- /*   public function build()
+   /*  public function build()
     {
         return $this->subject('Mail from ItSolutionStuff.com')
             ->view('mails.order-mail');
@@ -68,11 +69,6 @@ class OrderMail extends Mailable
             ]);
     }
 
-
-
-
-
-
     /**
      * Get the attachments for the message.
      *
@@ -81,6 +77,7 @@ class OrderMail extends Mailable
     public function attachments()
     {
         return [];
+
     }
 
 

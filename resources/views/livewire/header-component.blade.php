@@ -32,22 +32,55 @@
                         <div class="header-info header-info-right">
                             <ul>
                                 @auth
+                                    @if(Auth::user()->utype === 'admin')
                                     <li>
                                         <i class="fi-rs-user"></i>
-                                        <a href="{{route('login')}}">{{auth()->user()->name}}</a>  /
-                                        <form method="POST" action="{{ route('logout') }}">
-                                            @csrf
-                                            <a href="route('logout')"
-                                               onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                                {{ __('Log Out') }}
-                                            </a>
-                                        </form>
+                                        <a class="language-dropdown-active" href="{{route('login')}}"> {{Str::limit(ucwords(auth()->user()->name),30,'.....')}} <i class="fi-rs-angle-small-down"></i></a>
+                                        <ul class="language-dropdown" style="width: 220px;padding: 10px;font-size: 18px">
+                                            <li><a href="{{route('admin.dashboard')}}"><i class="fi-rs-marker mr-10"></i>Manage Dashboard</a></li>
+                                            <li><a href="{{route('admin.setting')}}"><i class="fi-rs-settings mr-10"></i>Manage Setting</a></li>
+                                            <li><a href="{{route('admin.review')}}"><i class="fi-rs-star mr-10"></i>Manage Review</a></li>
+                                            <li><a href="{{route('admin.slider')}}"><i class="fi-rs-settings-sliders mr-10"></i>Manage Slider</a></li>
+                                            <li><a href="{{route('admin.customer')}}"><i class="fi-rs-users mr-10"></i>Manage Customers</a></li>
+                                            <li><a href="{{route('admin.manage.product')}}"><i class="fi-rs-shopping-bag mr-10"></i>Manage Product</a></li>
+                                            <li>
+                                                <form method="POST" action="{{ route('logout') }}">
+                                                    @csrf
+                                                    <a href="route('logout')"
+                                                       onclick="event.preventDefault();
+                                                           this.closest('form').submit();">
+                                                        <i class="fi-rs-sign-out mr-10"></i> {{ __('Log Out') }}
+                                                    </a>
+                                                </form>
+                                            </li>
+                                        </ul>
                                     </li>
+                                    @else
+                                        <li>
+                                            <i class="fi-rs-user"></i>
+                                            <a class="language-dropdown-active" href="{{route('login')}}">{{Str::limit(ucwords(auth()->user()->name),30,'.....')}}<i class="fi-rs-angle-small-down"></i></a>
+                                            <ul class="language-dropdown" style="width: 220px;padding: 10px;font-size: 18px">
+                                                <li><a href="{{route('user.dashboard')}}"><i class="fi-rs-settings mr-10"></i>Manage Dashboard</a></li>
+                                                <li><a href="{{route('user.order')}}"><i class="fi-rs-marker mr-10"></i>Manage Order</a></li>
+                                                <li><a href="{{route('user.review')}}"><i class="fi-rs-star mr-10"></i>Manage Review</a></li>
+                                                <li><a href="{{route('user.address')}}"><i class="fi-rs-shopping-bag mr-10"></i>Manage Address</a></li>
+                                                <li>
+                                                    <form method="POST" action="{{ route('logout') }}">
+                                                        @csrf
+                                                        <a href="route('logout')"
+                                                           onclick="event.preventDefault();
+                                                                this.closest('form').submit();">
+                                                            <i class="fi-rs-sign-out mr-10"></i> {{ __('Log Out') }}
+                                                        </a>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    @endif
                                 @else
                                     <li>
                                         <i class="fi-rs-key"></i>
-                                        <a href="{{route('login')}}">Log In </a>  /
+                                        <a href="{{route('login')}}">Log In </a> /
                                         <a href="{{route('register')}}">Sign Up</a>
                                     </li>
                                 @endauth
@@ -96,21 +129,12 @@
                                     <li><a href="{{route('shop')}}">Shop</a></li>
                                     <li><a href="blog.html">Blog </a></li>
                                     <li><a href="{{route('contact')}}">Contact</a></li>
-                                    <li><a href="#">My Account<i class="fi-rs-angle-down"></i></a>
-                                        @auth
-                                            @if(Auth::user()->utype === 'admin')
-                                                <ul class="sub-menu">
-                                                    <li><a href="{{route('admin.dashboard')}}"><span class="fi-rs-smartphone mr-5"></span> Dashboard</a></li>
-                                                    <li><a href="#"><span class="fi-rs-shopping-cart-check mr-5"></span> Profile</a></li>
-                                                    <li><a href="#"><span class="fi-rs-sign-out mr-5"></span> Logout</a></li>
-                                                </ul>
-                                            @else
-                                                <ul class="sub-menu">
-                                                    <li><a href="{{route('user.dashboard')}}">Dashboard</a></li>
-                                                    <li><a href="#">Logout</a></li>
-                                                </ul>
-                                            @endif
-                                        @endauth
+                                    <li><a href="#">Offer<i class="fi-rs-angle-down"></i></a>
+                                        <ul class="sub-menu">
+                                            <li><a href="{{route('product.offer')}}">Online Offer 2024 </a></li>
+                                            <li><a href="#">New Year</a></li>
+
+                                        </ul>
                                     </li>
                                 </ul>
                             </nav>

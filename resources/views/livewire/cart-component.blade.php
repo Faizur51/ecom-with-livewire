@@ -3,7 +3,7 @@
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
-                    <a href="index.html" rel="nofollow">Home</a>
+                    <a href="/" rel="nofollow">Home</a>
                     <span></span> Shop
                     <span></span> Your Cart
                 </div>
@@ -11,12 +11,13 @@
         </div>
         <section class="mt-50 mb-50">
             <div class="container">
+                @if(Cart::instance('cart')->count()>0)
                 <div class="row">
                     <div class="col-12">
                         <div class="table-responsive">
                             @if(Cart::instance('cart')->content()->count() > 0)
-                            <table class="table shopping-summery text-center clean">
-                                <thead>
+                            <table class="table shopping-summery text-center">
+                                <thead class="bg-light">
                                 <tr class="main-heading">
                                     <th scope="col">Image</th>
                                     <th scope="col">Name</th>
@@ -59,7 +60,7 @@
                             @endif
                         </div>
                         <div class="cart-action text-end">
-                            <a class="btn" href="/"><i class="fi-rs-shopping-bag mr-10"></i>Continue Shopping</a>
+                            <a class="btn text-uppercase" href="/"><i class="fi-rs-shopping-bag mr-10"></i>Continue Shopping</a>
                         </div>
                         <div class="divider center_icon mt-50 mb-5"><i class="fi-rs-fingerprint"></i></div>
                         <div class="row mb-50">
@@ -77,7 +78,7 @@
                                                             <input class="font-medium" name="Coupon" placeholder="Enter Your Coupon">
                                                         </div>
                                                         <div class="form-group col-lg-6">
-                                                            <button class="btn  btn-sm"><i class="fi-rs-label mr-10"></i>Apply</button>
+                                                            <button class="btn  btn-sm text-uppercase"><i class="fi-rs-label mr-10"></i>Apply</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -95,26 +96,39 @@
                                         <table class="table">
                                             <tbody>
                                             <tr>
-                                                <td class="cart_total_label">Cart Subtotal</td>
+                                                <td class="cart_total_label bg-light">Cart Subtotal</td>
                                                 <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">&#2547; {{Cart::instance('cart')->subtotal()}}</span></td>
                                             </tr>
                                             <tr>
-                                                <td class="cart_total_label">Shipping</td>
-                                                <td class="cart_total_amount"> <i class="ti-gift mr-5"></i> Free Shipping</td>
+                                                <td class="cart_total_label bg-light">Shipping</td>
+                                                <td class="cart_total_amount">
+                                                    <p>Flat rate (inside Dhaka) : &#2547; 70</p>
+                                                    <p>Note: Shipping outside Dhaka will be &#2547; 120</p>
+                                                    <p>Shipping options will be updated during checkout.</p>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td class="cart_total_label">Total</td>
+                                                <td class="cart_total_label bg-light">Total</td>
                                                 <td class="cart_total_amount"><strong><span class="font-xl fw-900 text-brand">&#2547; {{Cart::instance('cart')->total()}}</span></strong></td>
                                             </tr>
                                             </tbody>
                                         </table>
                                     </div>
-                                    <a href="#" class="btn" wire:click.prevent="checkout"> <i class="fi-rs-box-alt mr-10"></i> Proceed To CheckOut</a>
+                                    <a href="#" class="btn text-uppercase" wire:click.prevent="checkout"> <i class="fi-rs-box-alt mr-10"></i> Proceed To CheckOut</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                @else
+                    <div class="text-center" style="padding: 5px 0">
+                        <h1>Your Cart is empty</h1>
+                        <p>Add items to it now!</p>
+                        <img src="{{asset('frontend/assets/images/cart/cart1.jpeg')}}" alt="" >
+                        <br>
+                        <a href="/" class="btn btn-primary ">Shop Now</a>
+                    </div>
+                @endif
             </div>
         </section>
     </main>

@@ -4,7 +4,7 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow">Home</a>
+                <a href="/" rel="nofollow">Home</a>
                 <span></span> My Account
             </div>
         </div>
@@ -20,7 +20,7 @@
                                 <div class="tab-pane fade active show" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
                                     <div class="card">
                                         <div class="card-header d-flex justify-content-between">
-                                            <h5 class="mb-0">Hello Rosie! </h5>
+                                            <h5 class="mb-0">Hello {{auth()->user()->name}} </h5>
                                             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addShippingAddress" data-bs-whatever="@mdo">+ Add New Address</button>
                                         </div>
                                         <div class="card-body" >

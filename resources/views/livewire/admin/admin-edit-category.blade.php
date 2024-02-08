@@ -38,17 +38,7 @@
                             @error('image') <p class="text-danger">{{$message}}</p> @enderror
                         </div>
                     </div>
-                    <div class="row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Status</label>
-                        <div class="input-style mb-20 col-sm-10">
-                            <select name="" id="" class="form-control" wire:model="status">
-                                <option value="">Select Status</option>
-                                <option value="1">Active</option>
-                                <option value="0">Inactive</option>
-                            </select>
-                            @error('status') <p class="text-danger">{{$message}}</p> @enderror
-                        </div>
-                    </div>
+
                 </form>
             </div>
             <div class="modal-footer">

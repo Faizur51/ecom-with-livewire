@@ -2,16 +2,22 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Exports\OrdersExport;
 use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
+
 class AdminOrderComponent extends Component
 {
     use WithPagination;
-    public $pageSize = 12;
+    public $pageSize = 8;
     public $search;
 
+
+    public $orderId;
+    public $orderStatus;
     protected $paginationTheme = 'bootstrap';
 
     public function changePageSize($size)
@@ -26,21 +32,26 @@ class AdminOrderComponent extends Component
 
 
 
+    public function updateOrderIdStatus($id,$status){
+        $this->orderId=$id;
+        $this->orderStatus=$status;
+    }
 
-    public function updateOrderStatus($order_id,$status){
-        $order=Order::find($order_id);
-        $order->status=$status;
 
-        if($status=='cancel'){
+    public function updateOrderStatus(){
+        $order=Order::find($this->orderId);
+        $order->status=$this->orderStatus;
+
+        if($order->status=='cancel'){
             $order->cancel_date=DB::raw('CURRENT_DATE');
         }
-        else if($status=='processed'){
+        else if($order->status=='processed'){
             $order->processed_date=DB::raw('CURRENT_DATE');
         }
-        else if($status=='shipping'){
+        else if($order->status=='shipping'){
             $order->shipping_date=DB::raw('CURRENT_DATE');
         }
-        else if($status=='delivery'){
+        else if($order->status=='delivery'){
             $order->delivery_date=DB::raw('CURRENT_DATE');
         }
         $order->save();
@@ -50,15 +61,20 @@ class AdminOrderComponent extends Component
 
 
 
+public function excelDownload(){
+    return Excel::download(new OrdersExport(), 'orders.xlsx');
 
-
-
+}
 
     public function render()
     {
         $search = '%' . $this->search . '%';
         $orders=Order::orderBy('id','desc')
-                ->where('processed_date', 'LIKE', $search)
+                ->where('name', 'LIKE', $search)
+                ->orWhere('email', 'LIKE', $search)
+                ->orWhere('phone', 'LIKE', $search)
+                ->orWhere('city', 'LIKE', $search)
+                ->orWhere('address', 'LIKE', $search)
                 ->orWhere('status', 'LIKE', $search)
                 ->paginate($this->pageSize);
         return view('livewire.admin.admin-order-component',['orders'=>$orders]);

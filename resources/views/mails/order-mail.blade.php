@@ -55,7 +55,7 @@
     </tr>
     <tr>
         <td colspan="4" style="text-align: end;font-size: 15px;font-weight: bold">Free Shipping:</td>
-        <td style="font-size: 15px;font-weight: bold">&#2547;0.00</td>
+        <td style="font-size: 15px;font-weight: bold">&#2547;{{number_format($order->shipping_charge,2)}}</td>
     </tr>
     <tr>
         <td colspan="4" style="text-align: end;font-size: 15px;font-weight: bold">Total:</td>

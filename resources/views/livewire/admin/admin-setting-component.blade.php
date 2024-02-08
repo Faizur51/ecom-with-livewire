@@ -2,7 +2,7 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow">Home</a>
+                <a href="/" rel="nofollow">Home</a>
                 <span></span> My Account
             </div>
         </div>
@@ -27,7 +27,7 @@
                                                 </div>
                                                 <div class="sort-by-product-area">
                                                     <div class="sort-by-cover">
-                                                        <button class="btn bg-dark text-white btn-sm" type="submit" data-bs-toggle="modal" data-bs-target="#addSettingModal"><i class="fi-rs-label mr-5"></i>Add Slider</button>
+                                                        <button class="btn text-white btn-sm" type="submit" data-bs-toggle="modal" data-bs-target="#addSettingModal"><i class="fi-rs-label mr-5"></i>Add Setting</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -50,7 +50,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($settings as $setting)
+                                                    @forelse($settings as $setting)
                                                         <tr>
                                                             <td>{{$setting->id}}</td>
                                                             <td>{{$setting->phone}}</td>
@@ -61,11 +61,13 @@
                                                             <td>{{$setting->youtube}}</td>
                                                             <td>{{$setting->twitter}}</td>
                                                             <td>{{$setting->instagram}}</td>
-
                                                          <td><img src="{{asset('frontend/assets/images/setting')}}/{{$setting->image}}" alt="" style="width: 100px;height: 50px"></td>
-
                                                         </tr>
-                                                    @endforeach
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="10"><h5 class="text-center text-muted">Setting Not Found</h5></td>
+                                                        </tr>
+                                                    @endforelse
                                                     </tbody>
                                                 </table>
                                             </div>

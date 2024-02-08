@@ -14,14 +14,12 @@
         img:hover {
             opacity: 0.3;
         }
-
-
     </style>
 
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow">Home</a>
+                <a href="/" rel="nofollow">Home</a>
                 <span></span> My Account
             </div>
         </div>
@@ -51,7 +49,7 @@
                                                                        @if($user->profile->image)
                                                                            <img src="{{asset('frontend/assets/images/profile')}}/{{$user->profile->image}}" alt="">
                                                                        @else
-                                                                           <img src="{{asset('frontend/assets/images/profile/profile.jpg')}}" alt="">
+                                                                           <img src="{{asset('frontend/assets/images/profile/user/images3.png')}}" alt="">
                                                                        @endif
                                                                      <div class="topleft">
                                                                          <a href="#" class="file-upload" data-bs-toggle="modal" data-bs-target="#editPicture" wire:click.prevent="editPicture()"><i class="fi-rs-pencil"></i></a>

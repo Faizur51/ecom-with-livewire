@@ -2,7 +2,7 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow">Home</a>
+                <a href="/" rel="nofollow">Home</a>
                 <span></span> My Account
             </div>
         </div>
@@ -47,7 +47,8 @@
                                                         </div>
                                                     </div>
                                                     <div class="sort-by-cover">
-                                                        <a class="text-white btn btn-sm btn-primary" href="#" ><i class="fi-rs-label mr-5"></i>Excel</a>
+                                                        <a class="text-white btn btn-sm btn-primary" wire:click.prevent="excelDownload" href="#" ><i class="fi-rs-label mr-5"></i>Excel</a>
+                                                        <a class="text-white btn btn-sm btn-primary" href="{{route('admin.orderpdf')}}"><i class="fi-rs-label mr-5"></i>PDF</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -59,13 +60,16 @@
                                                     <tr>
                                                         <th>OrderID</th>
                                                         <th>Sub Total</th>
+                                                        <th>Ship Charge</th>
                                                         <th>Total</th>
                                                         <th>Name</th>
                                                         <th>Phone</th>
                                                         <th>City</th>
                                                         <th>Address</th>
                                                         <th>Status</th>
-                                                        <th class="text-center" colspan="2" style="width: 50px">Action</th>
+                                                        <th>Barcode</th>
+                                                        <th>Created At</th>
+                                                        <th class="text-center" colspan="4" style="width: 50px">Action</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -73,27 +77,36 @@
                                                         <tr>
                                                             <td>{{$order->id}}</td>
                                                             <td>&#2547; {{$order->subtotal}}</td>
-                                                            <td>&#2547; {{$order->total}}</td>
-                                                            <td>{{$order->name}}</td>
+                                                            <td>&#2547; {{number_format($order->shipping_charge,2)}}</td>
+                                                            <td>&#2547; {{number_format($order->total,2)}}</td>
+                                                            <td>{{ucwords($order->name)}}</td>
                                                             <td>{{$order->phone}}</td>
-                                                            <td>{{$order->city}}</td>
-                                                            <td>{{$order->address}}</td>
-                                                            <td>{{ucwords($order->status)}}</td>
+                                                            <td>{{ucwords($order->city)}}</td>
+                                                            <td>{{ucwords($order->address)}}</td>
+                                                            <td class="{{$order->status=='delivery'?'text-success':'text-danger'}}" style="font-size: 17px">{{ucwords($order->status)}}</td>
                                                             <td>
-                                                                <div class="dropdown dropend"  style="width: 40px">
-                                                                    <a class="dropdown-toggle btn-sm {{$order->status=='delivery'?'disabled':''}}"  type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                @php
+                                                                        $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
+                                                                @endphp
+                                                                {!! $generator->getBarcode($order->phone,$generator::TYPE_CODE_128,1,20) !!}
+                                                            </td>
+                                                            <td>{{Carbon\Carbon::parse($order->created_at)->format('M d,y')}}</td>
+                                                            <td>
+                                                                <div class="dropdown" style="width: 50px">
+                                                                    <a class="dropdown-toggle btn-sm {{$order->status=='delivery' || $order->status=='canceled'?'disabled':''}}"  type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                                                         <i class="fi-rs-edit-alt" style="font-size:18px"></i>
                                                                     </a>
                                                                     <ul class="dropdown-menu shadow-lg dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
-                                                                        <li><a class="dropdown-item" href="#" wire:click.prevent="updateOrderStatus({{$order->id}},'processed')">Processed</a></li>
-                                                                        <li><a class="dropdown-item" href="#" wire:click.prevent="updateOrderStatus({{$order->id}},'shipping')">Shipping</a></li>
-                                                                        <li><a class="dropdown-item" href="#" wire:click.prevent="updateOrderStatus({{$order->id}},'delivery')">Delivery</a></li>
-                                                                        <li><a class="dropdown-item disabled" href="#" wire:click.prevent="updateOrderStatus({{$order->id}},'cancel')">Cancel</a></li>
+                                                                        <li><a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#exampleOrderModal" href="#" wire:click.prevent="updateOrderIdStatus({{$order->id}},'processed')">Processed</a></li>
+                                                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleOrderModal" href="#" wire:click.prevent="updateOrderIdStatus({{$order->id}},'shipping')">Shipping</a></li>
+                                                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleOrderModal" href="#" wire:click.prevent="updateOrderIdStatus({{$order->id}},'delivery')">Delivery</a></li>
+                                                                        <li><a class="dropdown-item disabled" data-bs-toggle="modal" data-bs-target="#exampleOrderModal" href="#" wire:click.prevent="updateOrderIdStatus({{$order->id}},'cancel')">Cancel</a></li>
                                                                     </ul>
                                                                 </div>
-
                                                             </td>
                                                             <td><a href="{{route('admin.orderdetails',['order_id'=>$order->id])}}" class="btn-small"> <i class="fi-rs-eye" style="font-size:18px"></i></a></td>
+
+                                                            <td><a href="{{route('admin.orderinvoice',['order_id'=>$order->id])}}" class="btn-small"> <i class="fi-rs-notebook mr-10" style="font-size:18px"></i></a></td>
                                                         </tr>
                                                     @endforeach
                                                     </tbody>
@@ -111,24 +124,23 @@
         </div>
     </section>
 
-    <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="exampleOrderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Change Order Status</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h4>Are you sure want to delete?</h4>
+                    <h4>Are you sure want to update status?</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" wire:click.prevent="delete()" >Yes,Delete</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" wire:click.prevent="updateOrderStatus()" >Yes,Update</button>
                 </div>
             </div>
         </div>
     </div>
-
 </main>
 
 

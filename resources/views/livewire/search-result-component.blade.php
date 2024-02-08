@@ -66,14 +66,12 @@
                                                     <img class="default-img" src="{{$product->image}}" alt="">
                                                 </a>
                                             </div>
-                                            <div class="product-action-1">
-                                                <a aria-label="Quick view" class="action-btn hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal">
-                                                    <i class="fi-rs-search"></i></a>
-                                                <a aria-label="Add To Wishlist" class="action-btn hover-up" href="wishlist.php"><i class="fi-rs-heart"></i></a>
-                                                <a aria-label="Compare" class="action-btn hover-up" href="compare.php"><i class="fi-rs-shuffle"></i></a>
-                                            </div>
                                             <div class="product-badges product-badges-position product-badges-mrg">
-                                                <span class="hot">Hot</span>
+                                                @php
+                                                    $loss=$product->regular_price-$product->sale_price;
+                                                    $percent=($loss/$product->regular_price)*100;
+                                                @endphp
+                                                <span class="hot">{{round($percent)}}%</span>
                                             </div>
                                         </div>
                                         <div class="product-content-wrap">
@@ -81,11 +79,28 @@
                                                 <a href="shop.html">{{$product->category->name}}</a>
                                             </div>
                                             <h2><a href="{{route('product.details',['slug'=>$product->slug])}}">{{ucwords($product->name)}}</a></h2>
-                                            <div class="rating-result" title="90%">
-                                            <span>
-                                                <span>90%</span>
-                                            </span>
+
+                                            @php
+                                                $avgrating = 0;
+                                            @endphp
+
+                                            @foreach($product->orderItems->where('rstatus',1) as $orderItem)
+                                                @php
+                                                    $avgrating=$avgrating+$orderItem->review->rating;
+                                                @endphp
+                                            @endforeach
+                                            <div class="product-rate-cover">
+                                                <div class="product-rate d-inline-block">
+                                                    @if($avgrating)
+                                                        <div class="product-rating" style="width:{{$avgrating/$product->orderItems->where('rstatus',1)->count()*20}}%"></div>
+                                                    @else
+                                                        <div class="product-rating" style="width:0%"></div>
+                                                    @endif
+                                                </div>
+                                                <span class="font-small ml-5 text-muted"> ({{$product->orderItems->where('rstatus',1)->count()}} reviews)</span>
                                             </div>
+
+
                                             <div class="product-price">
                                                 <span>&#2547; {{$product->sale_price}}</span>
                                                 <span class="old-price">&#2547; {{$product->regular_price}}</span>
@@ -180,8 +195,25 @@
                                     <div class="content pt-10">
                                         <h5><a href="{{route('product.details',['slug'=>$nproduct->slug])}}">{{ucwords($nproduct->name)}}</a></h5>
                                         <p class="price mb-0 mt-5">&#2547; {{$nproduct->sale_price}}</p>
-                                        <div class="product-rate">
-                                            <div class="product-rating" style="width:90%"></div>
+
+                                        @php
+                                            $avgrating = 0;
+                                        @endphp
+
+                                        @foreach($nproduct->orderItems->where('rstatus',1) as $orderItem)
+                                            @php
+                                                $avgrating=$avgrating+$orderItem->review->rating;
+                                            @endphp
+                                        @endforeach
+                                        <div class="product-rate-cover">
+                                            <div class="product-rate d-inline-block">
+                                                @if($avgrating)
+                                                    <div class="product-rating" style="width:{{$avgrating/$nproduct->orderItems->where('rstatus',1)->count()*20}}%"></div>
+                                                @else
+                                                    <div class="product-rating" style="width:0%"></div>
+                                                @endif
+                                            </div>
+                                            <span class="font-small ml-5 text-muted"> ({{$nproduct->orderItems->where('rstatus',1)->count()}} reviews)</span>
                                         </div>
                                     </div>
                                 </div>

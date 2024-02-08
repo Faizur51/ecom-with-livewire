@@ -6,7 +6,7 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow">Home</a>
+                <a href="/" rel="nofollow">Home</a>
                 <span></span> My Account
             </div>
         </div>
@@ -41,7 +41,7 @@
                                                         </div>
                                                         <div class="sort-by-dropdown">
                                                             <ul>
-                                                                <li><a class="{{$pageSize==12?'active':''}}" href="#" wire:click.prevent="changePageSize(12)">12</a></li>
+                                                                <li><a class="{{$pageSize==10?'active':''}}" href="#" wire:click.prevent="changePageSize(12)">10</a></li>
                                                                 <li><a class="{{$pageSize==15?'active':''}}" href="#" wire:click.prevent="changePageSize(15)">15</a></li>
                                                                 <li><a class="{{$pageSize==20?'active':''}}" href="#" wire:click.prevent="changePageSize(20)">20</a></li>
                                                                 <li><a class="{{$pageSize==24?'active':''}}" href="#" wire:click.prevent="changePageSize(24)">24</a></li>
@@ -51,7 +51,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="sort-by-cover">
-                                                        <button class="btn bg-dark text-white btn-sm" type="submit" data-bs-toggle="modal" data-bs-target="#addSliderModal"><i class="fi-rs-label mr-5"></i>Add Slider</button>
+                                                        <button class="btn text-white btn-sm" type="submit" data-bs-toggle="modal" data-bs-target="#addSliderModal"><i class="fi-rs-label mr-5"></i>Add Slider</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -63,7 +63,6 @@
                                                     <tr>
                                                         <th>S/L</th>
                                                         <th>Top Title</th>
-                                                        <th>Slug</th>
                                                         <th>Title</th>
                                                         <th>Sub Title</th>
                                                         <th>Offer</th>
@@ -74,24 +73,43 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($sliders as $slider)
+                                                    @forelse($sliders as $slider)
                                                     <tr>
                                                         <td>{{$slider->id}}</td>
                                                         <td>{{ucwords($slider->top_title)}}</td>
-                                                        <td>{{$slider->slug}}</td>
                                                         <td>{{ucwords($slider->title)}}</td>
                                                         <td>{{ucwords($slider->sub_title)}}</td>
                                                         <td>{{$slider->offer}}</td>
                                                         <td>{{$slider->link}}</td>
                                                         <td><img src="{{asset('frontend/assets/images/slider')}}/{{$slider->image}}" alt="" style="width: 100px;height: 50px"></td>
-                                                        <td>{{$slider->status==1?'Active':'Inactive'}}</td>
-                                                        <td><a  class="btn-small" data-bs-toggle="modal" data-bs-target="#editSliderModal" wire:click.prevent="edit({{$slider->id}})"><img src="{{asset('frontend/assets/images/slider')}}/pencil.gif" style="width: 25px;height: 25px" alt=""></a></td>
-                                                        <td><a  class="btn-small" data-bs-toggle="modal" data-bs-target="#exampleModal" wire:click.prevent="deleteId({{$slider->id}})"><i class="fi-rs-trash"></i></a></td>
+                                                        <td wire:ignore>
+                                                            @livewire('admin.toggle-switch', [
+                                                            'model' => $slider,
+                                                            'field' => 'status'
+                                                            ])
+                                                        </td>
+                                                        <td><a  class="btn-small" data-bs-toggle="modal" data-bs-target="#editSliderModal" wire:click.prevent="edit({{$slider->id}})"><i class="fi-rs-pencil"></i></a></td>
+                                                        <td>
+                                                            @if(!$slider->trashed())
+                                                                <a  class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#deleteTem" wire:click.prevent="deleteId({{$slider->id}})">Delete</a>
+                                                            @endif
+                                                            @if($slider->trashed())
+                                                                <a  class='btn btn-danger btn-sm' href="#" data-bs-toggle="modal" data-bs-target="#deletePer" wire:click.prevent="deleteId({{$slider->id}})">Permanent Delete</a>
+                                                            @endif
+                                                                @if($slider->trashed())
+                                                                    <a  class='btn btn-success btn-sm' href="#" data-bs-toggle="modal" data-bs-target="#restore" wire:click.prevent="deleteId({{$slider->id}})">Restore</a>
+                                                                @endif
+                                                        </td>
                                                     </tr>
-                                                    @endforeach
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="10"><h5 class="text-center text-muted">No Found Slider</h5></td>
+                                                        </tr>
+                                                    @endforelse
                                                     </tbody>
                                                 </table>
-                                                {{ $sliders->links() }}
+                                                        {!! $sliders->links() !!}
+
                                             </div>
                                         </div>
                                     </div>
@@ -103,7 +121,7 @@
             </div>
         </div>
     </section>
-    <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   {{-- <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -119,6 +137,67 @@
                 </div>
             </div>
         </div>
+    </div>--}}
+
+    <div wire:ignore.self class="modal fade" id="deleteTem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>Are you sure want to delete?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" wire:click.prevent="deleteTemporary()" >Yes,Delete</button>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+    <div wire:ignore.self class="modal fade" id="deletePer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>Are you sure want to permanent delete?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" wire:click.prevent="deletePermanent()" >Yes,Permanent Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div wire:ignore.self class="modal fade" id="restore" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>Are you sure want to restore?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" wire:click.prevent="restore()" >Yes,Restore</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
 
 </main>

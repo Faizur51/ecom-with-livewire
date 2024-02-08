@@ -3,15 +3,15 @@
         @include('livewire.add-shipping-addressmodal')
         @include('livewire.edit-shipping-addressmdal')
 
-        <style>
-            .faizbtn {
-                width: 500px;
-            }
-        </style>
+        @if($paymentmode=='card')
+            @include('livewire.modal-checkout-component')
+        @endif
+
+
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
-                    <a href="index.html" rel="nofollow">Home</a>
+                    <a href="/" rel="nofollow">Home</a>
                     <span></span> Shop
                     <span></span> Checkout
                 </div>
@@ -37,10 +37,11 @@
                                 </div>
                                 <div>
                                    <p>Address Type: {{ucwords($shipping->address_type)}}</p>
+                                    <p>Name: {{ucwords($shipping->name)}}</p>
+                                    <p>Phone No: {{$shipping->phone}}</p>
+                                    <p>Email:{{$shipping->email}}</p>
                                     <p>City: {{ucwords($shipping->city)}}</p>
                                     <p>Post Code: {{$shipping->post_code}}</p>
-                                    <p>Primary Phone No: {{$shipping->phone}}</p>
-                                    <p>Secondary Phone No:N/A</p>
                                     <p>Shipping Address:{{ucwords($shipping->address)}}</p>
                                 </div>
                                 <div>
@@ -86,7 +87,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <h5><a href="product-details.html">{{ucwords($item->model->name)}}</a> <span class="product-qty">x {{$item->qty}}</span></h5>
+                                            <h5><a href="{{route('product.details',['slug'=>$item->model->slug])}}">{{ucwords($item->model->name)}}</a> <span class="product-qty">x {{$item->qty}}</span></h5>
                                         </td>
                                         <td>&#2547; {{$item->subtotal()}}</td>
                                     </tr>
@@ -97,11 +98,22 @@
                                     </tr>
                                     <tr>
                                         <th>Shipping Charge</th>
-                                        <td colspan="2" class="text-end"><em>Free Shipping</em></td>
+                                       {{-- @php
+                                        $shippings=\App\Models\Shipping::where('user_id',auth()->user()->id)->first();
+                                          if($shippings->city=='Dhaka'){
+                                              $shipCost=70.00;
+                                          }else{
+                                              $shipCost=120.00;
+                                          }
+                                        @endphp--}}
+
+                                        <td colspan="2" class="text-end">
+                                              <em>&#2547; {{number_format(shippingCharge(),2)}}</em>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>Order Total</th>
-                                        <td colspan="2" class="product-subtotal text-end"><span class="font-xl text-brand fw-900">&#2547; {{Cart::total()}}</span></td>
+                                            <td colspan="2" class="product-subtotal text-end"><span class="font-xl text-brand fw-900">&#2547; {{number_format(str_replace(',','',Cart::subtotal())+shippingCharge(),2)}}</span></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -126,10 +138,55 @@
                                     </div>
                                     @error('paymentmode') <p class="text-danger">{{$message}}</p> @enderror
                                 </div>
+
                             </div>
 
-                            <button class="btn btn-fill-out btn-block mt-5 btn-sm" type="submit">Place Order</button>
+                                 @if($paymentmode == 'bkash')
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <img src="{{asset('frontend/assets/images/payment/bkash.png')}}" alt="..." style="width:100px;height: 80px">
+                                    </div>
+                                    <div class="flex-grow-1 ms-1">
+                                        <strong class="text-danger">Bkash</strong>
+                                        <p>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.</p>
+                                    </div>
+                                </div>
+                                 @elseif($paymentmode == 'card')
 
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <img src="{{asset('frontend/assets/images/payment/images.png')}}" alt="..." style="width:100px;height: 80px">
+                                    </div>
+                                    <div class="flex-grow-1 ms-1">
+                                        <strong class="text-danger">Card</strong>
+                                        <p>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.</p>
+                                    </div>
+                                </div>
+                                @else
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <img src="{{asset('frontend/assets/images/payment/cod4.png')}}" alt="..." style="width:100px;height: 100px">
+                                    </div>
+                                    <div class="flex-grow-1 ms-1">
+                                        <strong class="text-danger">Cash on delivery</strong>
+                                        <p>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.</p>
+                                    </div>
+                                </div>
+                                 @endif
+
+                            <div class="icheck-material-red icheck-inline">
+                                <input type="checkbox" id="someRadioId38" name="someGroupName" value="1" wire:model="disabled" />
+                                <label for="someRadioId38">I have read and agree to the website terms and conditions,Return & Refund Policy</label>
+                            </div>
+                            <br>
+                          {{--  <button class="btn btn-block mt-5 btn-sm" wire:click="checkoutModal" type="submit" {{ $disabled == 0 ?'disabled':'' }} style="width: 100%">Place Order card</button>--}}
+                            @if($paymentmode=='card')
+                            <button class="btn btn-block mt-5 btn-md" wire:click="checkoutModal" type="submit" {{ $disabled == 0 ?'disabled':'' }} style="width: 100%">PLACE ORDER</button>
+                            @elseif($paymentmode=='bkash')
+                                <button class="btn btn-block mt-5 btn-md" wire:click="checkoutModal" type="submit" {{ $disabled == 0 ?'disabled':'' }} style="width: 100%">PLACE ORDER</button>
+                            @else
+                                <button class="btn btn-block mt-5 btn-md" wire:click="checkoutModal" type="submit" {{ $disabled == 0 ?'disabled':'' }} style="width: 100%">PLACE ORDER</button>
+                            @endif
                         </div>
                     </div>
                 </div>

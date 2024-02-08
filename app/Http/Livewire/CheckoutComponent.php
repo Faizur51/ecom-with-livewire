@@ -2,11 +2,12 @@
 
 namespace App\Http\Livewire;
 
-use App\Library\SslCommerz\SslCommerzNotification;
+
 use App\Mail\OrderMail;
 use App\Models\District;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
 use App\Models\Shipping;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -36,6 +37,11 @@ class CheckoutComponent extends Component
     public $additional_info;
 
     public $thankyou;
+
+
+    public $disabled=false;
+
+
 
     public function deleteId($id){
         $this->deleteId=$id;
@@ -129,20 +135,33 @@ class CheckoutComponent extends Component
    }
 
 
+
+    public function checkoutModal(){
+        $this->dispatchBrowserEvent('show-modal');
+    }
+
+
+
+
     public function placeOrder()
     {
+
+        DB::transaction(function (){
+
         $shippings=Shipping::where('user_id',Auth::user()->id)->first();
 
        if($shippings){
+
            $this->validate([
-               'paymentmode' => 'required',
+               'paymentmode'=>'required',
            ]);
 
            if($this->paymentmode=="cod"){
            $order=new Order();
            $order->user_id=Auth::user()->id;
            $order->subtotal=Cart::instance('cart')->subtotal();
-           $order->total=Cart::instance('cart')->total();
+           $order->shipping_charge=shippingCharge();
+           $order->total=str_replace(',', '',Cart::instance('cart')->total())+shippingCharge();
            $order->name=$shippings->name;
            $order->email=$shippings->email;
            $order->phone=$shippings->phone;
@@ -164,6 +183,10 @@ class CheckoutComponent extends Component
                }
                $orderitem->save();
 
+
+               Product::where('id',$item->id)->update(['quantity'=>DB::raw('quantity -' .$item->qty)]);
+
+
            }
 
                /*$transaction=new Transaction();
@@ -184,6 +207,8 @@ class CheckoutComponent extends Component
        }else{
            noty()->closeWith(['click', 'button'])->addInfo('Shipping Address not found');
        }
+
+      });
 
     }
 

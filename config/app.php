@@ -69,7 +69,10 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    //'timezone' => 'UTC',
+
+    'timezone' => 'Asia/Dhaka',
+
 
     /*
     |--------------------------------------------------------------------------
@@ -195,7 +198,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        Unicodeveloper\DumbPassword\DumbPasswordServiceProvider::class
     ],
 
     /*
@@ -212,7 +217,15 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ])->toArray(),
+
+
+   /* 'debug_blacklist' => [
+        '_SERVER' => array_keys($_SERVER),
+        '_ENV' => array_keys($_ENV),
+        '_COOKIE'=>array_keys($_COOKIE)
+        ],*/
 
 ];

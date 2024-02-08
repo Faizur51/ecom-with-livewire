@@ -4,10 +4,13 @@ namespace App\Http\Livewire;
 
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Cart;
 class ProductDetailsComponent extends Component
 {
+
+
 
     public $slug;
 
@@ -17,7 +20,6 @@ class ProductDetailsComponent extends Component
     public function mount($slug){
         $this->slug=$slug;
         $this->qty=1;
-
     }
 
     public function store($product_id,$product_name,$product_price){
@@ -25,6 +27,8 @@ class ProductDetailsComponent extends Component
         $this->emitTo('cart-icon-component','refreshComponent');
         noty()->closeWith(['click', 'button'])->addInfo('Item added into the cart.');
     }
+
+
 
     public function increaseQuantity(){
         $this->qty++;
@@ -35,6 +39,15 @@ class ProductDetailsComponent extends Component
            $this->qty--;
        }
     }
+
+
+
+    public function quicView($id){
+        dd($id);
+
+    }
+
+
 
 
     public function render()

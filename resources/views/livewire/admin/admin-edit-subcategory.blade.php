@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit SubCategory</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Status</label>
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
                         <div class="input-style mb-20 col-sm-10">
                             <select name="" id="" class="form-control" wire:model="category_id">
                                 @foreach($category as $row)

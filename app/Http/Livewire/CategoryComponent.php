@@ -9,7 +9,7 @@ class CategoryComponent extends Component
 {
     public function render()
     {
-        $categories=Category::orderBy('id','desc')->get();
+        $categories=Category::orderBy('name','asc')->get();
         return view('livewire.category-component',['categories'=>$categories]);
     }
 }

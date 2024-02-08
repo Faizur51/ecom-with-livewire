@@ -21,7 +21,7 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow">Home</a>
+                <a href="/" rel="nofollow">Home</a>
                 <span></span> My Account
             </div>
         </div>
@@ -129,7 +129,6 @@
                 </div>
 
                 <div class="col-md-5">
-
                     <div class="card">
                         <div class="card-header">
                             <a class="mb-0 btn btn-primary btn-sm" href="{{route('admin.manage.product')}}">Manage Product</a>
@@ -200,7 +199,12 @@
 
 
                                         <div class="row">
-                                            <label for="inputPassword" class="col-sm-3 col-form-label">Category</label>
+                                                  <div class="d-flex justify-content-between">
+                                                      <label for="inputPassword" class="col-sm-3 col-form-label">Category</label>
+                                                      <p class="text-end" style="color: #7367f0">Add new category</p>
+                                                  </div>
+
+
                                             <div class="input-style mb-2">
                                                 <select name="" id="" class="form-control" wire:model="category_id">
                                                     <option value="">Select Category</option>

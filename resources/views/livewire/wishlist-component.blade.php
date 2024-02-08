@@ -33,31 +33,42 @@
                                                         <img class="default-img" src="{{$item->model->image}}" alt="">
                                                     </a>
                                                 </div>
-                                                <div class="product-action-1">
-                                                    <a aria-label="Quick view" class="action-btn hover-up"
-                                                       data-bs-toggle="modal" data-bs-target="#quickViewModal">
-                                                        <i class="fi-rs-search"></i></a>
-                                                    <a aria-label="Add To Wishlist" class="action-btn hover-up"
-                                                       href="wishlist.php"><i class="fi-rs-heart"></i></a>
-                                                    <a aria-label="Compare" class="action-btn hover-up"
-                                                       href="compare.php"><i class="fi-rs-shuffle"></i></a>
-                                                </div>
                                                 <div class="product-badges product-badges-position product-badges-mrg">
-                                                    <span class="hot">Hot</span>
+                                                    @php
+                                                        $loss=$item->model->regular_price-$item->model->sale_price;
+                                                        $percent=($loss/$item->model->regular_price)*100;
+                                                    @endphp
+                                                    <span class="hot">{{round($percent)}}%</span>
                                                 </div>
                                             </div>
                                             <div class="product-content-wrap">
                                                 <div class="product-category">
-                                                    <a href="shop.html">{{$item->model->category->name}}</a>
+                                                    <a href="javascript:void(0)">{{$item->model->category->name}}</a>
                                                 </div>
                                                 <h2>
                                                     <a href="{{route('product.details',['slug'=>$item->model->slug])}}">{{ucwords($item->model->name)}}</a>
                                                 </h2>
-                                                <div class="rating-result" title="90%">
-                                            <span>
-                                                <span>90% </span>
-                                            </span>
+
+                                                <div class="product-rate-cover">
+                                                    @php
+                                                        $avgrating = 0;
+                                                    @endphp
+
+                                                    @foreach($item->model->orderItems->where('rstatus',1) as $orderItem)
+                                                        @php
+                                                            $avgrating=$avgrating+$orderItem->review->rating;
+                                                        @endphp
+                                                    @endforeach
+                                                    <div class="product-rate d-inline-block">
+                                                        @if($avgrating)
+                                                            <div class="product-rating" style="width:{{$avgrating/$item->model->orderItems->where('rstatus',1)->count()*20}}%"></div>
+                                                        @else
+                                                            <div class="product-rating" style="width:0%"></div>
+                                                        @endif
+                                                    </div>
+                                                    <span class="font-small ml-5 text-muted"> ({{$item->model->orderItems->where('rstatus',1)->count()}} reviews)</span>
                                                 </div>
+
                                                 <div class="product-price">
                                                     <span>&#2547; {{$item->model->sale_price}}</span>
                                                     <span
@@ -72,7 +83,11 @@
                                     </div>
                                 @endforeach
                             @else
-                                <h1>Wishlist Item not Found</h1>
+                                <div class="text-center">
+                                    <img src="{{asset('frontend/assets/images/wishlist/wishlist4.jpg')}}" alt="" style="width: 80px">
+                                    <p>There are no favorites yet</p>
+                                    <p>Add your favorites to wishlist and they will show here</p>
+                                </div>
                             @endif
                         </div>
                     </div>

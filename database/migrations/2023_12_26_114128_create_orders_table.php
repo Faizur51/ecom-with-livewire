@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->string('subtotal')->nullable();
+            $table->string('shipping_charge')->nullable();
             $table->string('total')->nullable();
             $table->string('status');
             $table->text('additional_info')->nullable();
@@ -32,7 +33,7 @@ return new class extends Migration
             $table->date('processed_date')->nullable();
             $table->date('shipping_date')->nullable();
             $table->date('delivery_date')->nullable();
-
+            $table->string('cancel_reason')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
         });

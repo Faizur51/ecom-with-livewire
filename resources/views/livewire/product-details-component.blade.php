@@ -44,7 +44,7 @@
                 <div class="breadcrumb">
                     <a href="/" rel="nofollow">Home</a>
                     <span></span> Fashion
-                    <span></span> Abstract Print Patchwork Dress
+                    <span></span> {{ucwords($product->name)}}
                 </div>
             </div>
         </div>
@@ -62,7 +62,6 @@
                                             <figure class="border-radius-10">
                                                 <img src="{{$product->image}}" alt="product image">
                                             </figure>
-
                                         </div>
                                         <!-- THUMBNAILS -->
                                         <div class="slider-nav-thumbnails pl-15 pr-15">
@@ -79,7 +78,12 @@
                                     <div class="social-icons single-share">
                                         <ul class="text-grey-5 d-inline-block">
                                             <li><strong class="mr-10">Share this:</strong></li>
-                                            <li class="social-facebook"><a href="#"><img src="{{asset('frontend')}}/assets/imgs/theme/icons/icon-facebook.svg" alt=""></a></li>
+
+                                            <?php
+                                            $url = "http://127.0.0.1:8000/";
+                                            ?>
+
+                                            <li class="social-facebook"><a href="javascript:window.open('https://www.facebook.com/sharer/sharer.php?u=<?php echo $url ?>', '_blank', 'width=400,height=500');void(0);"><img src="{{asset('frontend')}}/assets/imgs/theme/icons/icon-facebook.svg" alt=""></a></li>
                                             <li class="social-twitter"> <a href="#"><img src="{{asset('frontend')}}/assets/imgs/theme/icons/icon-twitter.svg" alt=""></a></li>
                                             <li class="social-instagram"><a href="#"><img src="{{asset('frontend')}}/assets/imgs/theme/icons/icon-instagram.svg" alt=""></a></li>
                                             <li class="social-linkedin"><a href="#"><img src="{{asset('frontend')}}/assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a></li>
@@ -91,9 +95,8 @@
                                         <h2 class="title-detail">{{ucwords($product->name)}}</h2>
                                         <div class="product-detail-rating">
                                             <div class="pro-details-brand">
-                                                <span> Brands: <a href="shop.html">{{$product->brand->name}}</a></span>
+                                                <span> Brands: <a href="javascript:void(0)">{{$product->brand->name}}</a></span>
                                             </div>
-
                                             @php
                                                 $avgrating = 0;
                                             @endphp
@@ -103,8 +106,7 @@
                                                     $avgrating=$avgrating+$orderItem->review->rating;
                                                 @endphp
                                             @endforeach
-
-                                        <div class="product-rate-cover text-end">
+                                                <div class="product-rate-cover text-end">
                                                 <div class="product-rate d-inline-block">
                                                     @if($avgrating)
                                                       <div class="product-rating" style="width:{{$avgrating/$product->orderItems->where('rstatus',1)->count()*20}}%"></div>
@@ -114,13 +116,17 @@
                                                 </div>
 
                                                 <span class="font-small ml-5 text-muted"> ({{$product->orderItems->where('rstatus',1)->count()}} reviews)</span>
-                                            </div>
+                                               </div>
                                          </div>
                                         <div class="clearfix product-price-cover">
+                                            @php
+                                                $loss=$product->regular_price-$product->sale_price;
+                                                $percent=($loss/$product->regular_price)*100;
+                                            @endphp
                                             <div class="product-price primary-color float-left">
                                                 <ins><span class="text-brand">&#2547; {{$product->sale_price}}</span></ins>
                                                 <ins><span class="old-price font-md ml-15">&#2547; {{$product->regular_price}}</span></ins>
-                                                <span class="save-price  font-md color3 ml-15">25% Off</span>
+                                                <span class="save-price  font-md color3 ml-15">{{round($percent)}}% Off</span>
                                             </div>
                                         </div>
                                         <div class="bt-1 border-color-1 mt-15 mb-15"></div>
@@ -129,8 +135,9 @@
                                         </div>
                                         <div class="product_sort_info font-xs mb-30">
                                             <ul>
-                                                <li class="mb-10"><i class="fi-rs-crown mr-5"></i> 1 Year AL Jazeera Brand Warranty</li>
-                                                <li class="mb-10"><i class="fi-rs-refresh mr-5"></i> 30 Day Return Policy</li>
+                                                <li class="mb-10"><i class="fi-rs-crown mr-5"></i> Warranty not available</li>
+                                                <li class="mb-10"><i class="fi-rs-crown mr-5"></i> 100% Authentic from Trusted Brand</li>
+                                                <li class="mb-10"><i class="fi-rs-refresh mr-5"></i> 15 Day Easy Return Policy</li>
                                                 <li><i class="fi-rs-credit-card mr-5"></i> Cash on Delivery available</li>
                                             </ul>
                                         </div>
@@ -163,16 +170,17 @@
                                                 <span class="qty-val" wire:model="qty">{{$qty}}</span>
                                                 <a href="#" class="qty-up" wire:click.prevent="increaseQuantity"><i class="fi-rs-angle-small-up"></i></a>
                                             </div>
+
+
                                             <div class="product-extra-link2">
                                                 <button type="submit" class="button button-add-to-cart" wire:click.prevent="store({{$product->id}},'{{$product->name}}',{{$product->sale_price}})">Add to cart</button>
-                                                <a aria-label="Add To Wishlist" class="action-btn hover-up" href="wishlist.php"><i class="fi-rs-heart"></i></a>
-                                                <a aria-label="Compare" class="action-btn hover-up" href="compare.php"><i class="fi-rs-shuffle"></i></a>
+                                                <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#"><i class="fi-rs-heart"></i></a>
                                             </div>
                                         </div>
                                         <ul class="product-meta font-xs color-grey mt-50">
                                             <li class="mb-5">SKU: <a href="#">{{$product->sku_code}}</a></li>
                                             <li class="mb-5">Category: <a href="{{route('category.product',['slug'=>$product->category->slug])}}" rel="tag">{{$product->category->name}}</a></li>
-                                            <li>Availability:<span class="in-stock text-success ml-5">8 Items In Stock</span></li>
+                                            <li>Availability:<span class="in-stock text-success ml-5">{{$product->quantity}} Items In Stock</span></li>
                                         </ul>
                                     </div>
                                     <!-- Detail Info -->
@@ -290,71 +298,65 @@
                                         <!--Comments-->
                                         <div class="comments-area">
                                             <div class="row">
-                                                <div class="col-lg-8">
+                                                <div class="col-lg-9">
                                                     <h4 class="mb-30">Customer questions & answers</h4>
                                                     <div class="comment-list">
                                                         @foreach($product->orderItems->where('rstatus',1) as $orderItem)
+                                                            @if($orderItem->review->status==1)
                                                         <div class="single-comment justify-content-between d-flex">
                                                             <div class="user justify-content-between d-flex">
-                                                                <div class="thumb text-center">
-                                                                    <img src="{{asset('frontend/assets/images/profile')}}/{{$orderItem->order->user->profile->image}}" alt="">
-                                                                    <h6><a href="#">{{$orderItem->order->user->name}}</a></h6>
-                                                                    <p class="font-xxs">{{Carbon\Carbon::parse($orderItem->review->created_at)->format('d-m-Y')}}</p>
-                                                                </div>
                                                                 <div class="desc">
-                                                                    <div class="product-rate d-inline-block">
-                                                                        <div class="product-rating" style="width:{{$orderItem->review->rating*20}}%">
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="product-rate d-inline-block">
+                                                                            <div class="product-rating" style="width:{{$orderItem->review->rating*20}}%"></div>
                                                                         </div>
+                                                                        <span>{{$orderItem->order->user->name}}</span>
+                                                                        <p class="text-muted" style="padding-left: 500px">{{Carbon\Carbon::parse($orderItem->review->created_at)->diffForHumans()}}</p>
                                                                     </div>
                                                                     <p>{{ucwords($orderItem->review->comment)}}</p>
-                                                                    <div class="d-flex justify-content-between">
-                                                                        <div class="d-flex align-items-center">
-                                                                            <p class="font-xs mr-30">{{Carbon\Carbon::parse($orderItem->review->created_at)->format('d F Y g:i A')}} </p>
-                                                                            <a href="#" class="text-brand btn-reply">Reply <i class="fi-rs-arrow-right"></i> </a>
-                                                                        </div>
-                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                            @endif
                                                         @endforeach
                                                     </div>
+
                                                 </div>
-                                                <div class="col-lg-4">
+                                                <div class="col-lg-3">
                                                     <h4 class="mb-30">Customer reviews</h4>
                                                     <div class="d-flex mb-30">
                                                         <div class="product-rate d-inline-block mr-15">
-
                                                             @if($avgrating)
                                                                 <div class="product-rating" style="width:{{$avgrating/$product->orderItems->where('rstatus',1)->count()*20}}%"></div>
                                                             @else
                                                                 <div class="product-rating" style="width:0%"></div>
                                                             @endif
-
                                                         </div>
-
                                                         @if($avgrating)
                                                         <h6>{{$avgrating/$product->orderItems->where('rstatus',1)->count()}} out of 5</h6>
                                                         @endif
                                                     </div>
+
                                                     <div class="progress">
                                                         <span>5 star</span>
                                                         <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
                                                     </div>
+
                                                     <div class="progress">
                                                         <span>4 star</span>
-                                                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">40%</div>
                                                     </div>
                                                     <div class="progress">
                                                         <span>3 star</span>
-                                                        <div class="progress-bar" role="progressbar" style="width: 45%;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">45%</div>
+                                                        <div class="progress-bar" role="progressbar" style="width: 45%;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">30%</div>
                                                     </div>
                                                     <div class="progress">
                                                         <span>2 star</span>
-                                                        <div class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65%</div>
+                                                        <div class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">5%</div>
                                                     </div>
                                                     <div class="progress mb-30">
                                                         <span>1 star</span>
-                                                        <div class="progress-bar" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">85%</div>
+                                                        <div class="progress-bar" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">5%</div>
                                                     </div>
                                                     <a href="#" class="font-xs text-muted">How are ratings calculated?</a>
                                                 </div>
@@ -380,18 +382,41 @@
                                                         </a>
                                                     </div>
                                                     <div class="product-action-1">
-                                                        <a  aria-label="Quick view" class="action-btn small hover-up"  data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-search"></i></a>
+                                                        <a  aria-label="Quick view" class="action-btn small hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-search"></i></a>
                                                         <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="wishlist.php" tabindex="0"><i class="fi-rs-heart"></i></a>
                                                     </div>
+
+                                                    @php
+                                                        $loss=$rproduct->regular_price-$rproduct->sale_price;
+                                                        $percent=($loss/$rproduct->regular_price)*100;
+                                                    @endphp
+
                                                     <div class="product-badges product-badges-position product-badges-mrg">
-                                                        <span class="hot">Hot </span>
+                                                        <span class="hot">{{round($percent)}}% </span>
                                                     </div>
                                                 </div>
                                                 <div class="product-content-wrap">
-                                                    <h2><a href="product-details.html" tabindex="0">{{ucwords($rproduct->name)}}</a></h2>
-                                                    <div class="rating-result" title="90%">
-                                                        <span>
-                                                        </span>
+                                                    <h2><a href="{{route('product.details',['slug'=>$rproduct->slug])}}" tabindex="0">{{ucwords($rproduct->name)}}</a></h2>
+
+                                                    @php
+                                                        $avgrating = 0;
+                                                    @endphp
+
+                                                    @foreach($rproduct->orderItems->where('rstatus',1) as $orderItem)
+                                                        @php
+                                                            $avgrating=$avgrating+$orderItem->review->rating;
+                                                        @endphp
+                                                    @endforeach
+
+                                                    <div class="product-rate-cover">
+                                                        <div class="product-rate d-inline-block">
+                                                            @if($avgrating)
+                                                                <div class="product-rating" style="width:{{$avgrating/$rproduct->orderItems->where('rstatus',1)->count()*20}}%"></div>
+                                                            @else
+                                                                <div class="product-rating" style="width:0%"></div>
+                                                            @endif
+                                                        </div>
+                                                        <span class="font-small ml-5 text-muted"> ({{$rproduct->orderItems->where('rstatus',1)->count()}} reviews)</span>
                                                     </div>
                                                     <div class="product-price">
                                                         <span>&#2547;{{$rproduct->sale_price}} </span>
@@ -411,7 +436,7 @@
                             <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
                             <ul class="categories">
                                 @foreach($categories as $category)
-                                <li><a href="shop.html">{{$category->name}} ({{$category->product->count() }})</a></li>
+                                <li><a href="{{route('category.product',['slug'=>$category->slug])}}">{{$category->name}} ({{$category->product->count() }})</a></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -437,8 +462,26 @@
                                 <div class="content pt-10">
                                     <h5><a href="{{route('product.details',['slug'=>$nproduct->slug])}}">{{ucwords($nproduct->name)}}</a></h5>
                                     <p class="price mb-0 mt-5">&#2547; {{$nproduct->sale_price}}</p>
-                                    <div class="product-rate">
-                                        <div class="product-rating" style="width:90%"></div>
+
+                                    @php
+                                        $avgrating = 0;
+                                    @endphp
+
+                                    @foreach($nproduct->orderItems->where('rstatus',1) as $orderItem)
+                                        @php
+                                            $avgrating=$avgrating+$orderItem->review->rating;
+                                        @endphp
+                                    @endforeach
+
+                                    <div class="product-rate-cover">
+                                        <div class="product-rate d-inline-block">
+                                            @if($avgrating)
+                                                <div class="product-rating" style="width:{{$avgrating/$nproduct->orderItems->where('rstatus',1)->count()*20}}%"></div>
+                                            @else
+                                                <div class="product-rating" style="width:0%"></div>
+                                            @endif
+                                        </div>
+                                        <span class="font-small ml-5 text-muted"> ({{$nproduct->orderItems->where('rstatus',1)->count()}} reviews)</span>
                                     </div>
                                 </div>
                             </div>
@@ -450,6 +493,7 @@
         </section>
 
          <!-- Quick view -->
+
          <div wire:ignore.self class="modal fade custom-modal" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
              <div class="modal-dialog">
                  <div class="modal-content">
@@ -579,7 +623,7 @@
                  </div>
              </div>
          </div>
-    </main>
+     </main>
 
 
 

@@ -81,19 +81,21 @@
                                     <div class="heading_s1">
                                         <h3 class="mb-30">Create an Account</h3>
                                     </div>
+                                    <x-auth-validation-errors class="text-danger mb-4" :errors="$errors" />
+
                                     <form method="POST" action="{{ route('register') }}">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="text" required="" name="name" placeholder="Name" :value="old('name')">
+                                            <input type="text"  name="name" placeholder="Name" value="{{old('name')}}">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" required="" name="email" placeholder="Email" :value="old('email')">
+                                            <input type="text"  name="email" placeholder="Email" value="{{old('email')}}">
                                         </div>
                                         <div class="form-group">
-                                            <input required="" type="password" name="password" placeholder="Password">
+                                            <input  type="password" name="password" placeholder="Password">
                                         </div>
                                         <div class="form-group">
-                                            <input required="" type="password" name="password_confirmation" placeholder="Confirm password">
+                                            <input type="password" name="password_confirmation" placeholder="Confirm password">
                                         </div>
                                         <div class="login_footer form-group">
                                             <div class="chek-form">
@@ -108,7 +110,7 @@
                                             <button type="submit" class="btn btn-fill-out btn-block hover-up" name="login">Submit &amp; Register</button>
                                         </div>
                                     </form>
-                                    <div class="text-muted text-center">Already have an account? <a href="#">Sign in now</a></div>
+                                    <div class="text-muted text-center">Already have an account? <a href="{{route('login')}}">Log in now</a></div>
                                 </div>
                             </div>
                         </div>

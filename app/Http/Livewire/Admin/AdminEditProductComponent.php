@@ -33,7 +33,6 @@ class AdminEditProductComponent extends Component
     public $category_id;
     public $subcategory_id;
     public $brand_id;
-    public $status;
     public $product_id;
 
 
@@ -65,7 +64,6 @@ class AdminEditProductComponent extends Component
         $this->category_id=$product->category_id;
         $this->subcategory_id=$product->subcategory_id;
         $this->brand_id=$product->brand_id;
-        $this->status=$product->status;
         $this->product_id=$product->id;
     }
 
@@ -85,7 +83,6 @@ class AdminEditProductComponent extends Component
             'size' => 'required',
             'category_id' => 'required',
             'brand_id' => 'required',
-            'status' => 'required',
         ]);
 
 
@@ -110,7 +107,6 @@ class AdminEditProductComponent extends Component
         $product->category_id = $this->category_id;
         $product->subcategory_id = $this->subcategory_id;
         $product->brand_id = $this->brand_id;
-        $product->status = $this->status;
 //single image
         if($this->new_image){
             unlink('frontend/assets/images/product/'.$product->image);

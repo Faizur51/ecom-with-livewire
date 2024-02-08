@@ -11,7 +11,7 @@ class AdminManageProductComponent extends Component
 
     public $deleteId = '';
     public $search;
-    public $pageSize = 12;
+    public $pageSize = 8;
 
     public function deleteId($id)
     {
@@ -42,10 +42,24 @@ class AdminManageProductComponent extends Component
     public function render()
     {
         $search = '%' . $this->search . '%';
-        $products = Product::where('name', 'LIKE', $search)
+        /*$products = Product::where('name', 'LIKE', $search)
             ->orWhere('sku_code', 'LIKE', $search)
             ->orWhere('short_description', 'LIKE', $search)
-            ->orderBy('created_at', 'desc')->paginate($this->pageSize);
+            ->orderBy('created_at', 'desc')->paginate($this->pageSize);*/
+
+
+       $products=Product::where(function ($query) use ($search){
+         $query->where('name','LIKE',$search)
+         ->orWhere('sku_code', 'LIKE', $search)
+             ->orWhere('short_description', 'LIKE', $search);
+         })
+           ->orWhereHas('category',function ($query) use($search){
+               $query->where('name','LIKE',$search);
+           })
+          ->orWhereHas('brand',function ($query) use($search){
+              $query->where('name','LIKE',$search);
+          })
+           ->paginate($this->pageSize);
 
         return view('livewire.admin.admin-manage-product-component', ['products' => $products]);
     }

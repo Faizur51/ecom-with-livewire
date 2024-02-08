@@ -29,10 +29,12 @@ class AdminManageCategoryComponent extends Component
 
     public $search;
 
-    public $pageSize=12;
+    public $pageSize=8;
 
     public $category_id;
 
+
+    public $checked=[];
     public function deleteId($id){
         $this->deleteId=$id;
     }
@@ -44,6 +46,49 @@ class AdminManageCategoryComponent extends Component
         noty()->closeWith(['click', 'button'])->addInfo('Category has been deleted successfully');
 
     }
+
+    public function deleteRecords(){
+         $category=Category::whereKey($this->checked);
+         //unlink('frontend/assets/images/category/'.$category->image);
+         $category->delete();
+        noty()->closeWith(['click', 'button'])->addInfo('Category has been deleted successfully');
+    }
+
+
+  public function isChecked($categoryId){
+        return in_array($categoryId,$this->checked) ? 'bg-light':'';
+  }
+
+public function changeActiveStatus($id){
+
+    foreach ($this->checked as $item){
+        $category=Category::find($item);
+        $category->status=$id;
+        $category->save();
+        $this->checked=[];
+
+    }
+
+    noty()->closeWith(['click', 'button'])->addInfo('Category status has been updated');
+
+}
+
+
+    public function changeInActiveStatus($id){
+
+        foreach ($this->checked as $item){
+            $category=Category::find($item);
+            $category->status=$id;
+            $category->save();
+            $this->checked=[];
+
+        }
+
+        noty()->closeWith(['click', 'button'])->addInfo('Category status has been updated');
+
+    }
+
+
 
 
     public function deleteSubcatId($id){
@@ -117,7 +162,6 @@ class AdminManageCategoryComponent extends Component
         $this->name=$category->name;
         $this->slug=$category->slug;
         $this->old_image=$category->image;
-        $this->status=$category->status;
         $this->ids=$category->id;
     }
 
@@ -126,13 +170,11 @@ class AdminManageCategoryComponent extends Component
 
         $this->validate([
             'name'=>'required',
-            'status'=>'required',
         ]);
 
         $category=Category::find($this->ids);
         $category->name=$this->name;
         $category->slug=$this->slug;
-        $category->status=$this->status;
 
         if($this->new_image){
             if(!$category->image){
@@ -156,7 +198,6 @@ class AdminManageCategoryComponent extends Component
 
 
     }
-
 
     public function editSubcategory($id){
         $scategory=Subcategory::where('id',$id)->first();
@@ -211,8 +252,9 @@ class AdminManageCategoryComponent extends Component
     {
         $search='%'. $this->search .'%';
         $categories=Category::where('name','LIKE',$search)
-            ->orderBy('created_at','desc')->paginate($this->pageSize);
+            ->orderBy('id','asc')->paginate($this->pageSize);
         $category=Category::orderBy('created_at','desc')->get();
+
         return view('livewire.admin.admin-manage-category-component',['categories'=>$categories,'category'=>$category]);
     }
 }
