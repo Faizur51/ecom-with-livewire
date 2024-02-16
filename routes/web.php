@@ -28,13 +28,19 @@ Route::get('/dashboard', function () {
     return view('layouts.app');
 });*/
 
+
+
+
+/*Route::get("/send-request",function(){
+    $response = file_get_contents("https://api.sampleapis.com/cartoons/cartoons2D");
+    dump($http_response_header);
+    dump(json_decode($response));
+    return $response;
+});*/
+
+
+
 Route::fallback(FallbackController::class);
-
-
-
-
-
-
 
 
 Route::get('/',\App\Http\Livewire\HomeComponent::class)->name('home');

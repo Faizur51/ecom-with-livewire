@@ -32,7 +32,7 @@
                             @foreach($shippings as $shipping)
                             <div class="toggle_info d-flex justify-content-between align-items-center mb-2" >
                                 <div class="icheck-material-teal icheck-inline" >
-                                        <input type="radio" id="{{$shipping->address_type}}" name="someGroupName" checked wire:ignore value="{{$shipping->address_type}}"/>
+                                        <input type="radio" id="{{$shipping->address_type}}" name="someGroupName" checked wire:ignore value="{{$shipping->address_type}}"   wire:model="address_type"/>
                                         <label for="{{$shipping->address_type}}">{{ucwords($shipping->address_type)}}</label>
                                 </div>
                                 <div>
@@ -54,7 +54,6 @@
                                 <h4 class="text-muted mb-2">No Address Found! Please add an address</h4>
                             @endif
                         </div>
-
                         <div class="mb-20">
                             <h5>Additional information</h5>
                         </div>
@@ -125,15 +124,15 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="icheck-material-teal icheck-inline">
-                                        <input type="radio" id="someRadioId1" name="someGroupName" value="cod"  wire:model="paymentmode"/>
+                                        <input type="radio" id="someRadioId1" name="cod" value="cod"  wire:model="paymentmode"/>
                                         <label for="someRadioId1">Cash On Delivery</label>
                                     </div>
                                     <div class="icheck-material-teal icheck-inline">
-                                        <input type="radio" id="someRadioId2" name="someGroupName" value="bkash" wire:model="paymentmode"/>
+                                        <input type="radio" id="someRadioId2" name="bkash" value="bkash" wire:model="paymentmode"/>
                                         <label for="someRadioId2">Bkash</label>
                                     </div>
                                     <div class="icheck-material-teal icheck-inline">
-                                        <input type="radio" id="someRadioId3" name="someGroupName" value="card" wire:model="paymentmode" />
+                                        <input type="radio" id="someRadioId3" name="card" value="card" wire:model="paymentmode" />
                                         <label for="someRadioId3">Online Payment</label>
                                     </div>
                                     @error('paymentmode') <p class="text-danger">{{$message}}</p> @enderror
@@ -176,7 +175,8 @@
 
                             <div class="icheck-material-red icheck-inline">
                                 <input type="checkbox" id="someRadioId38" name="someGroupName" value="1" wire:model="disabled" />
-                                <label for="someRadioId38">I have read and agree to the website terms and conditions,Return & Refund Policy</label>
+                                <label for="someRadioId38">I have read and agree to the website <a href="" class="text-danger">terms and conditions</a>,and
+                                    <a href="" class="text-danger">Return & Refund Policy</a></label>
                             </div>
                             <br>
                           {{--  <button class="btn btn-block mt-5 btn-sm" wire:click="checkoutModal" type="submit" {{ $disabled == 0 ?'disabled':'' }} style="width: 100%">Place Order card</button>--}}

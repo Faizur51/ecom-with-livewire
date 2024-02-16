@@ -12,7 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class AdminOrderComponent extends Component
 {
     use WithPagination;
-    public $pageSize = 8;
+    public $pageSize = 10;
     public $search;
 
 

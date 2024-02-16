@@ -67,8 +67,9 @@
                                                         <th>City</th>
                                                         <th>Address</th>
                                                         <th>Status</th>
-                                                        <th>Barcode</th>
+                                                   {{--     <th>Barcode</th>--}}
                                                         <th>Created At</th>
+                                                        <th>Progress</th>
                                                         <th class="text-center" colspan="4" style="width: 50px">Action</th>
                                                     </tr>
                                                     </thead>
@@ -84,13 +85,27 @@
                                                             <td>{{ucwords($order->city)}}</td>
                                                             <td>{{ucwords($order->address)}}</td>
                                                             <td class="{{$order->status=='delivery'?'text-success':'text-danger'}}" style="font-size: 17px">{{ucwords($order->status)}}</td>
-                                                            <td>
+                                                           {{-- <td>
                                                                 @php
                                                                         $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
                                                                 @endphp
                                                                 {!! $generator->getBarcode($order->phone,$generator::TYPE_CODE_128,1,20) !!}
-                                                            </td>
+                                                            </td>--}}
                                                             <td>{{Carbon\Carbon::parse($order->created_at)->format('M d,y')}}</td>
+
+                                                            <td>
+                                                                <div class="progress">
+                                                                    @if($order->status=='ordered')
+                                                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 45%">45%</div>
+                                                                    @elseif($order->status=='processed')
+                                                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 55%">55%</div>
+                                                                    @elseif($order->status=='shipping')
+                                                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">75%</div>
+                                                                    @elseif($order->status=='delivery')
+                                                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%">100%</div>
+                                                                    @endif
+                                                                </div>
+                                                            </td>
                                                             <td>
                                                                 <div class="dropdown" style="width: 50px">
                                                                     <a class="dropdown-toggle btn-sm {{$order->status=='delivery' || $order->status=='canceled'?'disabled':''}}"  type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -104,6 +119,7 @@
                                                                     </ul>
                                                                 </div>
                                                             </td>
+
                                                             <td><a href="{{route('admin.orderdetails',['order_id'=>$order->id])}}" class="btn-small"> <i class="fi-rs-eye" style="font-size:18px"></i></a></td>
 
                                                             <td><a href="{{route('admin.orderinvoice',['order_id'=>$order->id])}}" class="btn-small"> <i class="fi-rs-notebook mr-10" style="font-size:18px"></i></a></td>

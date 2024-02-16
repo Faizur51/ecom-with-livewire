@@ -148,7 +148,7 @@ class CheckoutComponent extends Component
 
         DB::transaction(function (){
 
-        $shippings=Shipping::where('user_id',Auth::user()->id)->first();
+        $shippings=Shipping::where('user_id',Auth::user()->id)->where('address_type',$this->address_type)->first();
 
        if($shippings){
 

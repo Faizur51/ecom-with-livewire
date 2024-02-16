@@ -8,23 +8,23 @@
             <div class="modal-body">
                 <form>
                     <div class="row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Top Title</label>
-                        <div class="input-style mb-2 col-sm-10">
+                        <label for="inputPassword" class="col-sm-3 col-form-label">Category Name</label>
+                        <div class="input-style mb-2 col-sm-9">
                             <input name="top_title" placeholder="Enter Top Title" type="text" wire:model="name" wire:keyup="generateSlug" id="input">
                             @error('name') <p class="text-danger">{{$message}}</p> @enderror
                         </div>
                     </div>
 
                     <div class="row hidden">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Slug</label>
-                        <div class="input-style mb-2 col-sm-10">
+                        <label for="inputPassword" class="col-sm-3 col-form-label">Slug</label>
+                        <div class="input-style mb-2 col-sm-9">
                             <input name="telephone" placeholder="Slug" type="text" wire:model="slug">
                             @error('slug') <p class="text-danger">{{$message}}</p> @enderror
                         </div>
                     </div>
                     <div class="row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Image</label>
-                        <div class="input-style mb-2 col-sm-10">
+                        <label for="inputPassword" class="col-sm-3 col-form-label">Category Image</label>
+                        <div class="input-style mb-2 col-sm-9">
                             <input  placeholder="Image" type="file" class="form-control" wire:model="image">
                             @if($image)
                                 <img src="{{$image->temporaryUrl()}}" style="width: 300px;height: 120px" alt="">
@@ -34,8 +34,8 @@
                     </div>
 
                     <div class="row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">RootCategory</label>
-                        <div class="input-style mb-20 col-sm-10">
+                        <label for="inputPassword" class="col-sm-3 col-form-label">Root Category</label>
+                        <div class="input-style mb-20 col-sm-9">
                             <select name="" id="" class="form-control" wire:model="category_id">
                                 <option value="">None</option>
                                @foreach($category as $row)
@@ -47,8 +47,8 @@
                     </div>
 
                     <div class="row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Status</label>
-                        <div class="input-style mb-20 col-sm-10">
+                        <label for="inputPassword" class="col-sm-3 col-form-label">Status</label>
+                        <div class="input-style mb-20 col-sm-9">
                             <select name="" id="" class="form-control" wire:model="status">
                                 <option value="">Select Status</option>
                                 <option value="1">Active</option>
