@@ -2,23 +2,23 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Shipping Infomation</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Shipping Information</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form method="post">
                     <div class="form-group">
                         <div class="icheck-material-teal icheck-inline">
-                            <input type="radio" id="someRadioId11" name="someGroupName" value="home" wire:model="address_type" />
-                            <label for="someRadioId11">Home</label>
+                            <input type="radio" id="someRadioId110" name="someGroupNameship" value="home" wire:model="address_type" />
+                            <label for="someRadioId110">Home</label>
                         </div>
                         <div class="icheck-material-teal icheck-inline">
-                            <input type="radio" id="someRadioId22" name="someGroupName" value="office" wire:model="address_type" />
-                            <label for="someRadioId22">Office</label>
+                            <input type="radio" id="someRadioId220" name="someGroupNameship" value="office" wire:model="address_type" />
+                            <label for="someRadioId220">Office</label>
                         </div>
                         <div class="icheck-material-teal icheck-inline">
-                            <input type="radio" id="someRadioId33" name="someGroupName" value="other" wire:model="address_type" />
-                            <label for="someRadioId33">Other</label>
+                            <input type="radio" id="someRadioId330" name="someGroupNameship" value="other" wire:model="address_type" />
+                            <label for="someRadioId330">Other</label>
                         </div>
                         @error('address_type') <p class="text-danger">{{$message}}</p> @enderror
                     </div>

@@ -62,9 +62,23 @@
 
                                                             <td>{{$review->orderItem->order->phone}}</td>
                                                             <td>{{ucwords($review->orderItem->product->name)}}</td>
-                                                            <td><img src="{{$review->orderItem->product->image}}" alt="" style="width: 60px"></td>
+                                                             <td>
+                                                                 <div>
+                                                                     @if(strlen($review->orderItem->product->image)>25)
+                                                                         <a href="{{route('product.details',['slug'=>$review->orderItem->product->slug])}}"><img src="{{$review->orderItem->product->image}}" alt="#"></a>
+                                                                     @else
+                                                                         <a href="{{route('product.details',['slug'=>$review->orderItem->product->slug])}}"><img src="{{asset('frontend/assets/images/product')}}/{{$review->orderItem->product->image}}" alt="#" style="width: 60px"></a>
+                                                                     @endif
+                                                                 </div>
+                                                             </td>
                                                             <td>{{Carbon\Carbon::parse($review->created_at)->format('M d, Y')}}</td>
-                                                            <td wire:ignore>
+                                                          {{-- <td>
+                                                               <p class="text-center {{$review->status==1?'bg-3':'bg-6'}}">
+                                                                   <a href="javascript:void(0)">{{$review->status==1?'Active':'Inactive'}}</a>
+                                                               </p>
+                                                           </td>--}}
+
+                                                         <td wire:ignore>
                                                                 @livewire('admin.toggle-switch', [
                                                                 'model' => $review,
                                                                 'field' => 'status'

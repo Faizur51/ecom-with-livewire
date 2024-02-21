@@ -1,4 +1,3 @@
-<div>
     <header class="header-area header-style-1 header-height-2">
         <div class="header-top header-top-ptb-1 d-none d-lg-block">
             <div class="container">
@@ -21,9 +20,9 @@
                         <div class="text-center">
                             <div id="news-flash" class="d-inline-block">
                                 <ul>
-                                    <li>Get great devices up to 50% off <a href="shop.html">View details</a></li>
+                                    <li>Get great devices up to 50% off <a href="{{route('shop')}}">View details</a></li>
                                     <li>Supper Value Deals - Save more with coupons</li>
-                                    <li>Trendy 25silver jewelry, save up 35% off today <a href="shop.html">Shop now</a></li>
+                                    <li>Trendy 25silver jewelry, save up 35% off today <a href="{{route('shop')}}">Shop now</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -67,7 +66,7 @@
                                                 <li>
                                                     <form method="POST" action="{{ route('logout') }}">
                                                         @csrf
-                                                        <a href="route('logout')"
+                                                        <a href="{{ route('logout') }}"
                                                            onclick="event.preventDefault();
                                                                 this.closest('form').submit();">
                                                             <i class="fi-rs-sign-out mr-10"></i> {{ __('Log Out') }}
@@ -80,7 +79,7 @@
                                 @else
                                     <li>
                                         <i class="fi-rs-key"></i>
-                                        <a href="{{route('login')}}">Log In </a> /
+                                        <a href="{{route('login')}}">Log In </a>/
                                         <a href="{{route('register')}}">Sign Up</a>
                                     </li>
                                 @endauth
@@ -125,15 +124,14 @@
                             <nav>
                                 <ul>
                                     <li><a class="active" href="/">Home </a></li>
-                                    <li><a href="about.html">About</a></li>
+                                    <li><a href="javascript:void(0)">About</a></li>
                                     <li><a href="{{route('shop')}}">Shop</a></li>
-                                    <li><a href="blog.html">Blog </a></li>
+                                    <li><a href="javascript:void(0)">Blog </a></li>
                                     <li><a href="{{route('contact')}}">Contact</a></li>
                                     <li><a href="#">Offer<i class="fi-rs-angle-down"></i></a>
                                         <ul class="sub-menu">
                                             <li><a href="{{route('product.offer')}}">Online Offer 2024 </a></li>
                                             <li><a href="#">New Year</a></li>
-
                                         </ul>
                                     </li>
                                 </ul>
@@ -141,56 +139,50 @@
                         </div>
                     </div>
                     <div class="hotline d-none d-lg-block">
-                        <p><i class="fi-rs-smartphone"></i><span>Toll Free</span> (+1) 0000-000-000 </p>
+                        <p><i class="fi-rs-smartphone"></i><span>Toll Free</span>01717578265</p>
                     </div>
                     <p class="mobile-promotion">Happy <span class="text-brand">Mother's Day</span>. Big Sale Up to 40%</p>
                     <div class="header-action-right d-block d-lg-none">
                         <div class="header-action-2">
                             <div class="header-action-icon-2">
-                                <a href="shop-wishlist.php">
+                                <a href="{{route('wishlist.product')}}">
                                     <img alt="Surfside Media" src="{{asset('frontend')}}/assets/imgs/theme/icons/icon-heart.svg">
-                                    <span class="pro-count white">4</span>
+                                    @if(Cart::instance('wishlist')->count()>0)
+                                    <span class="pro-count white">{{Cart::instance('wishlist')->count()}}</span>
+                                    @endif
                                 </a>
                             </div>
                             <div class="header-action-icon-2">
-                                <a class="mini-cart-icon" href="cart.html">
+                                <a class="mini-cart-icon" href="{{route('cart')}}">
                                     <img alt="Surfside Media" src="{{asset('frontend')}}/assets/imgs/theme/icons/icon-cart.svg">
-                                    <span class="pro-count white">2</span>
+                                    @if(Cart::instance('cart')->count()>0)
+                                    <span class="pro-count white">{{Cart::instance('cart')->count()}}</span>
+                                    @endif
                                 </a>
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                     <ul>
+                                        @foreach(Cart::instance('cart')->content() as $item)
                                         <li>
                                             <div class="shopping-cart-img">
-                                                <a href="product-details.html"><img alt="Surfside Media" src="{{asset('frontend')}}/assets/imgs/shop/thumbnail-3.jpg"></a>
+                                                <a href="{{route('product.details',['slug'=>$item->model->slug])}}"><img alt="Surfside Media" src="{{$item->model->image}}"></a>
                                             </div>
                                             <div class="shopping-cart-title">
-                                                <h4><a href="product-details.html">Plain Striola Shirts</a></h4>
-                                                <h3><span>1 × </span>$800.00</h3>
+                                                <h4><a href="{{route('product.details',['slug'=>$item->model->slug])}}">{{ucwords(substr($item->model->name,0,18))}}</a></h4>
+                                                <h4><span>{{$item->qty}} × </span>&#2547; {{$item->model->sale_price}}</h4>
                                             </div>
                                             <div class="shopping-cart-delete">
-                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
+                                                <a href="#" wire:click.prevent="destroy('{{$item->rowId}}')"><i class="fi-rs-cross-small"></i></a>
                                             </div>
                                         </li>
-                                        <li>
-                                            <div class="shopping-cart-img">
-                                                <a href="product-details.html"><img alt="Surfside Media" src="{{asset('frontend')}}/assets/imgs/shop/thumbnail-4.jpg"></a>
-                                            </div>
-                                            <div class="shopping-cart-title">
-                                                <h4><a href="product-details.html">Macbook Pro 2022</a></h4>
-                                                <h3><span>1 × </span>$3500.00</h3>
-                                            </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                            </div>
-                                        </li>
+                                        @endforeach
                                     </ul>
                                     <div class="shopping-cart-footer">
                                         <div class="shopping-cart-total">
-                                            <h4>Total <span>$383.00</span></h4>
+                                            <h4>Total <span>&#2547; {{Cart::instance('cart')->total()}}</span></h4>
                                         </div>
                                         <div class="shopping-cart-button">
-                                            <a href="cart.html">View cart</a>
-                                            <a href="shop-checkout.php">Checkout</a>
+                                            <a href="{{route('cart')}}">View cart</a>
+                                            <a href="#" wire:click.prevent="checkout">Checkout</a>
                                         </div>
                                     </div>
                                 </div>
@@ -208,4 +200,5 @@
             </div>
         </div>
     </header>
-</div>
+
+

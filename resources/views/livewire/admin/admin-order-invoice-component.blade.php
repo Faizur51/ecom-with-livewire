@@ -49,7 +49,7 @@
                                             <div class="col-md-6">
                                                 <h6 class="mb-1">Invoice To:</h6>
                                                 <p class="mb-1">Name:{{ucwords($order->name)}}</p>
-                                                <p class="mb-1">Email:{{ucwords($order->email)}}</p>
+                                                <p class="mb-1">Email:{{$order->email}}</p>
                                                 <p class="mb-1">Phone:{{$order->phone}}</p>
                                                 <p class="mb-0">City:{{ucwords($order->city)}}</p>
                                                 <p class="mb-0">Address:{{ucwords($order->address)}}</p>
@@ -80,15 +80,22 @@
                                                         <tr>
                                                            <td>
                                                                <div>
-                                                                   @if(!$item->product->image)
-                                                                       <img src="{{asset('frontend/assets/images/product')}}/{{$item->product->image}}" alt="#">
-                                                                   @else
-                                                                       <img src="{{asset('frontend/assets/imgs/shop/product-1-2.jpg')}}" alt="" style="width: 50px">
-                                                                   @endif
+                                                                       @if(strlen($item->product->image)>25)
+                                                                           <img src="{{$item->product->image}}" alt="#">
+                                                                       @else
+                                                                           <img src="{{asset('frontend/assets/images/product')}}/{{$item->product->image}}" alt="#">
+                                                                       @endif
                                                                </div>
                                                            </td>
                                                             <td class="product-des product-name">
                                                                 <h5 class="product-name text-muted">{{ucwords($item->product->name)}}</h5>
+                                                                @if($item->options)
+                                                                    @foreach(unserialize($item->options) as $key=>$value)
+                                                                        @if($value)
+                                                                            <span class="text-muted">{{ucwords($key)}}:{{ucwords($value)}}</span>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
                                                             </td>
                                                             <td class="price" data-title="Price"><span>&#2547; {{$item->price}} </span></td>
                                                             <td class="price" data-title="Price"><span>{{$item->quantity}}</span></td>

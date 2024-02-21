@@ -1,5 +1,4 @@
-<div>
-    <main class="main">
+ <main class="main">
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
@@ -8,7 +7,7 @@
                 </div>
             </div>
         </div>
-        <section class="pt-50 pb-50">
+        <section class="pt-20 pb-20">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-8 col-lg-10 m-auto">
@@ -45,11 +44,10 @@
                                     </div>
                                 </div>
                             </form>
-                            <p class="form-messege"></p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
-</div>
+

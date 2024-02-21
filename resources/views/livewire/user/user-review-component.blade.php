@@ -63,13 +63,19 @@
 
                                                             <td>{{$review->orderItem->order->phone}}</td>
                                                             <td>{{ucwords($review->orderItem->product->name)}}</td>
-                                                            <td><img src="{{$review->orderItem->product->image}}" alt="" style="width: 60px"></td>
+                                                            <td>
+                                                                @if(strlen($review->orderItem->product->image)>25)
+                                                                <img src="{{$review->orderItem->product->image}}" alt="" style="width: 60px">
+                                                                @else
+                                                                    <img src="{{asset('frontend/assets/images/product')}}/{{$review->orderItem->product->image}}" alt="" style="width: 60px">
+                                                                @endif
+                                                            </td>
                                                             <td>{{Carbon\Carbon::parse($review->created_at)->diffForHumans()}}</td>
                                                             <td>
                                                                 @if($review->status==1)
-                                                                    <li class="text-success">Approved</li>
+                                                                    <h5 class="text-success">Approved</h5>
                                                                 @else
-                                                                    <li class="text-danger">Not Approved</li>
+                                                                    <h5 class="text-danger">Not Approved</h5>
                                                                 @endif
                                                             </td>
                                                         </tr>

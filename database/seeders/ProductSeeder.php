@@ -19,7 +19,8 @@ class ProductSeeder extends Seeder
         $faker = Faker\Factory::create();
 
         $randomImages =[
-            'https://m.media-amazon.com/images/I/61EPT-oMLrL._AC_UY436_QL65_.jpg',
+            'https://m.media-amazon.com/images/I/71kcJ78kdPL._AC_SL1500_.jpg',
+            'https://m.media-amazon.com/images/I/61B+tCqptWL._AC_SL1500_.jpg',
             'https://m.media-amazon.com/images/I/61CqYq+xwNL._AC_UL640_QL65_.jpg',
             'https://m.media-amazon.com/images/I/71cVOgvystL._AC_UL640_QL65_.jpg',
             'https://m.media-amazon.com/images/I/71E+oh38ZqL._AC_UL640_QL65_.jpg',
@@ -38,16 +39,16 @@ class ProductSeeder extends Seeder
         ];
 
         $color=[
-            'green','blue','yellow','red','cyan','grey'
+            'green','white','yellow','red','cyan','grey'
         ];
 
 
         $size=[
-            'L','M','XL','S','2XL','XS'
+            'S','M','L','XL','2XL'
         ];
 
 
-        foreach (range(1,400) as $key=>$value){
+        foreach (range(1,100) as $key=>$value){
             $name=$faker->unique(true)->words($nb=4,$asText=True);
             Product::create([
                 'name'=>$name,

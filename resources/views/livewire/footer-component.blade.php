@@ -1,5 +1,4 @@
-<div>
-    <footer class="main">
+<footer class="main">
         <section class="newsletter p-30 text-white wow fadeIn animated">
             <div class="container">
                 <div class="row align-items-center">
@@ -80,21 +79,37 @@
                     <div class="col-lg-2 col-md-3">
                         <h5 class="widget-title wow fadeIn animated">About</h5>
                         <ul class="footer-list wow fadeIn animated mb-sm-5 mb-md-0">
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Delivery Information</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms &amp; Conditions</a></li>
-                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="javascript:void(0)">About Us</a></li>
+                            <li><a href="avascript:void(0)">Delivery Information</a></li>
+                            <li><a href="{{route('warranty.policy')}}">Privacy Policy</a></li>
+                            <li><a href="{{route('refund.policy')}}">Terms &amp; Conditions</a></li>
+                            <li><a href="{{route('contact')}}">Contact Us</a></li>
                         </ul>
                     </div>
                     <div class="col-lg-2  col-md-3">
                         <h5 class="widget-title wow fadeIn animated">My Account</h5>
                         <ul class="footer-list wow fadeIn animated">
-                            <li><a href="my-account.html">My Account</a></li>
-                            <li><a href="#">View Cart</a></li>
-                            <li><a href="#">My Wishlist</a></li>
-                            <li><a href="#">Track My Order</a></li>
-                            <li><a href="#">Order</a></li>
+                           @auth
+                                @if(Auth::user()->utype ==='admin')
+                                    <li><a href="{{route('admin.dashboard')}}">My Account</a></li>
+                                    <li><a href="{{route('cart')}}">View Cart</a></li>
+                                    <li><a href="{{route('wishlist.product')}}">My Wishlist</a></li>
+                                    <li><a href="javascript:void(0)">Track My Order</a></li>
+                                    <li><a href="{{route('admin.order')}}">Order</a></li>
+                                @else
+                                    <li><a href="{{route('user.dashboard')}}">My Account</a></li>
+                                    <li><a href="{{route('cart')}}">View Cart</a></li>
+                                    <li><a href="{{route('wishlist.product')}}">My Wishlist</a></li>
+                                    <li><a href="javascript:void(0)">Track My Order</a></li>
+                                    <li><a href="{{route('user.order')}}">Order</a></li>
+                                @endif
+                            @else
+                                <li><a href="javascript:void(0)">My Account</a></li>
+                                <li><a href="javascript:void(0)">View Cart</a></li>
+                                <li><a href="javascript:void(0)">My Wishlist</a></li>
+                                <li><a href="javascript:void(0)">Track My Order</a></li>
+                                <li><a href="javascript:void(0)">Order</a></li>
+                            @endauth
                         </ul>
                     </div>
                     <div class="col-lg-4 mob-center">
@@ -123,15 +138,15 @@
                 </div>
                 <div class="col-lg-6">
                     <p class="float-md-left font-sm text-muted mb-0">
-                        <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-conditions.html">Terms & Conditions</a>
+                        <a href="{{route('warranty.policy')}}">Privacy Policy</a> | <a href="{{route('refund.policy')}}">Terms & Conditions</a>
                     </p>
                 </div>
                 <div class="col-lg-6">
                     <p class="text-lg-end text-start font-sm text-muted mb-0">
-                        &copy; <strong class="text-brand">SurfsideMedia</strong> All rights reserved
+                        &copy; <strong class="text-brand">Rafa Shop</strong> All rights reserved
                     </p>
                 </div>
             </div>
         </div>
     </footer>
-</div>
+

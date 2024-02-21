@@ -23,7 +23,7 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <div class="shop-product-fillter" style="margin-bottom: 0px">
-                                                <div class="d-flex justify-content-between">
+                                                <div class="d-flex justify-content-between align-items-center">
                                                     <div class="search-form">
                                                         <form action="#">
                                                             <input type="text" placeholder="Search…" wire:model="search">
@@ -31,14 +31,14 @@
                                                         </form>
                                                     </div>
                                                     @if($checked)
-                                                    <div class="dropdown">
+                                                    <div class="dropdown ml-10">
                                                         <button class="btn btn-secondary  btn-sm dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            Action ({{count($checked)}})
+                                                            <i class="fi-rs-refresh mr-5"></i> Action ({{count($checked)}})
                                                         </button>
                                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                                            <li><a href="#"  data-bs-toggle="modal" data-bs-target="#multirecorddeleteModel" class="dropdown-item" type="button" {{--onclick="confirm('Are you sure you want to delete this records?') || event.stopImmediatePropagation()"--}} >Delete</a></li>
-                                                            <li><a class="dropdown-item" type="button" onclick="confirm('Are you sure you want to change the status?') || event.stopImmediatePropagation()" wire:click="changeActiveStatus(1)">Active</a></li>
-                                                            <li><a class="dropdown-item" type="button" onclick="confirm('Are you sure you want to change the status?') || event.stopImmediatePropagation()" wire:click="changeInActiveStatus(0)">InActive</a></li>
+                                                            <li><a href="#"  data-bs-toggle="modal" data-bs-target="#multirecorddeleteModel" class="dropdown-item" type="button" {{--onclick="confirm('Are you sure you want to delete this records?') || event.stopImmediatePropagation()"--}} > <i class="fi-rs-trash mr-5"></i>Delete</a></li>
+                                                            <li><a class="dropdown-item" type="button" onclick="confirm('Are you sure you want to change the status?') || event.stopImmediatePropagation()" wire:click="changeActiveStatus(1)"><i class="fi-rs-thumbs-up mr-5"></i>Active</a></li>
+                                                            <li><a class="dropdown-item" type="button" onclick="confirm('Are you sure you want to change the status?') || event.stopImmediatePropagation()" wire:click="changeInActiveStatus(0)"><i class="fi-rs-thumbs-down mr-5"></i>InActive</a></li>
 
                                                         </ul>
                                                     </div>
@@ -77,7 +77,7 @@
                                                 <table class="table table-sm" style="border-bottom: 1px solid #dee2e6">
                                                     <thead class="table-light">
                                                     <tr>
-                                                        <th>n</th>
+                                                        <th>Checked</th>
                                                         <th>S/L</th>
                                                         <th>Name</th>
                                                         <th>Slug</th>
@@ -91,16 +91,24 @@
                                                     @foreach($categories as $category)
 
                                                         <tr class="{{$this->isChecked($category->id)}}">
-                                                            <td><div class="icheck-material-cyan icheck-inline">
+                                                            <td><div class="icheck-material-cyan icheck-inline" wire:ignore>
                                                                     <input type="checkbox" id="{{$category->name}}1"
                                                                            value="{{$category->id}}" wire:model="checked"/>
                                                                     <label for="{{$category->name}}1"></label>
-                                                                </div></td>
+                                                                </div>
+                                                            </td>
                                                             <td>{{$category->id}}</td>
                                                             <td>{{ucwords($category->name)}}</td>
                                                             <td>{{$category->slug}}</td>
-                                                            <td><img src="{{asset('frontend/assets/images/category')}}/{{$category->image}}" alt="" style="width: 100px;height: 50px"></td>
-
+                                                            <td>
+                                                              <div class="product-img product-img-zoom img-hover-scale overflow-hidden">
+                                                                  @if(strlen($category->image > 25))
+                                                                      <img class="default-img" src="{{$category->image}}" alt="" style="width: 80px;height: 50px">
+                                                                  @else
+                                                                      <img class="default-img" src="{{asset('frontend/assets/images/category')}}/{{$category->image}}" alt="" style="width: 80px;height: 50px">
+                                                                  @endif
+                                                              </div>
+                                                          </td>
                                                             <td>
                                                                 <ul class="sclist">
                                                                     @foreach($category->subcategory as $scategory)
@@ -121,13 +129,17 @@
                                                                     @endforeach
                                                                 </ul>
                                                             </td>
-
-                                                            <td wire:ignore>
+                                                          <td>
+                                                              <p class="text-center {{$category->status==1?'bg-3':'bg-6'}}">
+                                                                  <a href="javascript:void(0)">{{$category->status==1?'Active':'Inactive'}}</a>
+                                                              </p>
+                                                          </td>
+                                                           {{-- <td wire:ignore>
                                                                 @livewire('admin.toggle-switch', [
                                                                 'model' => $category,
                                                                 'field' => 'status'
                                                                 ])
-                                                            </td>
+                                                            </td>--}}
 
 
                                                             <td><a  class="btn-small" data-bs-toggle="modal" data-bs-target="#editCategoryModal" wire:click.prevent="edit({{$category->id}})"><i class="fi-rs-pencil"></i></a></td>

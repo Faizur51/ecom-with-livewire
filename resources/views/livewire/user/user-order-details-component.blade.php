@@ -98,9 +98,6 @@
             font-weight: bold;
         }
 
-
-
-
         .rate {
             float: left;
             height: 46px;
@@ -174,14 +171,22 @@
                                                     <div style="border-bottom:1px solid #e2e9e1">
                                                         <div class="row card-body d-flex justify-content-around align-items-center">
                                                             <div class="col-md-3">
-                                                                @if(!$item->product->image)
-                                                                    <img src="{{asset('frontend/assets/images/product')}}/{{$item->product->image}}" alt="#">
-                                                                @else
-                                                                    <img src="{{asset('frontend/assets/imgs/shop/product-1-2.jpg')}}" alt="" style="width: 100px">
-                                                                @endif
+                                                                    @if(strlen($item->product->image)>25)
+                                                                        <img src="{{$item->product->image}}" alt="#">
+                                                                    @else
+                                                                        <img src="{{asset('frontend/assets/images/product')}}/{{$item->product->image}}" alt="#">
+                                                                    @endif
                                                             </div>
                                                             <div class="col-md-7">
-                                                                <a href="{{route('product.details',['slug'=>$item->product->slug])}}" class="text-default" style="font-size: 18px">{{ucwords($item->product->name)}}</a>
+                                                                <a href="{{route('product.details',['slug'=>$item->product->slug])}}" class="text-default" style="font-size: 16px">{{ucwords($item->product->name)}}</a>
+                                                                <br>
+                                                                @if($item->options)
+                                                                    @foreach(unserialize($item->options) as $key=>$value)
+                                                                        @if($value)
+                                                                            <span>{{ucwords($key)}}:{{ucwords($value)}}</span>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
                                                                 <p>Quantity:{{$item->quantity}}</p>
                                                                 <p>Category: {{$item->product->category->name}}</p>
                                                                 @if($item->product->subCategories)
@@ -223,15 +228,12 @@
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                                 <p>Payable Total</p><span>&#2547; {{number_format($order->total,2)}}</span>
                                                             </li>
-
                                                         </ul>
-
                                                         <div class="text-center m-2">
                                                             <hr>
                                                             <h5 class="mb-0 text-muted">Shipping Info</h5>
                                                             <hr>
                                                         </div>
-
                                                             <div class="card-body">
                                                                 <p>Full Name :{{ucwords($order->name)}}</p>
                                                                 <p>Phone No: {{$order->phone}}</p>
@@ -239,7 +241,6 @@
                                                                 <p>City: {{ucwords($order->city)}}</p>
                                                                 <p>Address: {{ucwords($order->address)}}</p>
                                                             </div>
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -248,7 +249,6 @@
                                                     <div class="text-center m-2">
                                                         <h5 class="mb-0 text-muted">Order History</h5>
                                                     </div>
-
                                                     @if($order->status=='delivery')
                                                         <div class="navigation_menu" id="navigation_menu">
                                                             <ul class="navigation_tabs" id="navigation_tabs">
@@ -382,10 +382,14 @@
                     <form method="post">
                         <div class="col-lg-12">
                             <div class="comment-list">
-                                <div class="single-comment justify-content-between d-flex">
+                                <div class="single-comment justify-content-between d-flex ">
                                     <div class="user justify-content-between d-flex">
-                                        <div class="thumb text-center">
-                                            <img src="{{$image}}" alt="" style="width: 100px">
+                                        <div class="thumb text-center mr-10">
+                                            @if(strlen($image > 25))
+                                                <img src="{{$image}}" alt="" style="width: 100px">
+                                            @else
+                                                <img src="{{asset('frontend/assets/images/product')}}/{{$image}}" alt="" style="width: 100px">
+                                            @endif
                                         </div>
                                         <div class="desc">
                                             <h5 class="text-muted">{{ucwords($name)}}</h5>
@@ -420,7 +424,7 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <textarea class="form-control w-100" wire:model="comment" name="comment" id="comment" cols="30" rows="9" placeholder="Write Comment"></textarea>
+                                                    <textarea class="form-control w-100 h-25" wire:model="comment" name="comment" id="comment" cols="30" rows="9" placeholder="Write Comment"></textarea>
                                                 </div>
                                                 @error('comment') <p class="text-danger">{{$message}}</p> @enderror
                                             </div>

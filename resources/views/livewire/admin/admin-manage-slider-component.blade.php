@@ -81,17 +81,33 @@
                                                         <td>{{ucwords($slider->sub_title)}}</td>
                                                         <td>{{$slider->offer}}</td>
                                                         <td>{{$slider->link}}</td>
-                                                        <td><img src="{{asset('frontend/assets/images/slider')}}/{{$slider->image}}" alt="" style="width: 100px;height: 50px"></td>
-                                                        <td wire:ignore>
+
+                                                        <td>
+                                                            <div class="product-img product-img-zoom img-hover-scale overflow-hidden">
+                                                                @if(strlen($slider->image > 25))
+                                                                    <img class="default-img" src="{{$slider->image}}" alt="" style="width: 80px;height: 50px">
+                                                                @else
+                                                                    <img class="default-img" src="{{asset('frontend/assets/images/slider')}}/{{$slider->image}}" alt="" style="width: 100px;height: 50px">
+                                                                @endif
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <p class="text-center {{$slider->status==1?'bg-3':'bg-6'}}">
+                                                                <a href="javascript:void(0)">{{$slider->status==1?'Active':'Inactive'}}</a>
+                                                            </p>
+                                                        </td>
+
+                                                       {{-- <td wire:ignore>
                                                             @livewire('admin.toggle-switch', [
                                                             'model' => $slider,
                                                             'field' => 'status'
                                                             ])
-                                                        </td>
+                                                        </td>--}}
                                                         <td><a  class="btn-small" data-bs-toggle="modal" data-bs-target="#editSliderModal" wire:click.prevent="edit({{$slider->id}})"><i class="fi-rs-pencil"></i></a></td>
                                                         <td>
                                                             @if(!$slider->trashed())
-                                                                <a  class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#deleteTem" wire:click.prevent="deleteId({{$slider->id}})">Delete</a>
+                                                                <a  class="" data-bs-toggle="modal" data-bs-target="#deleteTem" wire:click.prevent="deleteId({{$slider->id}})"><i class="fi-rs-trash"></i></a>
                                                             @endif
                                                             @if($slider->trashed())
                                                                 <a  class='btn btn-danger btn-sm' href="#" data-bs-toggle="modal" data-bs-target="#deletePer" wire:click.prevent="deleteId({{$slider->id}})">Permanent Delete</a>

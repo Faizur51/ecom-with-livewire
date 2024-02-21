@@ -6,8 +6,6 @@
         @if($paymentmode=='card')
             @include('livewire.modal-checkout-component')
         @endif
-
-
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
@@ -17,13 +15,13 @@
                 </div>
             </div>
         </div>
-        <section class="mt-50 mb-50">
+        <section class="mt-20 mb-20">
             <div class="container">
                 <form action="#" wire:submit.prevent="placeOrder">
                 <div class="row">
                     <div class="col-md-5">
                         <div class="mb-25 d-flex justify-content-between">
-                            <h4>Billing Details</h4>
+                            <h4>Shipping Details</h4>
                             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addShippingAddress" data-bs-whatever="@mdo">+ Add New Address</button>
                         </div>
 
@@ -31,8 +29,8 @@
                             @if($shippings->count()>0)
                             @foreach($shippings as $shipping)
                             <div class="toggle_info d-flex justify-content-between align-items-center mb-2" >
-                                <div class="icheck-material-teal icheck-inline" >
-                                        <input type="radio" id="{{$shipping->address_type}}" name="someGroupName" checked wire:ignore value="{{$shipping->address_type}}"   wire:model="address_type"/>
+                                <div class="icheck-material-red icheck-inline" >
+                                        <input type="radio" id="{{$shipping->address_type}}" name="someGroupName" wire:ignore value="{{$shipping->address_type}}"   wire:model="address_type"/>
                                         <label for="{{$shipping->address_type}}">{{ucwords($shipping->address_type)}}</label>
                                 </div>
                                 <div>
@@ -79,14 +77,20 @@
                                     @foreach(Cart::instance('cart')->content() as $item)
                                     <tr>
                                         <td class="image product-thumbnail">
-                                            @if(!$item->model->image)
-                                                <img src="{{asset('frontend/assets/images/product')}}/{{$item->model->image}}" alt="#">
-                                            @else
-                                                <img src="{{asset('frontend')}}/assets/imgs/shop/product-1-1.jpg" alt="#">
-                                            @endif
+                                                @if(strlen($item->model->image)>25)
+                                                    <img src="{{$item->model->image}}" alt="#">
+                                                @else
+                                                    <img src="{{asset('frontend/assets/images/product')}}/{{$item->model->image}}" alt="#">
+                                                @endif
                                         </td>
                                         <td>
                                             <h5><a href="{{route('product.details',['slug'=>$item->model->slug])}}">{{ucwords($item->model->name)}}</a> <span class="product-qty">x {{$item->qty}}</span></h5>
+                                            @if($item->options->color)
+                                                <strong class="mr-5">Color:{{ucwords($item->options->color)}},</strong>
+                                            @endif
+                                            @if($item->options->size)
+                                                <strong class="mr-5">Size:{{$item->options->size}}</strong>
+                                            @endif
                                         </td>
                                         <td>&#2547; {{$item->subtotal()}}</td>
                                     </tr>
@@ -123,15 +127,15 @@
                                     <h4>Select Payment Type</h4>
                                 </div>
                                 <div class="form-group">
-                                    <div class="icheck-material-teal icheck-inline">
+                                    <div class="icheck-material-red icheck-inline">
                                         <input type="radio" id="someRadioId1" name="cod" value="cod"  wire:model="paymentmode"/>
                                         <label for="someRadioId1">Cash On Delivery</label>
                                     </div>
-                                    <div class="icheck-material-teal icheck-inline">
+                                    <div class="icheck-material-red icheck-inline">
                                         <input type="radio" id="someRadioId2" name="bkash" value="bkash" wire:model="paymentmode"/>
                                         <label for="someRadioId2">Bkash</label>
                                     </div>
-                                    <div class="icheck-material-teal icheck-inline">
+                                    <div class="icheck-material-red icheck-inline">
                                         <input type="radio" id="someRadioId3" name="card" value="card" wire:model="paymentmode" />
                                         <label for="someRadioId3">Online Payment</label>
                                     </div>
@@ -154,7 +158,7 @@
 
                                 <div class="d-flex align-items-center">
                                     <div class="flex-shrink-0">
-                                        <img src="{{asset('frontend/assets/images/payment/images.png')}}" alt="..." style="width:100px;height: 80px">
+                                        <img src="{{asset('frontend/assets/images/payment/pay5.png')}}" alt="..." style="width:100px;height: 80px">
                                     </div>
                                     <div class="flex-grow-1 ms-1">
                                         <strong class="text-danger">Card</strong>
@@ -175,8 +179,8 @@
 
                             <div class="icheck-material-red icheck-inline">
                                 <input type="checkbox" id="someRadioId38" name="someGroupName" value="1" wire:model="disabled" />
-                                <label for="someRadioId38">I have read and agree to the website <a href="" class="text-danger">terms and conditions</a>,and
-                                    <a href="" class="text-danger">Return & Refund Policy</a></label>
+                                <label for="someRadioId38">I have read and agree to the website <a href="{{route('warranty.policy')}}" class="text-danger" target="_blank">Terms and Conditions</a>,and
+                                    <a href="{{route('refund.policy')}}" class="text-danger" target="_blank">Return & Refund Policy</a></label>
                             </div>
                             <br>
                           {{--  <button class="btn btn-block mt-5 btn-sm" wire:click="checkoutModal" type="submit" {{ $disabled == 0 ?'disabled':'' }} style="width: 100%">Place Order card</button>--}}
@@ -194,8 +198,6 @@
             </div>
         </section>
     </main>
-
-
     <div wire:ignore.self class="modal fade" id="deleteShippingAddress" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -213,5 +215,4 @@
             </div>
         </div>
     </div>
-
 </div>

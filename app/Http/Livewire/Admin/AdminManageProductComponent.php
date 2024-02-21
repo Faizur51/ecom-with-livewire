@@ -47,8 +47,7 @@ class AdminManageProductComponent extends Component
             ->orWhere('short_description', 'LIKE', $search)
             ->orderBy('created_at', 'desc')->paginate($this->pageSize);*/
 
-
-       $products=Product::where(function ($query) use ($search){
+       $products=Product::orderBy('id','desc')->where(function ($query) use ($search){
          $query->where('name','LIKE',$search)
          ->orWhere('sku_code', 'LIKE', $search)
              ->orWhere('short_description', 'LIKE', $search);

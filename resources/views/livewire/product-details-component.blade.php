@@ -1,43 +1,87 @@
      <main class="main" wire:ignore>
+         <style>
+             /* CSS */
+             .button-62 {
+                 background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+                 border: 0;
+                 border-radius: 12px;
+                 color: #FFFFFF;
+                 cursor: pointer;
+                 display: inline-block;
+                 font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+                 font-size: 16px;
+                 font-weight: 500;
+                 line-height: 2.5;
+                 outline: transparent;
+                 padding: 0 1rem;
+                 text-align: center;
+                 text-decoration: none;
+                 transition: box-shadow .2s ease-in-out;
+                 user-select: none;
+                 -webkit-user-select: none;
+                 touch-action: manipulation;
+                 white-space: nowrap;
+             }
 
-        <style>
-            .rate {
-                float: left;
-                height: 46px;
-                padding: 0 10px;
-            }
-            .rate:not(:checked) > input {
-                position:absolute;
-                top:-9999px;
-            }
-            .rate:not(:checked) > label {
-                float:right;
-                width:1em;
-                overflow:hidden;
-                white-space:nowrap;
-                cursor:pointer;
-                font-size:30px;
-                color:#ccc;
-            }
-            .rate:not(:checked) > label:before {
-                content: '★ ';
-            }
-            .rate > input:checked ~ label {
-                color: #ffc700;
-            }
-            .rate:not(:checked) > label:hover,
-            .rate:not(:checked) > label:hover ~ label {
-                color: #deb217;
-            }
-            .rate > input:checked + label:hover,
-            .rate > input:checked + label:hover ~ label,
-            .rate > input:checked ~ label:hover,
-            .rate > input:checked ~ label:hover ~ label,
-            .rate > label:hover ~ input:checked ~ label {
-                color: #c59b08;
-            }
+             .button-62:not([disabled]):focus {
+                 box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+             }
 
-        </style>
+             .button-62:not([disabled]):hover {
+                 box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+             }
+
+             .button-3 {
+                 appearance: none;
+                 background-color: #2ea44f;
+                 border: 1px solid rgba(27, 31, 35, .15);
+                 border-radius: 6px;
+                 box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+                 box-sizing: border-box;
+                 color: #fff;
+                 cursor: pointer;
+                 display: inline-block;
+                 font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+                 font-size: 14px;
+                 font-weight: 600;
+                 line-height: 20px;
+                 padding: 6px 16px;
+                 position: relative;
+                 text-align: center;
+                 text-decoration: none;
+                 user-select: none;
+                 -webkit-user-select: none;
+                 touch-action: manipulation;
+                 vertical-align: middle;
+                 white-space: nowrap;
+             }
+
+             .button-3:focus:not(:focus-visible):not(.focus-visible) {
+                 box-shadow: none;
+                 outline: none;
+             }
+
+             .button-3:hover {
+                 background-color: #2c974b;
+             }
+
+             .button-3:focus {
+                 box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+                 outline: none;
+             }
+
+             .button-3:disabled {
+                 background-color: #94d3a2;
+                 border-color: rgba(27, 31, 35, .1);
+                 color: rgba(255, 255, 255, .8);
+                 cursor: default;
+             }
+
+             .button-3:active {
+                 background-color: #298e46;
+                 box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+             }
+         </style>
 
         <div class="page-header breadcrumb-wrap">
             <div class="container">
@@ -48,30 +92,38 @@
                 </div>
             </div>
         </div>
-        <section class="mt-50 mb-50">
+        <section class="mt-20 mb-20">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-9">
                         <div class="product-detail accordion-detail">
                             <div class="row mb-50">
                                 <div class="col-md-6 col-sm-12 col-xs-12">
-                                    <div class="detail-gallery">
+                                    <div class="detail-gallery" wire:ignore>
                                         <span class="zoom-icon"><i class="fi-rs-search"></i></span>
                                         <!-- MAIN SLIDES -->
                                         <div class="product-image-slider">
-                                            <figure class="border-radius-10">
-                                                <img src="{{$product->image}}" alt="product image">
+                                            @foreach($images as $image)
+                                                @if(strlen($image > 25))
+                                            <figure class="border-radius-10" >
+                                                <img src="{{$image}}" alt="product image" style="width: 1100px;height: 500px">
                                             </figure>
+                                                @else
+                                                    <figure class="border-radius-10" >
+                                                        <img src="{{asset('frontend/assets/images/product')}}/{{$image}}" alt="product image">
+                                                    </figure>
+                                                @endif
+                                            @endforeach
                                         </div>
-                                        <!-- THUMBNAILS -->
+
                                         <div class="slider-nav-thumbnails pl-15 pr-15">
-                                            <div><img src="{{asset('frontend')}}/assets/imgs/shop/thumbnail-3.jpg" alt="product image"></div>
-                                            <div><img src="{{asset('frontend')}}/assets/imgs/shop/thumbnail-4.jpg" alt="product image"></div>
-                                            <div><img src="{{asset('frontend')}}/assets/imgs/shop/thumbnail-5.jpg" alt="product image"></div>
-                                            <div><img src="{{asset('frontend')}}/assets/imgs/shop/thumbnail-6.jpg" alt="product image"></div>
-                                            <div><img src="{{asset('frontend')}}/assets/imgs/shop/thumbnail-7.jpg" alt="product image"></div>
-                                            <div><img src="{{asset('frontend')}}/assets/imgs/shop/thumbnail-8.jpg" alt="product image"></div>
-                                            <div><img src="{{asset('frontend')}}/assets/imgs/shop/thumbnail-9.jpg" alt="product image"></div>
+                                            @foreach($images as $image)
+                                                @if(strlen($image > 25))
+                                                       <div><img src="{{$image}}" alt="product image" style="height: 90px"></div>
+                                                @else
+                                                    <div><img src="{{asset('frontend/assets/images/product')}}/{{$image}}" alt="product image"></div>
+                                                @endif
+                                            @endforeach
                                         </div>
                                     </div>
                                     <!-- End Gallery -->
@@ -92,7 +144,7 @@
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-12">
                                     <div class="detail-info">
-                                        <h2 class="title-detail">{{ucwords($product->name)}}</h2>
+                                        <h3 class="title-detail">{{ucwords($product->name)}}</h3>
                                         <div class="product-detail-rating">
                                             <div class="pro-details-brand">
                                                 <span> Brands: <a href="javascript:void(0)">{{$product->brand->name}}</a></span>
@@ -126,43 +178,50 @@
                                             <div class="product-price primary-color float-left">
                                                 <ins><span class="text-brand">&#2547; {{$product->sale_price}}</span></ins>
                                                 <ins><span class="old-price font-md ml-15">&#2547; {{$product->regular_price}}</span></ins>
-                                                <span class="save-price  font-md color3 ml-15">{{round($percent)}}% Off</span>
+                                                <span class="save-price  font-md color3 ml-15 mr-15">{{round($percent)}}% Off</span>
+                                                @if($product->quantity)
+                                                    <button class="button-3" role="button">Instock</button>
+                                                @else
+                                                    <button class="button-62" role="button">Outstock</button>
+                                                @endif
+                                                
                                             </div>
                                         </div>
                                         <div class="bt-1 border-color-1 mt-15 mb-15"></div>
                                         <div class="short-desc mb-30">
-                                            <p>{{$product->short_description}}</p>
+                                            <p>{!! $product->short_description !!}</p>
                                         </div>
-                                        <div class="product_sort_info font-xs mb-30">
+                                        {{--<div class="product_sort_info font-xs mb-30">
                                             <ul>
                                                 <li class="mb-10"><i class="fi-rs-crown mr-5"></i> Warranty not available</li>
                                                 <li class="mb-10"><i class="fi-rs-crown mr-5"></i> 100% Authentic from Trusted Brand</li>
                                                 <li class="mb-10"><i class="fi-rs-refresh mr-5"></i> 15 Day Easy Return Policy</li>
                                                 <li><i class="fi-rs-credit-card mr-5"></i> Cash on Delivery available</li>
                                             </ul>
-                                        </div>
+                                        </div>--}}
+
+                                        @if(json_decode($product->color))
                                         <div class="attr-detail attr-color mb-15">
                                             <strong class="mr-10">Color</strong>
                                             <ul class="list-filter color-filter">
-                                                <li><a href="#" data-color="Red"><span class="product-color-red"></span></a></li>
-                                                <li><a href="#" data-color="Yellow"><span class="product-color-yellow"></span></a></li>
-                                                <li class="active"><a href="#" data-color="White"><span class="product-color-white"></span></a></li>
-                                                <li><a href="#" data-color="Orange"><span class="product-color-orange"></span></a></li>
-                                                <li><a href="#" data-color="Cyan"><span class="product-color-cyan"></span></a></li>
-                                                <li><a href="#" data-color="Green"><span class="product-color-green"></span></a></li>
-                                                <li><a href="#" data-color="Purple"><span class="product-color-purple"></span></a></li>
+                                                @foreach(json_decode($product->color) as $color)
+                                                <li value="{{$color}}" wire:click="showColor('{{ $color }}')"><a href="#" data-color="{{$color}}"><span class="product-color-{{$color}}"></span></a></li>
+                                                @endforeach
                                             </ul>
                                         </div>
+                                        @endif
+
+                                        @if(json_decode($product->size))
                                         <div class="attr-detail attr-size">
                                             <strong class="mr-10">Size</strong>
                                             <ul class="list-filter size-filter font-small">
-                                                <li><a href="#">S</a></li>
-                                                <li class="active"><a href="#">M</a></li>
-                                                <li><a href="#">L</a></li>
-                                                <li><a href="#">XL</a></li>
-                                                <li><a href="#">XXL</a></li>
+                                                @foreach(json_decode($product->size) as $size)
+                                                <li value="{{$size}}" wire:click="showSize('{{ $size }}')"><a href="#">{{$size}}</a></li>
+                                                @endforeach
                                             </ul>
                                         </div>
+                                        @endif
+
                                         <div class="bt-1 border-color-1 mt-30 mb-30"></div>
                                         <div class="detail-extralink">
                                             <div class="detail-qty border radius">
@@ -173,14 +232,14 @@
 
 
                                             <div class="product-extra-link2">
-                                                <button type="submit" class="button button-add-to-cart" wire:click.prevent="store({{$product->id}},'{{$product->name}}',{{$product->sale_price}})">Add to cart</button>
+                                                <button type="submit" class="button button-add-to-cart" {{ $product->quantity == 0 ?'disabled':'' }} wire:click.prevent="store({{$product->id}},'{{$product->name}}',{{$product->sale_price}})">Add to cart</button>
                                                 <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#"><i class="fi-rs-heart"></i></a>
                                             </div>
                                         </div>
-                                        <ul class="product-meta font-xs color-grey mt-50">
+                                        <ul class="product-meta font-xs color-grey mt-10">
                                             <li class="mb-5">SKU: <a href="#">{{$product->sku_code}}</a></li>
                                             <li class="mb-5">Category: <a href="{{route('category.product',['slug'=>$product->category->slug])}}" rel="tag">{{$product->category->name}}</a></li>
-                                            <li>Availability:<span class="in-stock text-success ml-5">{{$product->quantity}} Items In Stock</span></li>
+                                            <li>Availability:<span class="in-stock text-success ml-5">{{$product->quantity}} Items</span></li>
                                         </ul>
                                     </div>
                                     <!-- Detail Info -->
@@ -201,7 +260,7 @@
                                 <div class="tab-content shop_info_tab entry-main-content">
                                     <div class="tab-pane fade show active" id="Description">
                                         <div class="">
-                                           <p>{{$product->long_description}}</p>
+                                           <p>{!! $product->long_description !!}</p>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="Additional-info">
@@ -376,13 +435,15 @@
                                         <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                                             <div class="product-cart-wrap small hover-up">
                                                 <div class="product-img-action-wrap">
-                                                    <div class="product-img product-img-zoom">
-                                                        <a href="{{route('product.details',['slug'=>$rproduct->slug])}}" tabindex="0">
-                                                            <img class="default-img" src="{{$rproduct->image}}" alt="">
-                                                        </a>
-                                                    </div>
+                                                        <div class="product-img product-img-zoom">
+                                                            @if(strlen($rproduct->image > 25))
+                                                                <a href="{{route('product.details',['slug'=>$rproduct->slug])}}"><img class="default-img" src="{{$rproduct->image}}" alt=""></a>
+                                                            @else
+                                                                <a href="{{route('product.details',['slug'=>$rproduct->slug])}}"><img class="default-img" src="{{asset('frontend/assets/images/product')}}/{{$rproduct->image}}" alt=""></a>
+                                                            @endif
+                                                        </div>
                                                     <div class="product-action-1">
-                                                        <a  aria-label="Quick view" class="action-btn small hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-search"></i></a>
+                                                        <a  aria-label="Quick view" class="action-btn small hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal" wire:click="quickView({{$rproduct}})"><i class="fi-rs-search"></i></a>
                                                         <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="wishlist.php" tabindex="0"><i class="fi-rs-heart"></i></a>
                                                     </div>
 
@@ -432,6 +493,51 @@
                         </div>
                     </div>
                     <div class="col-lg-3 primary-sidebar sticky-sidebar">
+                        <div class="sidebar-widget product-sidebar  mb-3 p-3 bg-light border-radius-10">
+                            <div class="widget-header position-relative mb-2 pb-2">
+                                <p class="widget-title mb-2">Delivery</p>
+                                <div class="bt-1 border-color-1"></div>
+                            </div>
+                            <div class="single-post clearfix">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <p><i class="fi-rs-marker mr-5"></i>Rafa Shop</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <a href="javascript:void(0)" class="text-info">CHANGE</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="single-post clearfix">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p><i class="fi-rs-credit-card mr-5"></i>Cash on Delivery Available</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="single-post clearfix">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p><i class="fi-rs-crown mr-5"></i>Warranty not available</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="single-post clearfix">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p><i class="fi-rs-refresh mr-5"></i>15 Day Easy Return Policy</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="single-post clearfix">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p><i class="fi-rs-shop mr-5"></i>100% Authentic from Trusted Brand</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="widget-category mb-30">
                             <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
                             <ul class="categories">
@@ -440,14 +546,7 @@
                                 @endforeach
                             </ul>
                         </div>
-                        <div class="banner-img wow fadeIn mb-45 animated d-lg-block d-none">
-                            <img src="{{asset('frontend')}}/assets/imgs/banner/banner-11.jpg" alt="">
-                            <div class="banner-text">
-                                <span>Women Zone</span>
-                                <h4>Save 17% on <br>Office Dress</h4>
-                                <a href="shop.html">Shop Now <i class="fi-rs-arrow-right"></i></a>
-                            </div>
-                        </div>
+
                         <!-- Product sidebar Widget -->
                         <div class="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">
                             <div class="widget-header position-relative mb-20 pb-10">
@@ -457,7 +556,14 @@
                             @foreach($nproducts as $nproduct)
                             <div class="single-post clearfix">
                                 <div class="image">
-                                    <img src="{{$nproduct->image}}" alt="#">
+                                    <div class="product-img product-img-zoom">
+                                        @if(strlen($nproduct->image > 25))
+                                            <a href="{{route('product.details',['slug'=>$nproduct->slug])}}"><img class="default-img" src="{{$nproduct->image}}" alt=""></a>
+                                        @else
+                                            <a href="{{route('product.details',['slug'=>$nproduct->slug])}}"><img class="default-img" src="{{asset('frontend/assets/images/product')}}/{{$nproduct->image}}" alt="">
+                                            </a>
+                                        @endif
+                                    </div>
                                 </div>
                                 <div class="content pt-10">
                                     <h5><a href="{{route('product.details',['slug'=>$nproduct->slug])}}">{{ucwords($nproduct->name)}}</a></h5>
@@ -493,7 +599,6 @@
         </section>
 
          <!-- Quick view -->
-
          <div wire:ignore.self class="modal fade custom-modal" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
              <div class="modal-dialog">
                  <div class="modal-content">
@@ -612,6 +717,7 @@
                                      </div>
                                      <ul class="product-meta font-xs color-grey mt-50">
                                          <li class="mb-5">SKU: <a href="#">FWM15VKT</a></li>
+
                                          <li class="mb-5">Tags: <a href="#" rel="tag">Cloth</a>, <a href="#" rel="tag">Women</a>, <a href="#" rel="tag">Dress</a> </li>
                                          <li>Availability:<span class="in-stock text-success ml-5">8 Items In Stock</span></li>
                                      </ul>
@@ -623,6 +729,7 @@
                  </div>
              </div>
          </div>
+
      </main>
 
 

@@ -35,13 +35,20 @@
                         <div class="row product-grid-4">
                             @foreach($products as $product)
                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-6">
-                                    <div class="product-cart-wrap mb-30">
+                                    <div class="product-cart-wrap mb-20">
                                         <div class="product-img-action-wrap">
                                             <div class="product-img product-img-zoom">
-                                                <a href="{{route('product.details',['slug'=>$product->slug])}}">
-                                                    <img class="default-img" src="{{$product->image}}" alt="">
-                                                </a>
+                                                @if(strlen($product->image > 25))
+                                                    <a href="{{route('product.details',['slug'=>$product->slug])}}">
+                                                        <img class="default-img" src="{{$product->image}}" alt="">
+                                                    </a>
+                                                @else
+                                                    <a href="{{route('product.details',['slug'=>$product->slug])}}">
+                                                        <img class="default-img" src="{{asset('frontend/assets/images/product')}}/{{$product->image}}" alt="">
+                                                    </a>
+                                                @endif
                                             </div>
+
                                             <div class="product-badges product-badges-position product-badges-mrg">
                                                 @php
                                                     $loss=$product->regular_price-$product->sale_price;

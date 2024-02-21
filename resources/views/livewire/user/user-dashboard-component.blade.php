@@ -3,14 +3,12 @@
         .editimage {
             position: relative;
         }
-
         .topleft {
             position: absolute;
             top: 0px;
             right: 40px;
             font-size: 18px;
         }
-
         img:hover {
             opacity: 0.3;
         }

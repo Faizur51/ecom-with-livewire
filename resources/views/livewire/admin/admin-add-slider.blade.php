@@ -61,7 +61,8 @@
                             @error('image') <p class="text-danger">{{$message}}</p> @enderror
                         </div>
                     </div>
-                    <div class="row">
+
+                  {{--  <div class="row">
                         <label for="inputPassword" class="col-sm-2 col-form-label">Status</label>
                         <div class="input-style mb-20 col-sm-10">
                             <select name="" id="" class="form-control" wire:model="status">
@@ -71,7 +72,25 @@
                             </select>
                             @error('status') <p class="text-danger">{{$message}}</p> @enderror
                         </div>
+                    </div>--}}
+
+                    <div class="row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Status</label>
+                        <div class="input-style mb-2 col-sm-10">
+                            <div class="icheck-material-teal icheck-inline">
+                                <input type="radio" id="chb1" wire:model="status" value="1"/>
+                                <label for="chb1">Active</label>
+                            </div>
+                            <div class="icheck-material-red icheck-inline">
+                                <input type="radio" id="chb2" wire:model="status" value="0"/>
+                                <label for="chb2">Inactive</label>
+                            </div>
+                            @error('status') <p class="text-danger">{{$message}}</p> @enderror
+                        </div>
                     </div>
+
+
+
                 </form>
             </div>
             <div class="modal-footer">

@@ -1,5 +1,4 @@
-<div>
-    <main class="main">
+<main class="main">
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
@@ -9,7 +8,7 @@
                 </div>
             </div>
         </div>
-        <section class="mt-50 mb-50">
+        <section class="mt-20 mb-20">
             <div class="container">
                 @if(Cart::instance('cart')->count()>0)
                 <div class="row">
@@ -30,9 +29,25 @@
                                 <tbody>
                                 @foreach(Cart::instance('cart')->content() as $item)
                                 <tr>
-                                    <td class="image product-thumbnail"><img src="{{$item->model->image}}" alt="#"></td>
+                                    <td class="image product-thumbnail">
+                                            @if(strlen($item->model->image)>25)
+                                            <img src="{{$item->model->image}}" alt="#">
+                                            @else
+                                                <img src="{{asset('frontend/assets/images/product')}}/{{$item->model->image}}" alt="#">
+                                            @endif
+                                    </td>
                                     <td class="product-des product-name">
-                                        <h5 class="product-name"><a href="{{route('product.details',['slug'=>$item->model->slug])}}">{{ucwords($item->model->name)}}</a></h5>
+                                        <h5 class="product-name">
+                                            <a href="{{route('product.details',['slug'=>$item->model->slug])}}">
+                                                {{ucwords($item->model->name)}}
+                                                @if($item->options->color)
+                                                    <strong class="mr-5">,Color:{{ucwords($item->options->color)}}</strong>
+                                                @endif
+                                                @if($item->options->size)
+                                                    <strong class="mr-5">,Size:{{$item->options->size}}</strong>
+                                                @endif
+                                            </a>
+                                        </h5>
                                     </td>
                                     <td class="price" data-title="Price"><span>&#2547; {{$item->model->sale_price}} </span></td>
                                     <td class="text-center" data-title="Stock">
@@ -62,10 +77,10 @@
                         <div class="cart-action text-end">
                             <a class="btn text-uppercase" href="/"><i class="fi-rs-shopping-bag mr-10"></i>Continue Shopping</a>
                         </div>
-                        <div class="divider center_icon mt-50 mb-5"><i class="fi-rs-fingerprint"></i></div>
-                        <div class="row mb-50">
+                        <div class="divider center_icon mt-20 mb-20"><i class="fi-rs-fingerprint"></i></div>
+                        <div class="row mb-20">
                             <div class="col-lg-6 col-md-12">
-                                <div class="mb-30 mt-50">
+                                <div class="mb-20 mt-20">
                                     <div class="heading_s1 mb-3">
                                         <h4>Apply Coupon</h4>
                                     </div>
@@ -132,4 +147,4 @@
             </div>
         </section>
     </main>
-</div>
+

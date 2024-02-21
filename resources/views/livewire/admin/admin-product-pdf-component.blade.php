@@ -188,7 +188,17 @@
     @foreach($order->orderItems as $item)
         <tr>
             <td width="10%">{{$item->id}}</td>
-            <td>{{ucwords($item->product->name)}}</td>
+            <td>
+                {{ucwords($item->product->name)}}
+                <br>
+                @if($item->options)
+                    @foreach(unserialize($item->options) as $key=>$value)
+                        @if($value)
+                            <span>{{ucwords($key)}}:{{ucwords($value)}}</span>
+                        @endif
+                    @endforeach
+                @endif
+            </td>
             <td ><span class="custom-font">&#2547;</span> {{$item->price}}</td>
             <td width="10%">{{$item->quantity}} PCs</td>
             <td width="15%" class="fw-bold"><span class="custom-font">&#2547;</span> {{$item->price*$item->quantity}}</td>

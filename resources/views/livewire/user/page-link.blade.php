@@ -1,14 +1,11 @@
-<div class="col-md-2 " wire:ignore>
+<div class="col-md-2" wire:ignore>
     <div class="dashboard-menu shadow-sm">
         <div class="thumb text-center ">
-
             @if(auth()->user()->avatar)
                 <img src="{{auth()->user()->avatar}}" alt="#" class="rounded-circle" style="width: 120px">
             @else
                 <img src="{{asset('frontend/assets/images/profile/user/images3.png')}}" alt="#" class="rounded-circle" style="width: 120px">
             @endif
-
-
             <h5><a href="#">{{auth()->user()->name}}</a></h5>
             <p class="font-xxs">{{auth()->user()->email}}</p>
         </div>
@@ -38,12 +35,12 @@
             </li>
 
             <li class="nav-item">
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <a href="route('logout')" class="nav-link" onclick="event.preventDefault();this.closest('form').submit();">
-                                <i class="fi-rs-sign-out mr-10"></i>{{ __('Log Out') }}
-                            </a>
-                        </form>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <a href="{{route('logout')}}" class="nav-link" onclick="event.preventDefault();this.closest('form').submit();">
+                        <i class="fi-rs-sign-out mr-10"></i>{{ __('Log Out') }}
+                    </a>
+                </form>
             </li>
         </ul>
     </div>

@@ -129,6 +129,7 @@ class AdminManageSliderComponent extends Component
         $this->offer=$slider->offer;
         $this->link=$slider->link;
         $this->old_image=$slider->image;
+        $this->status=$slider->status;
         $this->ids=$slider->id;
     }
 
@@ -141,6 +142,7 @@ class AdminManageSliderComponent extends Component
             'sub_title'=>'required',
             'offer'=>'required',
             'link'=>'required',
+            'status'=>'required',
         ]);
 
         $slider=HomeSlider::find($this->ids);
@@ -150,6 +152,7 @@ class AdminManageSliderComponent extends Component
         $slider->sub_title=$this->sub_title;
         $slider->offer=$this->offer;
         $slider->link=$this->link;
+        $slider->status=$this->status;
 
         if($this->new_image){
             unlink('frontend/assets/images/slider/'.$slider->image);

@@ -17,7 +17,7 @@ class SizeSeeder extends Seeder
     public function run()
     {
         $sizes=[
-            'L','M','XL','S','2XL','XS'
+            'S','M','L','XL','2XL'
         ];
 
         foreach ($sizes as $key=>$value){

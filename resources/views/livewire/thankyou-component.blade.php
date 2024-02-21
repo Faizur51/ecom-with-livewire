@@ -1,5 +1,4 @@
-<div>
-    <main id="main" class="main-site">
+ <main id="main" class="main-site">
         <div class="container">
             <div class="page-header breadcrumb-wrap">
                 <div class="container">
@@ -11,13 +10,13 @@
             </div>
         </div>
 
-        <div class="container pt-60 pb-60">
+        <div class="container pt-20 pb-20">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <div class="shadow p-3 mb-5 bg-body rounded">
+                    <div class="bg-light p-3 mb-5 rounded">
                        <div class="row">
                           <div class="col-lg-8 offset-md-2">
-                              <div class="toggle_info mb-2">
+                              <div class="shadow-md bg-white mb-10 p-10">
                                   <h2>Order ID# {{$order->id}}</h2>
                                   <h3>Thank you for your order!</h3>
                                   <p>We will contact you soon to verify the order.</p>
@@ -29,7 +28,7 @@
                        </div>
                         <div class="row">
                             <div class="col-lg-8 offset-md-2">
-                                <div class="toggle_info d-flex justify-content-around align-items-center mb-2">
+                                <div class="shadow-md bg-white d-flex justify-content-around align-items-center mb-5">
                                         <div>
                                             <p>Name: {{ucwords($order->name)}}</p>
                                             <p>Phone No: {{$order->phone}}</p>
@@ -38,7 +37,7 @@
                                             <p>Shipping Address:{{ucwords($order->address)}}</p>
                                         </div>
                                         <div>
-                                            <div class="table-responsive">
+                                            <div class="table-responsive" style="padding: 10px">
                                                 <table class="table">
                                                     <tbody>
                                                     <tr>
@@ -58,7 +57,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                <div class="d-flex mt-5 align-items-center toggle_info">
+                                <div class="shadow-md d-flex mt-10 align-items-center bg-white p-10">
                                     <div class="flex-shrink-0">
                                         <a href="https://www.facebook.com"><img src="{{asset('frontend/assets/images/thankyou/find-us.png')}}" alt="..." style="width: 200px"></a>
                                     </div>
@@ -68,11 +67,10 @@
                                 </div>
                             </div>
                         </div>
-
                         <a href="/" class="btn btn-submit mt-20">Continue Shopping</a>
                     </div>
                 </div>
             </div>
         </div><!--end container-->
     </main>
-</div>
+

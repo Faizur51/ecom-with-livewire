@@ -1,8 +1,7 @@
-
-    <div class="main-categori-wrap d-none d-lg-block">
+<div class="main-categori-wrap d-none d-lg-block">
         <style>
             .dropdown-menu{
-                border: 0;
+                border:0;
             }
         </style>
         <a class="categori-button-active" href="#">
@@ -32,7 +31,7 @@
                                     <div class="col-sm-3 col-md-3">
                                         <a href="{{route('category.product',['slug'=>$category->slug,'scategory_slug'=>$scategory->slug])}}">
                                         <div class="header-banner2">
-                                            <img src="{{asset('frontend/assets/images/category')}}/{{$scategory->image}}" alt="menu_banner1" class="rounded" >
+                                            <img src="{{asset('frontend/assets/images/category')}}/{{$scategory->image}}" alt="menu_banner1" class="rounded">
                                                     <span>{{ucwords($scategory->name)}}</span>
                                         </div>
                                         </a>

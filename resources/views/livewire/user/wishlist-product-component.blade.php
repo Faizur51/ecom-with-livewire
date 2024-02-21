@@ -42,9 +42,15 @@
                                                                             <div class="product-cart-wrap mb-30">
                                                                                 <div class="product-img-action-wrap">
                                                                                     <div class="product-img product-img-zoom">
-                                                                                        <a href="{{route('product.details',['slug'=>$item->model->slug])}}">
-                                                                                            <img class="default-img" src="{{$item->model->image}}" alt="">
-                                                                                        </a>
+                                                                                        @if(strlen($item->model->image > 25))
+                                                                                            <a href="{{route('product.details',['slug'=>$item->model->slug])}}">
+                                                                                                <img class="default-img" src="{{$item->model->image}}" alt="">
+                                                                                            </a>
+                                                                                        @else
+                                                                                            <a href="{{route('product.details',['slug'=>$item->model->slug])}}">
+                                                                                                <img class="default-img" src="{{asset('frontend/assets/images/product')}}/{{$item->model->image}}" alt="">
+                                                                                            </a>
+                                                                                        @endif
                                                                                     </div>
                                                                                     <div class="product-badges product-badges-position product-badges-mrg">
                                                                                         @php

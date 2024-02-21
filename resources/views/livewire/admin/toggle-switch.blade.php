@@ -1,9 +1,22 @@
 
 <div>
     <label class="switch">
-        <input {{--onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" --}} type="checkbox" wire:model.live="isActive">
+        <input onclick="confirm('Are you sure?') || event.stopImmediatePropagation()"  type="checkbox" wire:model="isActive">
         <span class="slider round"></span>
     </label>
+
+    <div class="font-italic mt-1"
+         x-data="{shown: false}"
+         x-show.transition.opacity.out.duration.1500ms="shown"
+         x-show="shown"
+         x-init="@this.on('statusUpdated', () => {
+        shown = true;
+        setTimeout(() => shown = false, 2000)
+               })"
+         style="display: none">
+         Data Saved
+    </div>
+
 </div>
 <style>
     .switch {

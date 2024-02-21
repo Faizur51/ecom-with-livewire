@@ -122,18 +122,30 @@
                                                     <div class="text-center m-2">
                                                         <h5 class="mb-0 text-muted">My Order ({{count($order->orderItems)}} Items)</h5>
                                                     </div>
+
                                                     @foreach($order->orderItems as $item)
                                                         <div style="border-bottom:1px solid #e2e9e1">
                                                             <div class="row card-body d-flex align-items-center">
                                                                 <div class="col-md-4">
-                                                                    @if(!$item->product->image)
-                                                                        <img src="{{asset('frontend/assets/images/product')}}/{{$item->product->image}}" alt="#">
-                                                                    @else
-                                                                        <img src="{{asset('frontend/assets/imgs/shop/product-1-2.jpg')}}" alt="" style="width: 100px">
-                                                                    @endif
+                                                                        @if(strlen($item->product->image)>25)
+                                                                            <img src="{{$item->product->image}}" alt="#">
+                                                                        @else
+                                                                            <img src="{{asset('frontend/assets/images/product')}}/{{$item->product->image}}" alt="#">
+                                                                        @endif
                                                                 </div>
                                                                 <div class="col-md-8">
                                                                     <a href="{{route('product.details',['slug'=>$item->product->slug])}}" class="text-default" style="font-size: 18px">{{ucwords($item->product->name)}}</a>
+                                                                    <br>
+
+                                                                   @if($item->options)
+                                                                        @foreach(unserialize($item->options) as $key=>$value)
+                                                                            @if($value)
+                                                                                <span>{{ucwords($key)}}:{{ucwords($value)}}</span>
+                                                                            @endif
+                                                                        @endforeach
+                                                                    @endif
+
+
                                                                     <p>Quantity:{{$item->quantity}}</p>
                                                                     <p>Category: {{$item->product->category->name}}</p>
                                                                     @if($item->product->subCategories)

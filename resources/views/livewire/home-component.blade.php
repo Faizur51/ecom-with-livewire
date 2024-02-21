@@ -1,6 +1,5 @@
-<div>
-    <main class="main">
-        <section class="home-slider position-relative pt-50" >
+ <main class="main">
+        <section class="home-slider position-relative pt-20" >
             <div class="hero-slider-1 dot-style-1 dot-style-1-position-1" wire:ignore>
                 @foreach($homeSliders as $homeSlider)
                 <div class="single-hero-slider single-animation-wrap" >
@@ -17,7 +16,11 @@
                             </div>
                             <div class="col-lg-7 col-md-6">
                                 <div class="single-slider-img single-slider-img-1">
-                                    <img class="animated slider-1-1" src="{{asset('frontend/assets/images/slider')}}/{{$homeSlider->image}}" alt="">
+                                    @if(strlen($homeSlider->image > 25))
+                                    <img class="animated slider-1-1" src="{{$homeSlider->image}}" alt="">
+                                    @else
+                                        <img class="animated slider-1-1" src="{{asset('frontend/assets/images/slider')}}/{{$homeSlider->image}}" alt="">
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -27,55 +30,38 @@
             </div>
             <div class="slider-arrow hero-slider-1-arrow"></div>
         </section>
-        <section class="featured section-padding position-relative">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
-                        <div class="banner-features wow fadeIn animated hover-up">
-                            <img src="{{asset('frontend')}}/assets/imgs/theme/icons/feature-1.png" alt="">
-                            <h4 class="bg-1">Free Shipping</h4>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
-                        <div class="banner-features wow fadeIn animated hover-up">
-                            <img src="{{asset('frontend')}}/assets/imgs/theme/icons/feature-2.png" alt="">
-                            <h4 class="bg-3">Online Order</h4>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
-                        <div class="banner-features wow fadeIn animated hover-up">
-                            <img src="{{asset('frontend')}}/assets/imgs/theme/icons/feature-3.png" alt="">
-                            <h4 class="bg-2">Save Money</h4>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
-                        <div class="banner-features wow fadeIn animated hover-up">
-                            <img src="{{asset('frontend')}}/assets/imgs/theme/icons/feature-4.png" alt="">
-                            <h4 class="bg-4">Promotions</h4>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
-                        <div class="banner-features wow fadeIn animated hover-up">
-                            <img src="{{asset('frontend')}}/assets/imgs/theme/icons/feature-5.png" alt="">
-                            <h4 class="bg-5">Happy Sell</h4>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
-                        <div class="banner-features wow fadeIn animated hover-up">
-                            <img src="{{asset('frontend')}}/assets/imgs/theme/icons/feature-6.png" alt="">
-                            <h4 class="bg-6">24/7 Support</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+
+     <section class="featured section-padding position-relative">
+         @if($categories->count()>0)
+         <div class="container">
+             <h3 class="section-title mb-2 wow fadeIn animated"><span>Featured</span> Category</h3>
+             <div class="row">
+                 @foreach($categories as $category)
+                 <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0 mt-10">
+                     <div class="banner-features wow fadeIn animated hover-up">
+
+                         @if(strlen($category->image > 25))
+                         <a href="{{route('category.product',['slug'=>$category->slug])}}"><img src="{{$category->image}}" alt=""></a>
+                         @else
+                             <a href="{{route('category.product',['slug'=>$category->slug])}}"><img src="{{asset('frontend/assets/images/category')}}/{{$category->image}}" alt=""></a>
+                         @endif
+
+                         <h4 class="bg-3"><a href="{{route('category.product',['slug'=>$category->slug])}}">{{$category->name}}</a></h4>
+                     </div>
+                 </div>
+                 @endforeach
+             </div>
+         </div>
+         @endif
+     </section>
+
         <section class="product-tabs section-padding position-relative wow fadeIn animated">
             <div class="bg-square"></div>
             <div class="container">
                 <div class="tab-header">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="nav-tab-one" data-bs-toggle="tab" data-bs-target="#tab-one" type="button" role="tab" aria-controls="tab-one" aria-selected="true">Featured</button>
+                            <h3 class="section-title mb-2 wow fadeIn animated"><span>Featured</span> Product</h3>
                         </li>
                     </ul>
                     <a href="javascript:void(0)" class="view-more d-none d-md-flex" wire:click.prevent="loadMore">View More<i class="fi-rs-angle-double-small-right"></i></a>
@@ -89,11 +75,19 @@
                             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-6">
                                 <div class="product-cart-wrap mb-30">
                                     <div class="product-img-action-wrap">
+
                                         <div class="product-img product-img-zoom">
+                                            @if(strlen($product->image > 25))
                                             <a href="{{route('product.details',['slug'=>$product->slug])}}">
                                                 <img class="default-img" src="{{$product->image}}" alt="">
                                             </a>
+                                            @else
+                                                <a href="{{route('product.details',['slug'=>$product->slug])}}">
+                                                    <img class="default-img" src="{{asset('frontend/assets/images/product')}}/{{$product->image}}" alt="">
+                                                </a>
+                                            @endif
                                         </div>
+
                                         <div class="product-badges product-badges-position product-badges-mrg">
                                             @php
                                                 $loss=$product->regular_price-$product->sale_price;
@@ -152,6 +146,7 @@
                 <!--End tab-content-->
             </div>
         </section>
+
         <section class="banner-2 section-padding pb-0">
             <div class="container">
                 <div class="banner-img banner-big wow fadeIn animated f-none">
@@ -164,6 +159,7 @@
                 </div>
             </div>
         </section>
+
         <section class="popular-categories section-padding mt-15 mb-25" wire:ignore>
             <div class="container wow fadeIn animated">
                 <h3 class="section-title mb-20"><span>Popular</span> Categories</h3>
@@ -229,11 +225,16 @@
                             <div class="product-cart-wrap small hover-up">
                             <div class="product-img-action-wrap">
                                 <div class="product-img product-img-zoom">
-                                    <a href="{{route('product.details',['slug'=>$nproduct->slug])}}">
-                                        <img class="default-img" src="{{$nproduct->image}}" alt="">
-                                    </a>
+                                    @if(strlen($nproduct->image > 25))
+                                        <a href="{{route('product.details',['slug'=>$nproduct->slug])}}">
+                                            <img class="default-img" src="{{$nproduct->image}}" alt="">
+                                        </a>
+                                    @else
+                                        <a href="{{route('product.details',['slug'=>$nproduct->slug])}}">
+                                            <img class="default-img" src="{{asset('frontend/assets/images/product')}}/{{$nproduct->image}}" alt="">
+                                        </a>
+                                    @endif
                                 </div>
-
                                 <div class="product-badges product-badges-position product-badges-mrg">
                                     @php
                                         $loss=$nproduct->regular_price-$nproduct->sale_price;
@@ -281,21 +282,50 @@
             </div>
         </section>
 
-        <section class="section-padding" wire:ignore>
-            <div class="container">
-                <h3 class="section-title mb-20 wow fadeIn animated"><span>Featured</span> Brands</h3>
-                <div class="carausel-6-columns-cover position-relative wow fadeIn animated">
-                    <div class="slider-arrow slider-arrow-2 carausel-6-columns-arrow" id="carausel-6-columns-3-arrows"></div>
-                    <div class="carausel-6-columns text-center" id="carausel-6-columns-3">
-                        @foreach($brands as $brand)
-                        <div class="brand-logo">
-                            <img class="img-grey-hover" src="{{$brand->image}}" alt="">
-                        </div>
-                        @endforeach
+     <section class="featured section-padding position-relative">
+         <div class="container">
+             <h3 class="section-title mb-20 wow fadeIn animated"><span>Our</span> Support</h3>
+             <div class="row">
+                 <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
+                     <div class="banner-features wow fadeIn animated hover-up">
+                         <img src="{{asset('frontend')}}/assets/imgs/theme/icons/feature-1.png" alt="">
+                         <h4 class="bg-1">Free Shipping</h4>
+                     </div>
+                 </div>
+                 <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
+                     <div class="banner-features wow fadeIn animated hover-up">
+                         <img src="{{asset('frontend')}}/assets/imgs/theme/icons/feature-2.png" alt="">
+                         <h4 class="bg-3">Online Order</h4>
+                     </div>
+                 </div>
+                 <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
+                     <div class="banner-features wow fadeIn animated hover-up">
+                         <img src="{{asset('frontend')}}/assets/imgs/theme/icons/feature-3.png" alt="">
+                         <h4 class="bg-2">Save Money</h4>
+                     </div>
+                 </div>
+                 <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
+                     <div class="banner-features wow fadeIn animated hover-up">
+                         <img src="{{asset('frontend')}}/assets/imgs/theme/icons/feature-4.png" alt="">
+                         <h4 class="bg-4">Promotions</h4>
+                     </div>
+                 </div>
+                 <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
+                     <div class="banner-features wow fadeIn animated hover-up">
+                         <img src="{{asset('frontend')}}/assets/imgs/theme/icons/feature-5.png" alt="">
+                         <h4 class="bg-5">Happy Sell</h4>
+                     </div>
+                 </div>
+                 <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
+                     <div class="banner-features wow fadeIn animated hover-up">
+                         <img src="{{asset('frontend')}}/assets/imgs/theme/icons/feature-6.png" alt="">
+                         <h4 class="bg-6">24/7 Support</h4>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </section>
 
-                    </div>
-                </div>
-            </div>
-        </section>
+
     </main>
-</div>
+

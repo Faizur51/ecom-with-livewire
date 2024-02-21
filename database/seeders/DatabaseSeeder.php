@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             ColorSeeder::class,
             SizeSeeder::class,
             ProductSeeder::class,
-            //HomeSliderSeeder::class
+            HomeSliderSeeder::class,
             DistrictSeeder::class,
         ]);
 

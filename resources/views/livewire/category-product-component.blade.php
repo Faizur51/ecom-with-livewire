@@ -1,5 +1,4 @@
-<div>
-    <main class="main">
+ <main class="main">
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
@@ -62,10 +61,17 @@
                                     <div class="product-cart-wrap mb-30">
                                         <div class="product-img-action-wrap">
                                             <div class="product-img product-img-zoom">
-                                                <a href="{{route('product.details',['slug'=>$product->slug])}}">
-                                                    <img class="default-img" src="{{$product->image}}" alt="">
-                                                </a>
+                                                @if(strlen($product->image > 25))
+                                                    <a href="{{route('product.details',['slug'=>$product->slug])}}">
+                                                        <img class="default-img" src="{{$product->image}}" alt="">
+                                                    </a>
+                                                @else
+                                                    <a href="{{route('product.details',['slug'=>$product->slug])}}">
+                                                        <img class="default-img" src="{{asset('frontend/assets/images/product')}}/{{$product->image}}" alt="">
+                                                    </a>
+                                                @endif
                                             </div>
+
                                             <div class="product-badges product-badges-position product-badges-mrg">
                                                 @php
                                                     $loss=$product->regular_price-$product->sale_price;
@@ -191,7 +197,17 @@
                             @foreach($nproducts as $nproduct)
                                 <div class="single-post clearfix">
                                     <div class="image">
-                                        <img src="{{$nproduct->image}}" alt="#">
+                                        <div class="product-img product-img-zoom">
+                                            @if(strlen($nproduct->image > 25))
+                                                <a href="{{route('product.details',['slug'=>$nproduct->slug])}}">
+                                                    <img class="default-img" src="{{$nproduct->image}}" alt="">
+                                                </a>
+                                            @else
+                                                <a href="{{route('product.details',['slug'=>$nproduct->slug])}}">
+                                                    <img class="default-img" src="{{asset('frontend/assets/images/product')}}/{{$nproduct->image}}" alt="">
+                                                </a>
+                                            @endif
+                                        </div>
                                     </div>
                                     <div class="content pt-10">
                                         <h5><a href="{{route('product.details',['slug'=>$nproduct->slug])}}">{{ucwords($nproduct->name)}}</a></h5>
@@ -227,7 +243,7 @@
             </div>
         </section>
     </main>
-</div>
+
 
 @push('scripts')
     <script>

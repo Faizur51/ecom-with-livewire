@@ -1,14 +1,14 @@
-<div>
-    <style>
-        .wishlisted{
-            background-color: #F15412 !important;
-            border: 1px solid transparent!important;
-        }
-        .wishlisted i{
-            color:#fff !important;
-        }
-    </style>
-    <main class="main">
+  <main class="main">
+        <style>
+            .wishlisted{
+                background-color: #F15412 !important;
+                border: 1px solid transparent!important;
+            }
+            .wishlisted i{
+                color:#fff !important;
+            }
+        </style>
+
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <section class="mt-50 mb-50">
+        <section class="mt-20 mb-20">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-9">
@@ -66,18 +66,24 @@
                             </div>
                         </div>
                         <div class="row product-grid-3">
-
                             @php
                             $witems=Cart::instance('wishlist')->content()->pluck('id');
                             @endphp
-
                             @foreach($products as $product)
                             <div class="col-lg-4 col-md-4 col-6 col-sm-6">
                                 <div class="product-cart-wrap mb-30">
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
-                                            <a href="{{route('product.details',['slug'=>$product->slug])}}"><img class="default-img" src="{{$product->image}}" alt="">
-                                            </a>
+
+                                            <div class="product-img product-img-zoom">
+                                                @if(strlen($product->image > 25))
+                                                    <a href="{{route('product.details',['slug'=>$product->slug])}}"><img class="default-img" src="{{$product->image}}" alt=""></a>
+                                                @else
+                                                    <a href="{{route('product.details',['slug'=>$product->slug])}}"><img class="default-img" src="{{asset('frontend/assets/images/product')}}/{{$product->image}}" alt="">
+                                                    </a>
+                                                @endif
+                                            </div>
+
                                         </div>
                                         <div class="product-badges product-badges-position product-badges-mrg">
                                             @php
@@ -92,7 +98,6 @@
                                             <a href="shop.html">{{$product->category->name}}</a>
                                         </div>
                                         <h2><a href="{{route('product.details',['slug'=>$product->slug])}}">{{ucwords($product->name)}}</a></h2>
-
 
                                         @php
                                             $avgrating = 0;
@@ -200,7 +205,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <!-- Product sidebar Widget -->
                         <div class="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">
@@ -211,12 +215,18 @@
                             @foreach($nproducts as $nproduct)
                             <div class="single-post clearfix">
                                 <div class="image">
-                                    <img src="{{$nproduct->image}}" alt="#">
+                                    <div class="product-img product-img-zoom">
+                                        @if(strlen($nproduct->image > 25))
+                                            <a href="{{route('product.details',['slug'=>$nproduct->slug])}}"><img class="default-img" src="{{$nproduct->image}}" alt=""></a>
+                                        @else
+                                            <a href="{{route('product.details',['slug'=>$nproduct->slug])}}"><img class="default-img" src="{{asset('frontend/assets/images/product')}}/{{$nproduct->image}}" alt="">
+                                            </a>
+                                        @endif
+                                    </div>
                                 </div>
                                 <div class="content pt-10">
                                     <h5><a href="{{route('product.details',['slug'=>$nproduct->slug])}}">{{ucwords($nproduct->name)}}</a></h5>
                                     <p class="price mb-0 mt-5">&#2547; {{$nproduct->sale_price}}</p>
-
                                     @php
                                         $avgrating = 0;
                                     @endphp
@@ -241,13 +251,12 @@
                             </div>
                             @endforeach
                         </div>
-
                     </div>
                 </div>
             </div>
         </section>
     </main>
-</div>
+
 
 @push('scripts')
     <script>

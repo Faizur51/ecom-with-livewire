@@ -11,7 +11,12 @@
             @foreach(Cart::instance('cart')->content() as $item)
             <li>
                 <div class="shopping-cart-img">
+
+                    @if(strlen($item->model->image)>25)
                     <a href="{{route('product.details',['slug'=>$item->model->slug])}}"><img alt="Surfside Media" src="{{$item->model->image}}"></a>
+                    @else
+                        <a href="{{route('product.details',['slug'=>$item->model->slug])}}"><img alt="Surfside Media" src="{{asset('frontend/assets/images/product')}}/{{$item->model->image}}"></a>
+                    @endif
                 </div>
                 <div class="shopping-cart-title">
                     <h4><a href="{{route('product.details',['slug'=>$item->model->slug])}}">{{ucwords(substr($item->model->name,0,18))}}</a></h4>

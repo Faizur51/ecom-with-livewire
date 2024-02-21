@@ -46,7 +46,7 @@ class AdminAddProductComponent extends Component
     public function updated($fields){
 
         $this->validateOnly($fields,[
-            'name'=>'required',
+            'name'=>'required|unique:products,name,'.$this->id,
             'slug'=>'required',
             'short_description'=>'required|max:250',
             'long_description'=>'required|max:10000',
@@ -65,7 +65,7 @@ class AdminAddProductComponent extends Component
     public function addProduct(){
 
         $this->validate([
-            'name'=>'required',
+            'name'=>'required|unique:products,name,'.$this->id,
             'slug'=>'required',
             'short_description'=>'required|max:250',
             'long_description'=>'required|max:10000',
@@ -114,7 +114,7 @@ class AdminAddProductComponent extends Component
                 //$image->storeAs('product',$imgName);
 
                 $img = Image::make($image);
-                $img->resize(600,600);
+                $img->resize(1100,1100);
                 $img->save('frontend/assets/images/product/'.$imgName);
                 //$imagesname=$imagesname.','.$imgName;
                 array_push($imagesname,$imgName);

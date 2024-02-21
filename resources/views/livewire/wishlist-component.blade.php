@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-        <section class="mt-50 mb-50">
+        <section class="mt-20 mb-20">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -29,9 +29,15 @@
                                         <div class="product-cart-wrap mb-30">
                                             <div class="product-img-action-wrap">
                                                 <div class="product-img product-img-zoom">
-                                                    <a href="{{route('product.details',['slug'=>$item->model->slug])}}">
-                                                        <img class="default-img" src="{{$item->model->image}}" alt="">
-                                                    </a>
+                                                    @if(strlen($item->model->image > 25))
+                                                        <a href="{{route('product.details',['slug'=>$item->model->slug])}}">
+                                                            <img class="default-img" src="{{$item->model->image}}" alt="">
+                                                        </a>
+                                                    @else
+                                                        <a href="{{route('product.details',['slug'=>$item->model->slug])}}">
+                                                            <img class="default-img" src="{{asset('frontend/assets/images/product')}}/{{$item->model->image}}" alt="">
+                                                        </a>
+                                                    @endif
                                                 </div>
                                                 <div class="product-badges product-badges-position product-badges-mrg">
                                                     @php
@@ -83,10 +89,14 @@
                                     </div>
                                 @endforeach
                             @else
-                                <div class="text-center">
-                                    <img src="{{asset('frontend/assets/images/wishlist/wishlist4.jpg')}}" alt="" style="width: 80px">
-                                    <p>There are no favorites yet</p>
-                                    <p>Add your favorites to wishlist and they will show here</p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="shadow text-center bg-light rounded pt-20 pb-20">
+                                            <img src="{{asset('frontend/assets/images/wishlist/wishlist4.jpg')}}" alt="" style="width: 80px">
+                                            <p>There are no favorites yet</p>
+                                            <p>Add your favorites to wishlist and they will show here</p>
+                                        </div>
+                                    </div>
                                 </div>
                             @endif
                         </div>

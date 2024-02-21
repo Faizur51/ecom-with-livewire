@@ -18,16 +18,11 @@ class HomeComponent extends Component
         $this->count+=12;
     }
 
-
     public function store($product_id,$product_name,$product_price){
         $cart=Cart::instance('cart')->add($product_id,$product_name,1,$product_price)->associate('\App\Models\Product');
         $this->emitTo('cart-icon-component','refreshComponent');
         noty()->closeWith(['click', 'button'])->addInfo('Item added into the cart.');
     }
-
-
-
-
 
     public function render()
     {

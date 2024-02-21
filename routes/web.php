@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FallbackController;
 use App\Http\Controllers\SslCommerzPaymentController;
+use App\Http\Livewire\ShowVehicle;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,6 +57,8 @@ Route::get('/wishlist',\App\Http\Livewire\WishlistComponent::class)->name('wishl
 
 Route::get('/thankyou',\App\Http\Livewire\ThankyouComponent::class)->name('thankyou');
 Route::get('/product/offer',\App\Http\Livewire\ProductOfferComponent::class)->name('product.offer');
+Route::get('/warranty/policy',\App\Http\Livewire\WarrantyPolicy::class)->name('warranty.policy');
+Route::get('/refund/policy',\App\Http\Livewire\RefundPolicy::class)->name('refund.policy');
 
 
 
