@@ -20,8 +20,8 @@
         "php-flasher/flasher-noty-laravel": "^1.15",
         "php-flasher/flasher-toastr-laravel": "^1.15",
         "picqer/php-barcode-generator": "^2.4",
-        "spatie/laravel-backup": "*",
-        "unicodeveloper/laravel-password": "^1.0"
+        "spatie/laravel-backup": "*"
+
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

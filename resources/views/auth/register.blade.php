@@ -65,12 +65,12 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow">Home</a>
+                <a href="/" rel="nofollow">Home</a>
                 <span></span> Register
             </div>
         </div>
     </div>
-    <section class="pt-150 pb-150">
+    <section class="pt-20 pb-20">
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 m-auto">
