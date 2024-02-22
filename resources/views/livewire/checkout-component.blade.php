@@ -86,10 +86,10 @@
                                         <td>
                                             <h5><a href="{{route('product.details',['slug'=>$item->model->slug])}}">{{ucwords($item->model->name)}}</a> <span class="product-qty">x {{$item->qty}}</span></h5>
                                             @if($item->options->color)
-                                                <strong class="mr-5">Color:{{ucwords($item->options->color)}},</strong>
+                                                <strong class="mr-5 text-muted">Color:{{ucwords($item->options->color)}},</strong>
                                             @endif
                                             @if($item->options->size)
-                                                <strong class="mr-5">Size:{{$item->options->size}}</strong>
+                                                <strong class="mr-5 text-muted">Size:{{$item->options->size}}</strong>
                                             @endif
                                         </td>
                                         <td>&#2547; {{$item->subtotal()}}</td>
@@ -183,14 +183,20 @@
                                     <a href="{{route('refund.policy')}}" class="text-danger" target="_blank">Return & Refund Policy</a></label>
                             </div>
                             <br>
-                          {{--  <button class="btn btn-block mt-5 btn-sm" wire:click="checkoutModal" type="submit" {{ $disabled == 0 ?'disabled':'' }} style="width: 100%">Place Order card</button>--}}
+
+
+
                             @if($paymentmode=='card')
-                            <button class="btn btn-block mt-5 btn-md" wire:click="checkoutModal" type="submit" {{ $disabled == 0 ?'disabled':'' }} style="width: 100%">PLACE ORDER</button>
+                            <button class="btn btn-block mt-5 btn-md" data-bs-toggle="modal" data-bs-target="#showModal" wire:click="checkoutModal" type="submit" {{ $disabled == 0 ?'disabled':'' }} style="width: 100%">PLACE ORDER CARD</button>
                             @elseif($paymentmode=='bkash')
-                                <button class="btn btn-block mt-5 btn-md" wire:click="checkoutModal" type="submit" {{ $disabled == 0 ?'disabled':'' }} style="width: 100%">PLACE ORDER</button>
+                                <button class="btn btn-block mt-5 btn-md" wire:click="checkoutModal" type="submit" {{ $disabled == 0 ?'disabled':'' }} style="width: 100%">PLACE ORDER BKASH</button>
                             @else
-                                <button class="btn btn-block mt-5 btn-md" wire:click="checkoutModal" type="submit" {{ $disabled == 0 ?'disabled':'' }} style="width: 100%">PLACE ORDER</button>
+                                <button class="btn btn-block mt-5 btn-md" wire:click="checkoutModal" type="submit" {{ $disabled == 0 ?'disabled':'' }} style="width: 100%">PLACE ORDER COD</button>
                             @endif
+
+
+
+
                         </div>
                     </div>
                 </div>

@@ -184,7 +184,7 @@
                                                 @else
                                                     <button class="button-62" role="button">Outstock</button>
                                                 @endif
-                                                
+
                                             </div>
                                         </div>
                                         <div class="bt-1 border-color-1 mt-15 mb-15"></div>
@@ -731,9 +731,6 @@
          </div>
 
      </main>
-
-
-
 
 
 

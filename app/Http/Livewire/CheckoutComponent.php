@@ -141,8 +141,6 @@ class CheckoutComponent extends Component
     }
 
 
-
-
     public function placeOrder()
     {
 
@@ -201,7 +199,7 @@ class CheckoutComponent extends Component
 
            }else if($this->paymentmode =="card"){
 
-               dd('Online payment gateway');
+               //
            }
 
        }else{

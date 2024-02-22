@@ -1,4 +1,4 @@
-<div class="modal fade custom-modal"  id="showModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+<div wire:ignore class="modal fade custom-modal"  id="showModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -24,16 +24,22 @@
                                     @foreach(Cart::instance('cart')->content() as $item)
                                         <tr>
                                             <td class="image product-thumbnail">
-                                                @if(strlen($item->model->image) <30)
-                                                    <img src="{{asset('frontend/assets/images/product')}}/{{$item->model->image}}" alt="#">
-                                                @else
+                                                @if(strlen($item->model->image)>25)
                                                     <img src="{{$item->model->image}}" alt="#">
+                                                @else
+                                                    <img src="{{asset('frontend/assets/images/product')}}/{{$item->model->image}}" alt="#">
                                                 @endif
                                             </td>
                                             <td class="product-des product-name">
                                                 <h5 class="product-name"><a href="product-details.html">{{ucwords($item->model->name)}}</a></h5>
+                                                @if($item->options->color)
+                                                    <strong class="mr-5 text-muted">Color:{{ucwords($item->options->color)}},</strong>
+                                                @endif
+                                                @if($item->options->size)
+                                                    <strong class="mr-5 text-muted">Size:{{$item->options->size}}</strong>
+                                                @endif
                                             </td>
-                                            <td class="price" data-title="Price"><span>&#2547; {{$item->model->regular_price}} </span></td>
+                                            <td class="price" data-title="Price"><span>&#2547; {{$item->subtotal}} </span></td>
                                             <td class="price" data-title="Price"><span>{{$item->qty}} </span></td>
                                             <td class="text-right" data-title="Cart">
                                                 <span>&#2547; {{$item->subtotal}} </span>
@@ -54,15 +60,15 @@
                                                         <tbody>
                                                         <tr>
                                                             <td class="cart_total_label">Cart Subtotal</td>
-                                                            <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">&#2547; {{Cart::instance('cart')->subtotal()}}</span></td>
+                                                            <td class="cart_total_amount">&#2547; {{Cart::instance('cart')->subtotal()}}</td>
                                                         </tr>
                                                         <tr>
                                                             <td class="cart_total_label">Shipping</td>
-                                                            <td class="cart_total_amount"> <i class="ti-gift mr-5"></i> Free Shipping</td>
+                                                            <td class="cart_total_amount"> <i class="ti-gift mr-5"></i> &#2547; {{number_format(shippingCharge(),2)}}</td>
                                                         </tr>
                                                         <tr>
                                                             <td class="cart_total_label">Total</td>
-                                                            <td class="cart_total_amount"><strong><span class="font-xl fw-900 text-brand">&#2547; {{Cart::instance('cart')->total()}}</span></strong></td>
+                                                            <td class="cart_total_amount"><strong><span class="font-xl fw-900 text-brand">&#2547; {{number_format(str_replace(',','',Cart::subtotal())+shippingCharge(),2)}}</span></strong></td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
