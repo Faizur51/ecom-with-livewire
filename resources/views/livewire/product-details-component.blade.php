@@ -229,13 +229,17 @@
                                                 <span class="qty-val" wire:model="qty">{{$qty}}</span>
                                                 <a href="#" class="qty-up" wire:click.prevent="increaseQuantity"><i class="fi-rs-angle-small-up"></i></a>
                                             </div>
-
-
+                                            
                                             <div class="product-extra-link2">
                                                 <button type="submit" class="button button-add-to-cart" {{ $product->quantity == 0 ?'disabled':'' }} wire:click.prevent="store({{$product->id}},'{{$product->name}}',{{$product->sale_price}})">Add to cart</button>
                                                 <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#"><i class="fi-rs-heart"></i></a>
                                             </div>
                                         </div>
+
+                                        <a class="list-unstyled" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                            <i class="fi-rs-angle-down mr-10 "></i>Size list
+                                        </a>
+
                                         <ul class="product-meta font-xs color-grey mt-10">
                                             <li class="mb-5">SKU: <a href="#">{{$product->sku_code}}</a></li>
                                             <li class="mb-5">Category: <a href="{{route('category.product',['slug'=>$product->category->slug])}}" rel="tag">{{$product->category->name}}</a></li>
@@ -730,10 +734,116 @@
              </div>
          </div>
 
+         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+             <div class="modal-dialog modal-dialog-scrollable">
+                 <div class="modal-content">
+                     <div class="modal-header bg-light">
+                         <h5 class="modal-title" id="staticBackdropLabel">Essentials Size Chart</h5>
+                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                     </div>
+                     <div class="modal-body">
+                         <table class="table table-striped">
+                             <tbody>
+                             <tr>
+                                 <th>Brand Size</th>
+                                 <th>Bust (in)</th>
+                                 <th>Waist (in)</th>
+                                 <th>Hip (in)</th>
+                             </tr>
+
+                             <tr>
+                                 <td>XX-Small</td>
+                                 <td >31.5</td>
+                                 <td >25</td>
+                                 <td >34.5</td>
+                             </tr>
+                             <tr>
+                                 <td>X-Small</td>
+                                 <td >32.533.5</td>
+                                 <td >2627</td>
+                                 <td >35.536.5</td>
+                             </tr>
+                             <tr>
+                                 <td>Small</td>
+                                 <td >34.535.5</td>
+                                 <td >2829</td>
+                                 <td >37.538.5</td>
+                             </tr>
+                             <tr>
+                                 <td>Medium</td>
+                                 <td >36.537.5</td>
+                                 <td >3031</td>
+                                 <td >39.540.5</td>
+                             </tr>
+                             <tr>
+                                 <td>Large</td>
+                                 <td >3940.5</td>
+                                 <td >32.534</td>
+                                 <td >4243.5</td>
+                             </tr>
+                             <tr>
+                                 <td>X-Large</td>
+                                 <td >42.544.5</td>
+                                 <td >3638</td>
+                                 <td >45.547.5</td>
+                             </tr>
+                             <tr>
+                                 <td>XX-Large</td>
+                                 <td >46.548.5</td>
+                                 <td >4042</td>
+                                 <td >49.551.5</td>
+                             </tr>
+                             <tr>
+                                 <td>1X</td>
+                                 <td >4143</td>
+                                 <td >35.837.8</td>
+                                 <td>4547</td>
+                             </tr>
+                             <tr>
+                                 <td>2X</td>
+                                 <td >4547</td>
+                                 <td >39.841.8</td>
+                                 <td >4951</td>
+                             </tr>
+                             <tr>
+                                 <td>3X</td>
+                                 <td>4951</td>
+                                 <td>43.845.8</td>
+                                 <td>5355</td>
+                             </tr>
+                             <tr>
+                                 <td>4X</td>
+                                 <td>5355</td>
+                                 <td>47.849.8</td>
+                                 <td>5759</td>
+                             </tr>
+                             <tr>
+                                 <td>5X</td>
+                                 <td>5759</td>
+                                 <td>51.853.8</td>
+                                 <td>6163</td>
+                             </tr>
+                             <tr>
+                                 <td>6X</td>
+                                 <td>6163</td>
+                                 <td>55.857.8</td>
+                                 <td>6567</td>
+                             </tr>
+                             <tr>
+                                 <td>7X</td>
+                                 <td>6567</td>
+                                 <td>59.861.8</td>
+                                 <td>6971</td>
+                             </tr>
+                             </tbody>
+                         </table>
+                     </div>
+                 </div>
+             </div>
+         </div>
      </main>
 
-
-
-
-
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+@endpush
 
