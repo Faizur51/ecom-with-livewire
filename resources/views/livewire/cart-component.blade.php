@@ -41,10 +41,10 @@
                                             <a href="{{route('product.details',['slug'=>$item->model->slug])}}">
                                                 {{ucwords($item->model->name)}}
                                                 @if($item->options->color)
-                                                    <strong class="mr-5">,Color:{{ucwords($item->options->color)}}</strong>
+                                                    <strong class="mr-2">;Color:{{ucwords($item->options->color)}}</strong>
                                                 @endif
                                                 @if($item->options->size)
-                                                    <strong class="mr-5">,Size:{{$item->options->size}}</strong>
+                                                    <strong>,Size:{{$item->options->size}}</strong>
                                                 @endif
                                             </a>
                                         </h5>
