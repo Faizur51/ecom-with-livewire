@@ -43,7 +43,7 @@
                                     <p>Shipping Address:{{ucwords($shipping->address)}}</p>
                                 </div>
                                 <div>
-                                    <a class="btn-small" data-bs-toggle="modal" data-bs-target="#deleteShippingAddress" wire:click.prevent="deleteId({{$shipping->id}})"><i class="fi-rs-trash"></i></a>
+                                    <a class="btn-small" data-bs-toggle="modal" data-bs-target="#deleteShippingAddress" wire:click.prevent="deleteId({{$shipping->id}})"><i class="fi-rs-trash mr-10"></i></a>
                                     <a class="btn-small" data-bs-toggle="modal" data-bs-target="#editShippingAddress" wire:click.prevent="editShippinfo({{$shipping->id}})"><i class="fi-rs-pencil"></i></a>
                                 </div>
                             </div>
@@ -208,7 +208,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Shipping Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -216,7 +216,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" wire:click.prevent="delete()" >Yes,Delete</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" wire:click.prevent="delete()" >Yes, Delete</button>
                 </div>
             </div>
         </div>
