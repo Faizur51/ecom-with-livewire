@@ -35,11 +35,15 @@ class ProductSeeder extends Seeder
             'https://ftp.esquireelectronicsltd.com/uploads/gallery/sharp-chest-freezer-sjc-118-wh-price-in-bd-1000x10003198-5987.jpg',
             'https://ftp.esquireelectronicsltd.com/uploads/gallery/sharp-microwave-oven-r-94a0v-price-in-bd-1000x1000920-2527.jpg',
             'https://ftp.esquireelectronicsltd.com/uploads/gallery/sm-3006-toaster-waffle-maker-grill-morphy-richards-22487-0672.jpg',
-            'https://ftp.esquireelectronicsltd.com/uploads/gallery/aero-new3494-8501.jpg'
+            'https://ftp.esquireelectronicsltd.com/uploads/gallery/aero-new3494-8501.jpg',
+            'https://m.media-amazon.com/images/I/A1uJG8faQHL._AC_SL1500_.jpg',
+            'https://m.media-amazon.com/images/I/71fizOWwhFL._SX466_.jpg',
+            'https://m.media-amazon.com/images/I/81+8ik1Qk1L._SX466_.jpg',
+            'https://m.media-amazon.com/images/I/41ZukexTE8L._SX300_SY300_QL70_FMwebp_.jpg'
         ];
 
         $color=[
-            'green','white','yellow','red','cyan','grey'
+            'green','white','yellow','red','cyan','purple'
         ];
 
 
@@ -63,7 +67,7 @@ class ProductSeeder extends Seeder
                 'color'=>json_encode($color),
                 'size'=>json_encode($size),
                 //'size'=>$size[rand(0,5)],
-                'image'=>$randomImages[rand(0, 15)],
+                'image'=>$randomImages[rand(0, 20)],
                 'images'=>json_encode($randomImages),
                 'category_id'=>$faker->numberBetween(1,6),
                 'brand_id'=>$faker->numberBetween(1,6),

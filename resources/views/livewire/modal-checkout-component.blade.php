@@ -9,7 +9,7 @@
                     <section class="mt-5 mb-50">
                         <div class="container">
                             <div class="row">
-                                <div class="alert alert-danger text-center" role="alert">Online Payment</div>
+                                <div class="alert alert-success text-center" role="alert">Online Payment</div>
                                 <table class="table shopping-summery text-center">
                                     <thead style="background-color: #f5f5f5">
                                     <tr class="main-heading">
@@ -64,7 +64,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td class="cart_total_label">Shipping</td>
-                                                            <td class="cart_total_amount"> <i class="ti-gift mr-5"></i> &#2547; {{number_format(shippingCharge(),2)}}</td>
+                                                            <td class="cart_total_amount">&#2547; {{number_format(shippingCharge(),2)}}</td>
                                                         </tr>
                                                         <tr>
                                                             <td class="cart_total_label">Total</td>

@@ -84,7 +84,7 @@
                                                 @endif
                                         </td>
                                         <td>
-                                            <h5><a href="{{route('product.details',['slug'=>$item->model->slug])}}">{{ucwords($item->model->name)}}</a> <span class="product-qty">x {{$item->qty}}</span></h5>
+                                            <h5><a href="{{route('product.details',['slug'=>$item->model->slug])}}">{{ucwords($item->model->name)}}</a> <span class="product-qty text-muted">x {{$item->qty}}</span></h5>
                                             @if($item->options->color)
                                                 <strong class="mr-5 text-muted">Color:{{ucwords($item->options->color)}},</strong>
                                             @endif
@@ -168,7 +168,7 @@
                                 @else
                                 <div class="d-flex align-items-center">
                                     <div class="flex-shrink-0">
-                                        <img src="{{asset('frontend/assets/images/payment/cod4.png')}}" alt="..." style="width:100px;height: 100px">
+                                        <img src="{{asset('frontend/assets/images/payment/cod4.png')}}" alt="..." style="width:100px;height: 80px">
                                     </div>
                                     <div class="flex-grow-1 ms-1">
                                         <strong class="text-danger">Cash on delivery</strong>

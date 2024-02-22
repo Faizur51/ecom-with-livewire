@@ -133,8 +133,8 @@ class AdminAddProductComponent extends Component
 
     public function render()
     {
-        $sizes=Size::orderBy('id','desc')->get();
-        $colors=Color::orderBy('id','desc')->get();
+        $sizes=Size::orderBy('id','asc')->get();
+        $colors=Color::orderBy('id','asc')->get();
         $categories=Category::orderBy('created_at','desc')->get();
         $scategories=Subcategory::where('category_id',$this->category_id)->get();
         $brands=Brand::orderBy('created_at','desc')->get();

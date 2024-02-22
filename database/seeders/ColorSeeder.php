@@ -17,7 +17,7 @@ class ColorSeeder extends Seeder
     public function run()
     {
         $colors=[
-            'green','white','yellow','red','cyan','grey'
+            'green','white','yellow','red','cyan','purple'
         ];
 
         foreach ($colors as $key=>$value){
