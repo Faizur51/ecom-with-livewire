@@ -200,7 +200,7 @@ return [
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-        Unicodeveloper\DumbPassword\DumbPasswordServiceProvider::class
+        
     ],
 
     /*

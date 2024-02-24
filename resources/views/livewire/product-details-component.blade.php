@@ -178,7 +178,7 @@
                                             <div class="product-price primary-color float-left">
                                                 <ins><span class="text-brand">&#2547; {{$product->sale_price}}</span></ins>
                                                 <ins><span class="old-price font-md ml-15">&#2547; {{$product->regular_price}}</span></ins>
-                                                <span class="save-price  font-md color3 ml-15 mr-15">{{round($percent)}}% Off</span>
+                                                <span class="save-price  font-md color3 ml-15 mr-15" data-bs-toggle="tooltip" data-bs-placement="top" title="Save Taka:&#2547; {{$product->regular_price-$product->sale_price}}">{{round($percent)}}% Off</span>
                                                 @if($product->quantity)
                                                     <button class="button-3" role="button">Instock</button>
                                                 @else
@@ -191,14 +191,6 @@
                                         <div class="short-desc mb-30">
                                             <p>{!! $product->short_description !!}</p>
                                         </div>
-                                        {{--<div class="product_sort_info font-xs mb-30">
-                                            <ul>
-                                                <li class="mb-10"><i class="fi-rs-crown mr-5"></i> Warranty not available</li>
-                                                <li class="mb-10"><i class="fi-rs-crown mr-5"></i> 100% Authentic from Trusted Brand</li>
-                                                <li class="mb-10"><i class="fi-rs-refresh mr-5"></i> 15 Day Easy Return Policy</li>
-                                                <li><i class="fi-rs-credit-card mr-5"></i> Cash on Delivery available</li>
-                                            </ul>
-                                        </div>--}}
 
                                         @if(json_decode($product->color))
                                         <div class="attr-detail attr-color mb-15">
@@ -229,7 +221,7 @@
                                                 <span class="qty-val" wire:model="qty">{{$qty}}</span>
                                                 <a href="#" class="qty-up" wire:click.prevent="increaseQuantity"><i class="fi-rs-angle-small-up"></i></a>
                                             </div>
-                                            
+
                                             <div class="product-extra-link2">
                                                 <button type="submit" class="button button-add-to-cart" {{ $product->quantity == 0 ?'disabled':'' }} wire:click.prevent="store({{$product->id}},'{{$product->name}}',{{$product->sale_price}})">Add to cart</button>
                                                 <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#"><i class="fi-rs-heart"></i></a>
@@ -499,7 +491,7 @@
                     <div class="col-lg-3 primary-sidebar sticky-sidebar">
                         <div class="sidebar-widget product-sidebar  mb-3 p-3 bg-light border-radius-10">
                             <div class="widget-header position-relative mb-2 pb-2">
-                                <p class="widget-title mb-2">Delivery</p>
+                                <p class="widget-title mb-2 text-info" data-bs-toggle="popover" data-bs-placement="bottom" title="Popover title" data-bs-content="Flat rate (inside Dhaka) : ৳ 70  & Shipping outside Dhaka will be ৳ 120">DELIVERY</p>
                                 <div class="bt-1 border-color-1"></div>
                             </div>
                             <div class="single-post clearfix">
@@ -508,7 +500,7 @@
                                         <p><i class="fi-rs-marker mr-5"></i>Rafa Shop</p>
                                     </div>
                                     <div class="col-4">
-                                        <a href="javascript:void(0)" class="text-info">CHANGE</a>
+                                        <a href="javascript:void(0)" class="text-info" >CHANGE</a>
                                     </div>
                                 </div>
                             </div>
@@ -843,7 +835,20 @@
          </div>
      </main>
 
-@push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-@endpush
 
+     @push('scripts')
+         <script>
+             var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+             var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                 return new bootstrap.Popover(popoverTriggerEl)
+             })
+
+
+             var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+             var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                 return new bootstrap.Tooltip(tooltipTriggerEl)
+             })
+
+
+         </script>
+     @endpush
