@@ -84,7 +84,7 @@
                                                             <td>{{$order->phone}}</td>
                                                             <td>{{ucwords($order->city)}}</td>
                                                             <td>{{ucwords($order->address)}}</td>
-                                                            <td class="{{$order->status=='delivery'?'text-success':'text-danger'}}" style="font-size: 17px">{{ucwords($order->status)}}</td>
+                                                            <td class="{{$order->status=='delivery'?'text-success':'text-danger'}}" style="font-size: 16px">{{ucwords($order->status)}}</td>
                                                            {{-- <td>
                                                                 @php
                                                                         $generator = new Picqer\Barcode\BarcodeGeneratorHTML();

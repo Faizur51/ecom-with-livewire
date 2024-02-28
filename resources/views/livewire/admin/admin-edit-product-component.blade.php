@@ -249,11 +249,7 @@
                                                     @error('status') <p class="text-danger">{{$message}}</p> @enderror
                                                 </div>
                                             </div>
-
-
-
-
-                                            <button class="submit submit-auto-width btn-sm" type="submit">Edit Product</button>
+                                            <button class="submit submit-auto-width btn-sm" style="width: 100%" type="submit"><i class="fi-rs-shopping-bag mr-10"></i>Edit Product</button>
                                         </div>
                                     </div>
                                 </div>

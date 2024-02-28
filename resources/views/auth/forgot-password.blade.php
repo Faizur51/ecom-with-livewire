@@ -48,7 +48,7 @@
                 </div>
             </div>
         </div>
-        <section class="pt-150 pb-150">
+        <section class="pt-20 pb-20">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-10 m-auto">
@@ -77,7 +77,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-fill-out btn-block hover-up" name="login">Email Password Reset Link</button>
+                                                <button type="submit" class="btn btn-fill-out btn-block hover-up btn-sm" name="login">Email Password Reset Link</button>
                                             </div>
                                         </form>
                                     </div>

@@ -55,7 +55,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-sm" wire:click.prevent="UpdateShipinfo()">Edit Shipping</button>
+                <button type="button" class="btn btn-primary btn-sm text-uppercase" style="width: 100%" wire:click.prevent="UpdateShipinfo()">Edit Shipping</button>
             </div>
         </div>
     </div>

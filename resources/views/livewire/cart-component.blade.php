@@ -75,7 +75,7 @@
                             @endif
                         </div>
                         <div class="cart-action text-end">
-                            <a class="btn text-uppercase" href="/"><i class="fi-rs-shopping-bag mr-10"></i>Continue Shopping</a>
+                            <a class="btn text-uppercase btn-sm" href="/"><i class="fi-rs-shopping-bag mr-10"></i>Continue Shopping</a>
                         </div>
                         <div class="divider center_icon mt-20 mb-20"><i class="fi-rs-fingerprint"></i></div>
                         <div class="row mb-20">
@@ -129,7 +129,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <a href="#" class="btn text-uppercase" wire:click.prevent="checkout"> <i class="fi-rs-box-alt mr-10"></i> Proceed To CheckOut</a>
+                                    <a href="#" class="btn text-uppercase btn-sm" wire:click.prevent="checkout"> <i class="fi-rs-box-alt mr-10"></i> Proceed To CheckOut</a>
                                 </div>
                             </div>
                         </div>

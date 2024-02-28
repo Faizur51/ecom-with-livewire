@@ -33,15 +33,15 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link"  href="{{route('admin.setting')}}"><i class="fi-rs-settings mr-10"></i>Setting</a>
+                <a class="{{ (request()->is('admin/setting')) ? 'nav-link active' : 'nav-link' }}"  href="{{route('admin.setting')}}"><i class="fi-rs-settings mr-10"></i>Setting</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link"  href="{{route('admin.review')}}"><i class="fi-rs-star mr-10"></i>Review</a>
+                <a class="{{ (request()->is('admin/review')) ? 'nav-link active' : 'nav-link' }}"  href="{{route('admin.review')}}"><i class="fi-rs-star mr-10"></i>Review</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link"  href="{{route('admin.customer')}}"><i class="fi-rs-users mr-10"></i>Customers</a>
+                <a class="{{ (request()->is('admin/customer')) ? 'nav-link active' : 'nav-link' }}"  href="{{route('admin.customer')}}"><i class="fi-rs-users mr-10"></i>Customers</a>
             </li>
             <li class="nav-item">
                 <form method="POST" action="{{ route('logout') }}">

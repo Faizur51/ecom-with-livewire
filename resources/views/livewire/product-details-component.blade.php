@@ -365,8 +365,8 @@
                                                                         <div class="product-rate d-inline-block">
                                                                             <div class="product-rating" style="width:{{$orderItem->review->rating*20}}%"></div>
                                                                         </div>
-                                                                        <span>{{$orderItem->order->user->name}}</span>
-                                                                        <p class="text-muted" style="padding-left: 500px">{{Carbon\Carbon::parse($orderItem->review->created_at)->diffForHumans()}}</p>
+                                                                        <span class="ml-5">{{$orderItem->order->user->name}}</span>
+                                                                        <span class="text-muted ml-20">{{Carbon\Carbon::parse($orderItem->review->created_at)->diffForHumans()}}</span>
                                                                     </div>
                                                                     <p>{{ucwords($orderItem->review->comment)}}</p>
                                                                 </div>
@@ -375,7 +375,6 @@
                                                             @endif
                                                         @endforeach
                                                     </div>
-
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <h4 class="mb-30">Customer reviews</h4>
@@ -497,38 +496,38 @@
                             <div class="single-post clearfix">
                                 <div class="row">
                                     <div class="col-8">
-                                        <p><i class="fi-rs-marker mr-5"></i>Rafa Shop</p>
+                                        <a ><i class="fi-rs-marker mr-5"></i>Rafa Shop</a>
                                     </div>
                                     <div class="col-4">
-                                        <a href="javascript:void(0)" class="text-info" >CHANGE</a>
+                                        <a class="text-info" >CHANGE</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="single-post clearfix">
                                 <div class="row">
                                     <div class="col-12">
-                                        <p><i class="fi-rs-credit-card mr-5"></i>Cash on Delivery Available</p>
+                                        <a><i class="fi-rs-credit-card mr-5"></i>Cash on Delivery Available</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="single-post clearfix">
                                 <div class="row">
                                     <div class="col-12">
-                                        <p><i class="fi-rs-crown mr-5"></i>Warranty not available</p>
+                                        <a><i class="fi-rs-crown mr-5"></i>Warranty not available</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="single-post clearfix">
                                 <div class="row">
                                     <div class="col-12">
-                                        <p><i class="fi-rs-refresh mr-5"></i>15 Day Easy Return Policy</p>
+                                        <a><i class="fi-rs-refresh mr-5"></i>15 Day Easy Return Policy</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="single-post clearfix">
                                 <div class="row">
                                     <div class="col-12">
-                                        <p><i class="fi-rs-shop mr-5"></i>100% Authentic from Trusted Brand</p>
+                                        <a><i class="fi-rs-shop mr-5"></i>100% Authentic from Trusted Brand</a>
                                     </div>
                                 </div>
                             </div>

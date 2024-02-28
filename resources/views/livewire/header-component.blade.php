@@ -33,10 +33,9 @@
                                 @auth
                                     @if(Auth::user()->utype === 'admin')
                                     <li>
-                                        <i class="fi-rs-user"></i>
-                                        <a class="language-dropdown-active" href="{{route('login')}}"> {{Str::limit(ucwords(auth()->user()->name),30,'.....')}} <i class="fi-rs-angle-small-down"></i></a>
-                                        <ul class="language-dropdown" style="width: 220px;padding: 10px;font-size: 18px">
-                                            <li><a href="{{route('admin.dashboard')}}"><i class="fi-rs-marker mr-10"></i>Manage Dashboard</a></li>
+                                        <a class="language-dropdown-active" href="{{route('login')}}"><i class="fi-rs-user"></i>{{Str::limit(ucwords(auth()->user()->name),30,'.....')}} <i class="fi-rs-angle-small-down"></i></a>
+                                        <ul class="language-dropdown" style="width: 220px;padding: 10px;font-size: 16px">
+                                            <li><a href="{{route('admin.dashboard')}}" ><i class="fi-rs-marker mr-10"></i>Manage Dashboard</a></li>
                                             <li><a href="{{route('admin.setting')}}"><i class="fi-rs-settings mr-10"></i>Manage Setting</a></li>
                                             <li><a href="{{route('admin.review')}}"><i class="fi-rs-star mr-10"></i>Manage Review</a></li>
                                             <li><a href="{{route('admin.slider')}}"><i class="fi-rs-settings-sliders mr-10"></i>Manage Slider</a></li>
@@ -56,9 +55,9 @@
                                     </li>
                                     @else
                                         <li>
-                                            <i class="fi-rs-user"></i>
-                                            <a class="language-dropdown-active" href="{{route('login')}}">{{Str::limit(ucwords(auth()->user()->name),30,'.....')}}<i class="fi-rs-angle-small-down"></i></a>
-                                            <ul class="language-dropdown" style="width: 220px;padding: 10px;font-size: 18px">
+
+                                            <a class="language-dropdown-active" href="{{route('login')}}"><i class="fi-rs-user"></i>{{Str::limit(ucwords(auth()->user()->name),30,'.....')}}<i class="fi-rs-angle-small-down"></i></a>
+                                            <ul class="language-dropdown" style="width: 220px;padding: 10px;font-size: 16px">
                                                 <li><a href="{{route('user.dashboard')}}"><i class="fi-rs-settings mr-10"></i>Manage Dashboard</a></li>
                                                 <li><a href="{{route('user.order')}}"><i class="fi-rs-marker mr-10"></i>Manage Order</a></li>
                                                 <li><a href="{{route('user.review')}}"><i class="fi-rs-star mr-10"></i>Manage Review</a></li>

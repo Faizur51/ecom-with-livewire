@@ -35,7 +35,6 @@
                         @error('email') <p class="text-danger">{{$message}}</p> @enderror
                     </div>
                     <div class="form-group">
-
                         <select name="" id="" class="form-control" wire:model="city">
                             <option value="">Select City</option>
                             @foreach($districts as $district)
@@ -54,7 +53,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-sm faizbtn"  wire:click.prevent="addShipinfo()">Save</button>
+                <button type="button" class="btn btn-primary btn-sm text-uppercase"  style="width: 100%" wire:click.prevent="addShipinfo()">Save</button>
             </div>
         </div>
     </div>

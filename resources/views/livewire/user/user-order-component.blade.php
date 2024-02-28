@@ -18,7 +18,7 @@
                                 <div class="tab-pane fade active show" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
                                     <div class="card">
                                         <div class="card-header d-flex justify-content-between">
-                                            <h5 class="mb-0">Hello {{auth()->user()->name}}  </h5>
+                                            <h5 class="mb-0">Order List</h5>
                                         </div>
                                         <div class="card-body">
                                             <div class="table-responsive">
@@ -40,7 +40,7 @@
                                                     @foreach($orders as $order)
                                                         <tr>
                                                             <td>#{{$order->id}}</td>
-                                                            <td>{{\Carbon\Carbon::parse($order->created_at)->format('d M,Y, i:m:s a')}}</td>
+                                                            <td>{{\Carbon\Carbon::parse($order->created_at)->format('d M,Y')}}</td>
                                                             <td>{{ucwords($order->status)}}</td>
                                                             <td style="width:130px;background-color: #F15412;color:white">{{ucwords($order->transaction->status)}}</td>
                                                             <td>{{strtoupper($order->transaction->mode)}}</td>

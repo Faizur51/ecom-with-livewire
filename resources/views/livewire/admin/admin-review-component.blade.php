@@ -65,7 +65,7 @@
                                                              <td>
                                                                  <div>
                                                                      @if(strlen($review->orderItem->product->image)>25)
-                                                                         <a href="{{route('product.details',['slug'=>$review->orderItem->product->slug])}}"><img src="{{$review->orderItem->product->image}}" alt="#"></a>
+                                                                         <a href="{{route('product.details',['slug'=>$review->orderItem->product->slug])}}"><img src="{{$review->orderItem->product->image}}" alt="#" style="width: 60px"></a>
                                                                      @else
                                                                          <a href="{{route('product.details',['slug'=>$review->orderItem->product->slug])}}"><img src="{{asset('frontend/assets/images/product')}}/{{$review->orderItem->product->image}}" alt="#" style="width: 60px"></a>
                                                                      @endif

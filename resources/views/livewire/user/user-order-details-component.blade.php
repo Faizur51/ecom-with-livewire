@@ -206,9 +206,7 @@
                                                     @endforeach
 
                                                 </div>
-
                                             </div>
-
                                             <div class="col-lg-4">
                                                 <div class="card mb-3 mb-lg-0 shadow-sm">
                                                     <div class="text-center m-2">
@@ -446,16 +444,16 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Cancel this order</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h5>Are you sure you want to cancel this order?</h5>
+                    <P>Are you sure you want to cancel this order?</P>
                     <p>Please provide cancellation reason:</p>
                     <textarea wire:model="cancel_reason"></textarea>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="width: 100%" wire:click.prevent="cancelOrder()" >Submit</button>
+                    <button type="button" class="btn btn-primary btn-sm text-uppercase" data-bs-dismiss="modal" style="width: 100%" wire:click.prevent="cancelOrder()" >Submit</button>
                 </div>
             </div>
         </div>

@@ -2,7 +2,6 @@
     <main class="main">
         @include('livewire.add-shipping-addressmodal')
         @include('livewire.edit-shipping-addressmdal')
-
         @if($paymentmode=='card')
             @include('livewire.modal-checkout-component')
         @endif
@@ -178,20 +177,18 @@
                                  @endif
 
                             <div class="icheck-material-red icheck-inline">
-                                <input type="checkbox" id="someRadioId38" name="someGroupName" value="1" wire:model="disabled" />
-                                <label for="someRadioId38">I have read and agree to the website <a href="{{route('warranty.policy')}}" class="text-danger" target="_blank">Terms and Conditions</a>,and
+                                <input type="checkbox" id="someRadioId380" name="someGroupName"  value="1" wire:model="disabled" />
+                                <label for="someRadioId380">I have read and agree to the website <a href="{{route('warranty.policy')}}" class="text-danger" target="_blank">Terms and Conditions</a>,and
                                     <a href="{{route('refund.policy')}}" class="text-danger" target="_blank">Return & Refund Policy</a></label>
                             </div>
                             <br>
 
-
-
                             @if($paymentmode=='card')
-                            <button class="btn btn-block mt-5 btn-md" data-bs-toggle="modal" data-bs-target="#showModal" wire:click="checkoutModal" type="submit" {{ $disabled == 0 ?'disabled':'' }} style="width: 100%">PLACE ORDER CARD</button>
+                            <button class="btn btn-block mt-5 btn-sm" data-bs-toggle="modal" data-bs-target="#showModal" wire:click="checkoutModal" type="submit" {{ $disabled == 0 ?'disabled':'' }} style="width: 100%">PLACE ORDER CARD</button>
                             @elseif($paymentmode=='bkash')
-                                <button class="btn btn-block mt-5 btn-md" wire:click="checkoutModal" type="submit" {{ $disabled == 0 ?'disabled':'' }} style="width: 100%">PLACE ORDER BKASH</button>
+                                <button class="btn btn-block mt-5 btn-sm" wire:click="checkoutModal" type="submit" {{ $disabled == 0 ?'disabled':'' }} style="width: 100%">PLACE ORDER BKASH</button>
                             @else
-                                <button class="btn btn-block mt-5 btn-md" wire:click="checkoutModal" type="submit" {{ $disabled == 0 ?'disabled':'' }} style="width: 100%">PLACE ORDER COD</button>
+                                <button class="btn btn-block mt-5 btn-sm" wire:click="checkoutModal" type="submit" {{ $disabled == 0 ?'disabled':'' }} style="width: 100%">PLACE ORDER COD</button>
                             @endif
 
 

@@ -62,7 +62,7 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow">Home</a>
+                <a href="/" rel="nofollow">Home</a>
                 <span></span> Login
             </div>
         </div>
@@ -76,11 +76,9 @@
                             <div class="login_wrap widget-taber-content p-30 background-white border-radius-10 mb-md-5 mb-lg-0 mb-sm-5">
                                 <div class="padding_eight_all bg-white">
                                     <div class="heading_s1">
-                                        <h3 class="mb-30">Login</h3>
+                                        <h3 class="mb-15">Login</h3>
                                     </div>
-
                                     <x-auth-session-status class="mb-4" :status="session('status')" />
-
                                     <!-- Validation Errors -->
                                     <x-auth-validation-errors class="mb-4 text-danger" :errors="$errors" />
 
@@ -103,18 +101,17 @@
                                             <a class="text-muted" href="{{ route('password.request') }}">Forgot password?</a>
                                             @endif
                                         </div>
-
                                             <div class="form-group row">
                                                 <div class="col-md-12">
 
-                                                    <button type="submit" class="btn btn-fill-out btn-block hover-up" name="login" style="width: 100%;background-color: #F57224" >Log in</button>
+                                                    <button type="submit" class="btn btn-fill-out btn-block hover-up btn-sm" name="login" style="width: 100%;background-color: #F57224" >Log in</button>
                                                     <span>Or,Login With</span>
-                                                    <a href="{{ route('login.google') }}" class="btn btn-danger btn-block hover-up mt-5" style="width:100%;background-color: #D34836">Login with Google</a>
-                                                    <a href="{{ route('login.facebook') }}" class="btn btn-primary btn-block hover-up mt-5" style="width:100%;background-color:#3B5998">Login with Facebook</a>
-
+                                                    <a href="{{ route('login.google') }}" class="btn btn-danger btn-block hover-up mt-5 btn-sm" style="width:100%;background-color: #D34836">Login with Google</a>
+                                                    <a href="{{ route('login.facebook') }}" class="btn btn-primary btn-block hover-up mt-5 btn-sm" style="width:100%;background-color:#3B5998">Login with Facebook</a>
                                                 </div>
                                             </div>
                                     </form>
+                                    <div class="text-muted text-center">Already haven't an account? <a href="{{route('register')}}">Register now</a></div>
                                 </div>
                             </div>
                         </div>

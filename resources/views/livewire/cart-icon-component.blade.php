@@ -33,9 +33,9 @@
                 <h4>Total <span>&#2547; {{Cart::instance('cart')->total()}}</span></h4>
             </div>
             <div class="shopping-cart-button">
-                <a href="{{route('cart')}}" class="btn btn-primary" style="width: 100%">VIEW CART</a>
+                <a href="{{route('cart')}}" class="btn btn-primary btn-sm" style="width: 100%">VIEW CART</a>
                {{-- <a href="{{route('checkout')}}" class="btn btn-primary mt-5" style="width: 100%">CHECKOUT</a>--}}
-               <a href="#" class="btn btn-primary mt-5" wire:click.prevent="checkout" style="width: 100%">CHECKOUT</a>
+               <a href="#" class="btn btn-primary mt-5 btn-sm" wire:click.prevent="checkout" style="width: 100%">CHECKOUT</a>
             </div>
         </div>
     </div>

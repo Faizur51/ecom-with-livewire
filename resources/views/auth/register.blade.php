@@ -79,7 +79,7 @@
                             <div class="login_wrap widget-taber-content p-30 background-white border-radius-5">
                                 <div class="padding_eight_all bg-white">
                                     <div class="heading_s1">
-                                        <h3 class="mb-30">Create an Account</h3>
+                                        <h3 class="mb-15">Create an Account</h3>
                                     </div>
                                     <x-auth-validation-errors class="text-danger mb-4" :errors="$errors" />
 
@@ -107,7 +107,7 @@
                                             <a href="javascript:void(0)"><i class="fi-rs-book-alt mr-5 text-muted"></i>Lean more</a>
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-fill-out btn-block hover-up" name="login">Submit &amp; Register</button>
+                                            <button type="submit" class="btn btn-fill-out btn-block hover-up btn-sm" style="width: 100%" name="login">Submit &amp; Register</button>
                                         </div>
                                     </form>
                                     <div class="text-muted text-center">Already have an account? <a href="{{route('login')}}">Log in now</a></div>

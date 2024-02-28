@@ -71,9 +71,9 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/user/address',\App\Http\Livewire\User\UserShippingComponent::class)->name('user.address');
     Route::get('/user/order',\App\Http\Livewire\User\UserOrderComponent::class)->name('user.order');
     Route::get('user/orderdetails/{order_id}',\App\Http\Livewire\User\UserOrderDetailsComponent::class)->name('user.orderdetails');
-    Route::get('/user/change-password',\App\Http\Livewire\User\UserChangePasswordComponent::class)->name('user.changepassword');
+    Route::get('/user/changepassword',\App\Http\Livewire\User\UserChangePasswordComponent::class)->name('user.changepassword');
     Route::get('/user/review',\App\Http\Livewire\User\UserReviewComponent::class)->name('user.review');
-    Route::get('/user/wishlist',\App\Http\Livewire\User\WishlistProductComponent::class)->name('userwishlist.product');
+    Route::get('/userwishlist/product',\App\Http\Livewire\User\WishlistProductComponent::class)->name('userwishlist.product');
 });
 
 Route::middleware(['auth','authadmin'])->group(function (){

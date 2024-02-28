@@ -134,7 +134,7 @@
                                                                         @endif
                                                                 </div>
                                                                 <div class="col-md-8">
-                                                                    <a href="{{route('product.details',['slug'=>$item->product->slug])}}" class="text-default" style="font-size: 18px">{{ucwords($item->product->name)}}</a>
+                                                                    <a href="{{route('product.details',['slug'=>$item->product->slug])}}" class="text-default" style="font-size: 16px">{{ucwords($item->product->name)}}</a>
                                                                     <br>
 
                                                                    @if($item->options)
