@@ -91,10 +91,7 @@
                </div>
                <div class="text-center">
                    <h1>Thank You !</h1>
-                   <p>We've send the link to your inbox. Lorem ipsum dolor sit,lorem lorem </p>
-                   <p class="text-center text-lowercase">YOUR ORDER HAS BEEN RECEIVED, it’s processing</p>
-
-
+                   <p class="text-center text-uppercase">YOUR ORDER HAS BEEN RECEIVED, it’s processing</p>
                    <p class="text-center">Your order # is: {{$order->id}}</p>
                    <p class="text-center">You will receive an order confirmation email with details of your order and a
                        link to track your process.</p>
