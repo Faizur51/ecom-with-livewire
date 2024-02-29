@@ -92,6 +92,9 @@
                                             <input type="text"  name="email" placeholder="Email" value="{{old('email')}}">
                                         </div>
                                         <div class="form-group">
+                                            <input type="number"  name="phone" placeholder="Phone" value="{{old('phone')}}">
+                                        </div>
+                                        <div class="form-group">
                                             <input  type="password" name="password" placeholder="Password">
                                         </div>
                                         <div class="form-group">

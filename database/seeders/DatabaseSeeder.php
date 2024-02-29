@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             DistrictSeeder::class,
         ]);
 
-        \App\Models\User::factory(2)->sequence(['name' => 'Admin'],['name' => 'User'])->sequence(['email' => 'admin@gmail.com'],['email' => 'user@gmail.com'])->create();
+        \App\Models\User::factory(2)->sequence(['name' => 'Admin'],['name' => 'User'])->sequence(['email' => 'admin@gmail.com'],['email' => 'user@gmail.com'])->sequence(['phone' => '01717578265'],['phone' => '01915494438'])->create();
 
         // \App\Models\User::factory(10)->create();
 
