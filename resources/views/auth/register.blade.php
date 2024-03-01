@@ -79,23 +79,23 @@
                             <div class="login_wrap widget-taber-content p-30 background-white border-radius-5">
                                 <div class="padding_eight_all bg-white">
                                     <div class="heading_s1">
-                                        <h3 class="mb-15">Create an Account</h3>
+                                        <h4 class="mb-15">Create your Account</h4>
                                     </div>
                                     <x-auth-validation-errors class="text-danger mb-4" :errors="$errors" />
 
                                     <form method="POST" action="{{ route('register') }}">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="text"  name="name" placeholder="Name" value="{{old('name')}}">
+                                            <input type="text"  name="name" placeholder="Please enter your full name" value="{{old('name')}}">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text"  name="email" placeholder="Email" value="{{old('email')}}">
+                                            <input type="text"  name="email" placeholder="Please enter your email address" value="{{old('email')}}">
                                         </div>
                                         <div class="form-group">
-                                            <input type="number"  name="phone" placeholder="Phone" value="{{old('phone')}}">
+                                            <input type="number"  name="phone" placeholder="Please enter your phone number" value="{{old('phone')}}">
                                         </div>
                                         <div class="form-group">
-                                            <input  type="password" name="password" placeholder="Password">
+                                            <input  type="password" name="password" placeholder="Minimum 8 characters with a number a letter & special character">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" name="password_confirmation" placeholder="Confirm password">

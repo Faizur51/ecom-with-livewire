@@ -78,13 +78,9 @@
 
                                         <div class="product-img product-img-zoom">
                                             @if(strlen($product->image > 25))
-                                            <a href="{{route('product.details',['slug'=>$product->slug])}}">
-                                                <img class="default-img" src="{{$product->image}}" alt="">
-                                            </a>
+                                            <a href="{{route('product.details',['slug'=>$product->slug])}}"><img class="default-img" src="{{$product->image}}" alt=""></a>
                                             @else
-                                                <a href="{{route('product.details',['slug'=>$product->slug])}}">
-                                                    <img class="default-img" src="{{asset('frontend/assets/images/product')}}/{{$product->image}}" alt="">
-                                                </a>
+                                                <a href="{{route('product.details',['slug'=>$product->slug])}}"><img class="default-img" src="{{asset('frontend/assets/images/product')}}/{{$product->image}}" alt=""></a>
                                             @endif
                                         </div>
 
@@ -178,6 +174,8 @@
                 </div>
             </div>
         </section>
+
+
         <section class="banners mb-15">
             <div class="container">
                 <div class="row">
@@ -226,13 +224,9 @@
                             <div class="product-img-action-wrap">
                                 <div class="product-img product-img-zoom">
                                     @if(strlen($nproduct->image > 25))
-                                        <a href="{{route('product.details',['slug'=>$nproduct->slug])}}">
-                                            <img class="default-img" src="{{$nproduct->image}}" alt="">
-                                        </a>
+                                        <a href="{{route('product.details',['slug'=>$nproduct->slug])}}"><img class="default-img" src="{{$nproduct->image}}" alt=""></a>
                                     @else
-                                        <a href="{{route('product.details',['slug'=>$nproduct->slug])}}">
-                                            <img class="default-img" src="{{asset('frontend/assets/images/product')}}/{{$nproduct->image}}" alt="">
-                                        </a>
+                                        <a href="{{route('product.details',['slug'=>$nproduct->slug])}}"><img class="default-img" src="{{asset('frontend/assets/images/product')}}/{{$nproduct->image}}" alt=""></a>
                                     @endif
                                 </div>
                                 <div class="product-badges product-badges-position product-badges-mrg">
@@ -325,7 +319,5 @@
              </div>
          </div>
      </section>
-
-
     </main>
 

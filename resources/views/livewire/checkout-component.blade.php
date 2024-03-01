@@ -20,7 +20,7 @@
                 <div class="row">
                     <div class="col-md-5">
                         <div class="mb-25 d-flex justify-content-between">
-                            <h4>Shipping Details</h4>
+                            <h5>Shipping Details</h5>
                             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addShippingAddress" data-bs-whatever="@mdo">+ Add New Address</button>
                         </div>
 
@@ -48,10 +48,10 @@
                             </div>
                             @endforeach
                             @else
-                                <h4 class="text-muted mb-2">No Address Found! Please add an address</h4>
+                                <h5 class="text-muted mb-10">No Address Found! Please add an address</h5>
                             @endif
                         </div>
-                        <div class="mb-20">
+                        <div class="mb-10">
                             <h5>Additional information</h5>
                         </div>
                         <div class="form-group mb-30">
@@ -60,8 +60,8 @@
                     </div>
                     <div class="col-md-7">
                         <div class="order_review">
-                            <div class="mb-20">
-                                <h4>Your Orders</h4>
+                            <div class="mb-10">
+                                <h5>Your Orders</h5>
                             </div>
                             <div class="table-responsive order_table text-center">
                                 <table class="table">
@@ -123,7 +123,7 @@
                             <div class="bt-1 border-color-1 mt-10 mb-10"></div>
                             <div class="payment_method">
                                 <div class="mb-10">
-                                    <h4>Select Payment Type</h4>
+                                    <h5>Select Payment Type</h5>
                                 </div>
                                 <div class="form-group">
                                     <div class="icheck-material-red icheck-inline">
@@ -140,7 +140,6 @@
                                     </div>
                                     @error('paymentmode') <p class="text-danger">{{$message}}</p> @enderror
                                 </div>
-
                             </div>
 
                                  @if($paymentmode == 'bkash')
@@ -177,8 +176,8 @@
                                  @endif
 
                             <div class="icheck-material-red icheck-inline">
-                                <input type="checkbox" id="someRadioId380" name="someGroupName"  value="1" wire:model="disabled" />
-                                <label for="someRadioId380">I have read and agree to the website <a href="{{route('warranty.policy')}}" class="text-danger" target="_blank">Terms and Conditions</a>,and
+                                <input type="checkbox" id="checksome" name="some"  value="1" wire:model="disabled" />
+                                <label for="checksome">I have read and agree to the website <a href="{{route('warranty.policy')}}" class="text-danger" target="_blank">Terms and Conditions</a>,and
                                     <a href="{{route('refund.policy')}}" class="text-danger" target="_blank">Return & Refund Policy</a></label>
                             </div>
                             <br>
@@ -190,9 +189,6 @@
                             @else
                                 <button class="btn btn-block mt-5 btn-sm" wire:click="checkoutModal" type="submit" {{ $disabled == 0 ?'disabled':'' }} style="width: 100%">PLACE ORDER COD</button>
                             @endif
-
-
-
 
                         </div>
                     </div>

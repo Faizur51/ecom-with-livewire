@@ -43,8 +43,8 @@
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
-                    <a href="index.html" rel="nofollow">Home</a>
-                    <span></span> Login
+                    <a href="/" rel="nofollow">Home</a>
+                    <span></span>Forgot password
                 </div>
             </div>
         </div>
@@ -57,11 +57,11 @@
                                 <div class="login_wrap widget-taber-content p-30 background-white border-radius-10 mb-md-5 mb-lg-0 mb-sm-5">
                                     <div class="padding_eight_all bg-white">
                                         <div class="heading_s1">
-                                            <h3 class="mb-30">Login</h3>
+                                            <h4 class="mb-20">Forgot your password? </h4>
                                         </div>
 
                                         <div class="mb-4 text-sm">
-                                            <p class="text-danger">Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.'</p>
+                                            <p class="text-muted">Enter your email address below and we’ll send you a link to reset your password</p>
                                         </div>
 
                                         <!-- Session Status -->
@@ -73,7 +73,7 @@
                                         <form method="POST" action="{{ route('password.email') }}">
                                             @csrf
                                             <div class="form-group">
-                                                <input type="email" required="" name="email"  :value="old('email')" placeholder="Your Email">
+                                                <input type="email" required="" name="email"  :value="old('email')" placeholder="Please enter your Email">
                                             </div>
 
                                             <div class="form-group">

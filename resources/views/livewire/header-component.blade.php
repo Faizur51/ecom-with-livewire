@@ -125,7 +125,7 @@
                                     <li><a class="active" href="/">Home </a></li>
                                     <li><a href="javascript:void(0)">About</a></li>
                                     <li><a href="{{route('shop')}}">Shop</a></li>
-                                    <li><a href="javascript:void(0)">Blog </a></li>
+                                    <li><a href="{{route('blog.product')}}">Blog </a></li>
                                     <li><a href="{{route('contact')}}">Contact</a></li>
                                     <li><a href="#">Offer<i class="fi-rs-angle-down"></i></a>
                                         <ul class="sub-menu">

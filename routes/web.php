@@ -60,7 +60,7 @@ Route::get('/product/offer',\App\Http\Livewire\ProductOfferComponent::class)->na
 Route::get('/warranty/policy',\App\Http\Livewire\WarrantyPolicy::class)->name('warranty.policy');
 Route::get('/refund/policy',\App\Http\Livewire\RefundPolicy::class)->name('refund.policy');
 
-
+Route::get('/blog/product',\App\Http\Livewire\BlogComponent::class)->name('blog.product');
 
 
 

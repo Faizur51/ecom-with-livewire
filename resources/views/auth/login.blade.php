@@ -102,7 +102,7 @@
                                             @endif
                                         </div>
                                             <div class="form-group row">
-                                                <div class="col-md-12">
+                                                <div class="col-md-12 ">
                                                     <button type="submit" class="btn btn-fill-out btn-block hover-up btn-sm" name="login" style="width: 100%;background-color: #F57224" >Log in</button>
                                                     <span>Or,Login With</span>
                                                     <a href="{{ route('login.google') }}" class="btn btn-danger btn-block hover-up mt-5 btn-sm" style="width:100%;background-color: #D34836">Login with Google</a>

@@ -58,9 +58,7 @@
                                                         <th>Name</th>
                                                         <th>Email</th>
                                                         <th>User Type</th>
-                                                        <th>Email</th>
-                                                        <th>City</th>
-                                                        <th>Address</th>
+                                                        <th>Phone Number</th>
                                                         <th>Status</th>
                                                         <th class="text-center" colspan="2">Actions</th>
                                                     </tr>
@@ -72,9 +70,7 @@
                                                             <td>{{ucwords($customer->name)}}</td>
                                                             <td>{{$customer->email}}</td>
                                                             <td>{{ucwords($customer->utype)}}</td>
-                                                            <td>#</td>
-                                                            <td>#</td>
-                                                            <td>#</td>
+                                                            <td>{{$customer->phone}}</td>
                                                             <td>
                                                                 @if($customer->isOnline())
                                                                  <li class="text-success">

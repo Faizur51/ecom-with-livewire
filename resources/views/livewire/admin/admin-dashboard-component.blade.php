@@ -82,7 +82,7 @@
                 <div class="col-lg-12 m-auto">
                     <div class="row">
                         @include('livewire.admin.page-link')
-                        <div class="col-md-10">
+                        <div class="col-md-10 shadow">
                             <div class="row ">
                                 <div class="col-md-3 col-sm-6">
                                     <div class="icon-stat shadow bg-light">
@@ -141,7 +141,7 @@
                             <div class="tab-content dashboard-content">
                                 <div class="tab-pane fade active show" id="dashboard" role="tabpanel"
                                      aria-labelledby="dashboard-tab">
-                                    <div class="col-md-12 shadow">
+                                    <div class="col-md-12">
                                         <div class="tab-content dashboard-content">
                                             <div class="tab-pane fade active show" id="orders" role="tabpanel"
                                                  aria-labelledby="orders-tab">
