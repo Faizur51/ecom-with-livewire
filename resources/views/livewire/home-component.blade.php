@@ -75,7 +75,6 @@
                             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-6">
                                 <div class="product-cart-wrap mb-30">
                                     <div class="product-img-action-wrap">
-
                                         <div class="product-img product-img-zoom">
                                             @if(strlen($product->image > 25))
                                             <a href="{{route('product.details',['slug'=>$product->slug])}}"><img class="default-img" src="{{$product->image}}" alt=""></a>
@@ -218,7 +217,6 @@
                 <div class="carausel-6-columns-cover position-relative">
                     <div class="slider-arrow slider-arrow-2 carausel-6-columns-arrow" id="carausel-6-columns-2-arrows"></div>
                     <div class="carausel-6-columns carausel-arrow-center" id="carausel-6-columns-2">
-
                         @foreach($nproducts as $nproduct)
                             <div class="product-cart-wrap small hover-up">
                             <div class="product-img-action-wrap">

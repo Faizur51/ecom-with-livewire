@@ -8,20 +8,21 @@ use App\Models\HomeSlider;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-
+use Livewire\WithPagination;
+use Cart;
 class BlogComponent extends Component
 {
-    public $count=12;
+    use WithPagination;
 
-    public function loadMore(){
-        $this->count+=12;
-    }
+    protected $paginationTheme = 'bootstrap';
+
+    public $pageSize=10;
 
     public function render()
     {
 
         $homeSliders=HomeSlider::orderBy('id','desc')->where('status',1)->get();
-        $products=Product::orderBy('id','desc')->where('status',1)->where('stock_status',1)->take($this->count)->get();
+        $products=Product::orderBy('id','desc')->where('status',1)->where('stock_status',1)->paginate($this->pageSize);
         $categories=Category::orderBy('id','desc')->where('status',1)->get();
         $nproducts=Product::orderBy('id','desc')->where('status',1)->latest()->take(8)->get();
         $brands=Brand::orderBy('id','desc')->where('status',1)->get();

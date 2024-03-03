@@ -62,7 +62,8 @@ Route::get('/refund/policy',\App\Http\Livewire\RefundPolicy::class)->name('refun
 
 Route::get('/blog/product',\App\Http\Livewire\BlogComponent::class)->name('blog.product');
 
-
+Route::get('/blogdetails/{slug}',\App\Http\Livewire\BlogDetailsComponent::class)->name('blogdetails.product');
+Route::get('/singleblog/{slug}',\App\Http\Livewire\SingleBlogComponent::class)->name('singleblog');
 
 
 Route::middleware(['auth'])->group(function (){

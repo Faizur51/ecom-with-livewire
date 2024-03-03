@@ -80,7 +80,7 @@
                         <h5 class="widget-title wow fadeIn animated">About</h5>
                         <ul class="footer-list wow fadeIn animated mb-sm-5 mb-md-0">
                             <li><a href="javascript:void(0)">About Us</a></li>
-                            <li><a href="avascript:void(0)">Delivery Information</a></li>
+                            <li><a href="{{route('blog.product')}}">The Blog</a></li>
                             <li><a href="{{route('warranty.policy')}}">Privacy Policy</a></li>
                             <li><a href="{{route('refund.policy')}}">Terms &amp; Conditions</a></li>
                             <li><a href="{{route('contact')}}">Contact Us</a></li>

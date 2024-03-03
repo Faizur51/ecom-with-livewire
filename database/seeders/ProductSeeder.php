@@ -19,8 +19,6 @@ class ProductSeeder extends Seeder
         $faker = Faker\Factory::create();
 
         $randomImages =[
-            'https://m.media-amazon.com/images/I/71kcJ78kdPL._AC_SL1500_.jpg',
-            'https://m.media-amazon.com/images/I/61B+tCqptWL._AC_SL1500_.jpg',
             'https://m.media-amazon.com/images/I/61CqYq+xwNL._AC_UL640_QL65_.jpg',
             'https://m.media-amazon.com/images/I/71cVOgvystL._AC_UL640_QL65_.jpg',
             'https://m.media-amazon.com/images/I/71E+oh38ZqL._AC_UL640_QL65_.jpg',
@@ -36,10 +34,12 @@ class ProductSeeder extends Seeder
             'https://ftp.esquireelectronicsltd.com/uploads/gallery/sharp-microwave-oven-r-94a0v-price-in-bd-1000x1000920-2527.jpg',
             'https://ftp.esquireelectronicsltd.com/uploads/gallery/sm-3006-toaster-waffle-maker-grill-morphy-richards-22487-0672.jpg',
             'https://ftp.esquireelectronicsltd.com/uploads/gallery/aero-new3494-8501.jpg',
-            'https://m.media-amazon.com/images/I/A1uJG8faQHL._AC_SL1500_.jpg',
             'https://m.media-amazon.com/images/I/71fizOWwhFL._SX466_.jpg',
             'https://m.media-amazon.com/images/I/81+8ik1Qk1L._SX466_.jpg',
-            'https://m.media-amazon.com/images/I/41ZukexTE8L._SX300_SY300_QL70_FMwebp_.jpg'
+            'https://m.media-amazon.com/images/I/41ZukexTE8L._SX300_SY300_QL70_FMwebp_.jpg',
+            'https://m.media-amazon.com/images/I/614J0VriTRL._AC_SX466_.jpg',
+            'https://m.media-amazon.com/images/I/61Ibl7dJyUL.__AC_SY300_SX300_QL70_FMwebp_.jpg',
+            'https://m.media-amazon.com/images/I/41XglJ0oesL._SX300_SY300_QL70_FMwebp_.jpg'
         ];
 
         $color=[
@@ -53,12 +53,12 @@ class ProductSeeder extends Seeder
 
 
         foreach (range(1,100) as $key=>$value){
-            $name=$faker->unique(true)->words($nb=4,$asText=True);
+            $name=$faker->unique(true)->words($nb=3,$asText=True);
             Product::create([
                 'name'=>$name,
                 'slug'=>Str::slug($name,'-'),
-                'short_description'=>$faker->text(100),
-                'long_description'=>$faker->text(150),
+                'short_description'=>$faker->text(400),
+                'long_description'=>$faker->text(800),
                 'sku_code'=>'PRO'.$faker->unique()->numberBetween(100,500),
                 'stock_status'=>rand(1,0),
                 'regular_price'=>$faker->numberBetween(500,1000),
